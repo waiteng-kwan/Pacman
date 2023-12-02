@@ -2,6 +2,8 @@ using Client;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GhostBehaviourBase;
+using Game;
 
 
 public class PlayerBehaviour : MonoBehaviour
@@ -19,19 +21,23 @@ public class PlayerBehaviour : MonoBehaviour
     private PlayerController m_belongsTo;
     public int BelongToPlayerIndex => m_belongsTo.Index;
 
+    //attributes
+    private PlayerAttributes m_attributes;
+
     private void OnValidate()
     {
-        m_model = GetComponentInChildren<MeshRenderer>().gameObject;
         m_rb = GetComponent<Rigidbody>();
 
         if (m_data == null)
             Debug.LogError("Pacman data is missing on " + gameObject.name);
+
+        m_attributes = GetComponent<PlayerAttributes>();
     }
 
     private void Awake()
     {
-        m_model = GetComponentInChildren<MeshRenderer>().gameObject;
         m_rb = GetComponent<Rigidbody>();
+        m_attributes = GetComponent<PlayerAttributes>();
 
         ChangeModel();
     }
@@ -71,13 +77,35 @@ public class PlayerBehaviour : MonoBehaviour
         {
             //destroy current model and spawn new one
             Destroy(m_model);
-
-            m_model = Instantiate(m_data.PacmanCharModel.gameObject, transform);
         }
+
+        m_model = Instantiate(m_data.PacmanCharModel.gameObject, transform);
     }
 
     public void SetOwner(PlayerController owner)
     {
         m_belongsTo = owner;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Ghost" && other.GetComponent<GhostBehaviourBase>())
+        {
+            //check current state
+            if (m_attributes.CanEatGhosts)
+            {
+                GameMode.gameMode.OnPlayerScored(BelongToPlayerIndex, 5);
+            }
+            else
+            {
+                //get eaten
+                GameMode.gameMode.PlayerLoseHealth(BelongToPlayerIndex);
+            }
+        }
+    }
+
+    public void SetPlayerEatGhostState(bool canEat)
+    {
+        m_attributes.SetCanEatGhostState(canEat);
     }
 }

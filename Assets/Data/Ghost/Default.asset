@@ -12,3 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e509f49f7908f584a8e617c4968c85d0, type: 3}
   m_Name: Default
   m_EditorClassIdentifier: 
+  GhostCharType: 1
+  GhostCharModel: {fileID: 8924747379100004696, guid: 9b4f2a7b26da5dd498809c2d9708ea03,
+    type: 3}
+  GhostDisplayName: Pinky
+  Speed: 5
+  HasAccelDeccel: 0
+  UseNavMesh: 0
+  RespawnTime: 5

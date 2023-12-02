@@ -27,6 +27,11 @@ public class DotData : ScriptableObject
     [ShowIf("EdibleDotType", DotType.EatGhost)]
     public float Duration = 3f;
 
+    [Header("Respawn")]
+    public bool WillRespawn = false;
+    [ShowIf("WillRespawn")]
+    public float TimeToRespawn = 5f;
+
     public int CalculateScoreToAdd()
     {
         switch (EdibleDotType)

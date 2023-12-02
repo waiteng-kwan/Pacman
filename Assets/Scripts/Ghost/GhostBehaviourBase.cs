@@ -7,8 +7,10 @@ public class GhostBehaviourBase : MonoBehaviour
 {
     public enum GhostState
     {
-        Normal,
-        Edible
+        InitialSpawn,
+        Active,
+        Dead,
+        Respawning
     }
 
     [Header("Data")]
@@ -27,18 +29,10 @@ public class GhostBehaviourBase : MonoBehaviour
     [NaughtyAttributes.ReadOnly, SerializeField]
     private GhostState m_currGState;
 
-    private NavMeshAgent m_navMeshAgentCmp;
-    [SerializeField] 
-    private Transform m_destination;
-
     private void OnValidate()
     {
-        m_model = GetComponentInChildren<MeshRenderer>().gameObject;
         m_rb = GetComponent<Rigidbody>();
         m_col = GetComponent<Collider>();
-
-        //nav mesh stuff
-        m_navMeshAgentCmp = GetComponent<NavMeshAgent>();
 
         if (m_data == null)
             Debug.LogError("Ghost data is missing on " + gameObject.name);
@@ -46,18 +40,16 @@ public class GhostBehaviourBase : MonoBehaviour
 
     private void Awake()
     {
-        m_model = GetComponentInChildren<MeshRenderer>().gameObject;
         m_rb = GetComponent<Rigidbody>();
         m_col = GetComponent<Collider>();
 
-        //nav mesh stuff
-        m_navMeshAgentCmp = GetComponent<NavMeshAgent>();
+        ChangeModel();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("UpdateAgentDestination", 1f);
+        
     }
 
     // Update is called once per frame
@@ -65,14 +57,32 @@ public class GhostBehaviourBase : MonoBehaviour
     {
         Debug.DrawRay(transform.position, transform.forward * 15f, Color.magenta);
     }
-    //testing only
-    void UpdateAgentDestination()
+
+    public void ChangeModel()
     {
-        UpdateAgentDestination(m_destination);
+        if (m_model)
+        {
+            //destroy current model and spawn new one
+            Destroy(m_model);
+        }
+
+        m_model = Instantiate(m_data.GhostCharModel.gameObject, transform);
     }
 
-    void UpdateAgentDestination(Transform transform)
+    void Die()
     {
-        m_navMeshAgentCmp.SetDestination(transform.position);
+        gameObject.SetActive(false);
+
+
+    }
+
+    void StartRespawnTimer()
+    {
+        Invoke("Respawn", m_data.RespawnTime);
+    }
+
+    void Respawn()
+    {
+        gameObject.SetActive(true);
     }
 }

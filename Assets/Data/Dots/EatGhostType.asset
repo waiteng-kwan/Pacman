@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1813931d505d88147938b49621858be2, type: 3}
-  m_Name: GhostType
+  m_Name: EatGhostType
   m_EditorClassIdentifier: 
   EdibleDotType: 3
   Score: 1
   Multiplier: 2
   AddBy: 1
   Duration: 3
+  WillRespawn: 1
+  TimeToRespawn: 5

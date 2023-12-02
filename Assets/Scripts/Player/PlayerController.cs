@@ -1,3 +1,4 @@
+using Game;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace Client
         // Start is called before the first frame update
         void Start()
         {
+            GameMode.gameMode.RegisterPlayer(this);
         }
 
         // Update is called once per frame

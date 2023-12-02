@@ -25,4 +25,9 @@ public class PacmanBaseData : ScriptableObject
     [Header("Movement")]
     public float Speed = 5f;
     public bool HasAccelDeccel = false;
+
+    [Header("SFX")]
+    public AudioClip SfxEatNormal;
+    public AudioClip SfxWalkNormal;
+
 }

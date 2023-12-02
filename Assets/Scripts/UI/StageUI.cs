@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Game;
 public class StageUI : MonoBehaviour
 {
     StageUIView m_view;
@@ -14,7 +14,8 @@ public class StageUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameMode.gameMode.PlayerScoredEvent.AddListener(OnPlayerScored);
+        GameMode.gameMode.EPlayerScored.AddListener(OnPlayerScored);
+        GameMode.gameMode.EPlayerLifeChanged.AddListener(OnPlayerLifeChanged);
     }
 
     // Update is called once per frame

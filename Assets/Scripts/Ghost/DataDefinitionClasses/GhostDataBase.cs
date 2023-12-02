@@ -13,6 +13,7 @@ public class GhostDataBase : ScriptableObject
         Cyan,
         Blue,
         Orange,
+        Pink
     }
 
     //chara
@@ -27,4 +28,7 @@ public class GhostDataBase : ScriptableObject
 
     [Header("AI Type")]
     public bool UseNavMesh = false;       //replace with AI Tree next time
+
+    [Header("Gameplay")]
+    public float RespawnTime = 5f;
 }
