@@ -22,7 +22,7 @@ public class PlayerBehaviour : MonoBehaviour
     public int BelongToPlayerIndex => m_belongsTo.Index;
 
     //attributes
-    private PlayerAttributes m_attributes;
+    private PlayerBehaviourAttributes m_attributes;
 
     private void OnValidate()
     {
@@ -31,13 +31,13 @@ public class PlayerBehaviour : MonoBehaviour
         if (m_data == null)
             Debug.LogError("Pacman data is missing on " + gameObject.name);
 
-        m_attributes = GetComponent<PlayerAttributes>();
+        m_attributes = GetComponent<PlayerBehaviourAttributes>();
     }
 
     private void Awake()
     {
         m_rb = GetComponent<Rigidbody>();
-        m_attributes = GetComponent<PlayerAttributes>();
+        m_attributes = GetComponent<PlayerBehaviourAttributes>();
 
         ChangeModel();
     }
@@ -94,12 +94,13 @@ public class PlayerBehaviour : MonoBehaviour
             //check current state
             if (m_attributes.CanEatGhosts)
             {
-                GameMode.gameMode.OnPlayerScored(BelongToPlayerIndex, 5);
+                GameModeBase.gameMode.OnPlayerScored(BelongToPlayerIndex, 5);
+                GameModeBase.gameMode.GhostHasDied(other.GetComponent<GhostBehaviourBase>());
             }
             else
             {
                 //get eaten
-                GameMode.gameMode.PlayerLoseHealth(BelongToPlayerIndex);
+                GameModeBase.gameMode.PlayerLoseHealth(BelongToPlayerIndex);
             }
         }
     }

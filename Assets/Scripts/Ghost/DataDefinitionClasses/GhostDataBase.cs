@@ -16,6 +16,10 @@ public class GhostDataBase : ScriptableObject
         Pink
     }
 
+    //base
+    [Header("Basic")]
+    public GhostBehaviourBase ParentGhostPrefab;
+
     //chara
     [Header("Character")]
     public GhostType GhostCharType;

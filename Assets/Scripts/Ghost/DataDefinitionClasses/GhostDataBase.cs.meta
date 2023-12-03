@@ -3,7 +3,10 @@ guid: e509f49f7908f584a8e617c4968c85d0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - ParentGhostPrefab: {fileID: 3780353164371426870, guid: d27318160e7267943a18baee04bcea53,
+      type: 3}
+  - GhostCharModel: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

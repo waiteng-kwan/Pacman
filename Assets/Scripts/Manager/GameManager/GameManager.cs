@@ -1,3 +1,5 @@
+using Client;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +9,7 @@ namespace Game
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
-        private GameManagerAttributes m_data = new GameManagerAttributes();
+        private GameManagerState m_data = new GameManagerState();
 
         private void Awake()
         {
@@ -23,10 +25,57 @@ namespace Game
             }
 
             m_data.Initialize();
-            m_data.RegisterStateChangeCallback(ChangeState);
+            m_data.RegisterStateChangeCallback(OnStateChange);
+        }
+
+        /// <summary>
+        /// The following list shows the execution order of the RuntimeInitializeLoadType callbacks:
+        /// 1. First various low level systems are initialized(window, assemblies, gfx etc.)
+        /// 2. Then SubsystemRegistration and AfterAssembliesLoaded callbacks are invoked.
+        /// 3. More setup(input systems etc.)
+        /// 4. Then BeforeSplashScreen callback is invoked.
+        /// 5. Now the first scene starts loading
+        /// 6. Then BeforeSceneLoad callback is invoked.Here objects of the scene is loaded but Awake() has not been called yet. All objects are considered inactive here.
+        /// 7. Now Awake() and OnEnable() are invoked on MonoBehaviours.
+        /// 8. Then AfterSceneLoad callback is invoked.Here objects of the scene are considered fully loaded and setup. Active objects can be found with FindObjectsByType.
+        /// </summary>
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void OnAfterFirstSceneLoad()
+        {
+            Debug.Log("First scene has loaded! 1 time only");
+
+            var mgrs = Instance.m_data.MgrList;
+
+            //create all subsystems
+            mgrs.Add(ManagerType.Scene, SceneManager.CreateInstance());
+            mgrs.Add(ManagerType.Data, DataManager.CreateInstance(Instance.gameObject));
+            mgrs.Add(ManagerType.Audio, AudioManager.CreateInstance());
+
+            //register subsystems
+            foreach(var elem in mgrs.Values)
+            {
+                IManager m = elem as IManager;
+
+                if(m != null)
+                {
+                    m.RegisterManager(Instance);
+                }
+            }
+
+            //switch out state
+            Instance.ChangeState(GameInstanceStates.Menu);
         }
 
         public void ChangeState(GameInstanceStates newState)
+        {
+            //prep state change stuff here
+
+            //data change state
+            m_data.ChangeState(newState);
+        }
+
+        private void OnStateChange(GameInstanceStates prevState,
+            GameInstanceStates currState, GameInstanceStates nextState)
         {
 
         }
@@ -34,6 +83,11 @@ namespace Game
         private void InitializeState()
         {
 
+        }
+
+        public T GetManager<T>(ManagerType type)
+        {
+            return m_data.GetManager<T>(type);
         }
     }
 }

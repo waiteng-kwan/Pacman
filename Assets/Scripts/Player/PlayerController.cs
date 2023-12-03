@@ -26,7 +26,7 @@ namespace Client
         // Start is called before the first frame update
         void Start()
         {
-            GameMode.gameMode.RegisterPlayer(this);
+            GameModeBase.gameMode.RegisterPlayer(this);
         }
 
         // Update is called once per frame
