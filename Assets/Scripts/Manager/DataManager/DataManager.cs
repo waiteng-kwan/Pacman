@@ -9,6 +9,7 @@ public class DataManager : MonoBehaviour, IManager
 {
     [SerializeField, ReadOnly, Expandable]
     private MasterDataList m_masterDataList;
+    public MasterDataList MasterDataList => m_masterDataList;
 
     public static DataManager CreateInstance(GameObject attachTo)
     {
@@ -30,7 +31,7 @@ public class DataManager : MonoBehaviour, IManager
         return this;
     }
 
-    Type GetManagerType()
+    public Type GetManagerType()
     {
         return typeof(DataManager);
     }

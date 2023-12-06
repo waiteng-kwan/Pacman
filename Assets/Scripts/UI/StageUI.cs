@@ -14,8 +14,8 @@ public class StageUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameModeBase.gameMode.EPlayerScored.AddListener(OnPlayerScored);
-        GameModeBase.gameMode.EPlayerLifeChanged.AddListener(OnPlayerLifeChanged);
+        //GameModeBase.gameMode.EPlayerScored.AddListener(OnPlayerScored);
+        //GameModeBase.gameMode.EPlayerLifeChanged.AddListener(OnPlayerLifeChanged);
     }
 
     // Update is called once per frame

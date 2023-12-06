@@ -43,7 +43,10 @@ public class GhostBehaviourBase : MonoBehaviour
         m_rb = GetComponent<Rigidbody>();
         m_col = GetComponent<Collider>();
 
-        ChangeModel();
+        if (m_data != null)
+        {
+            ChangeModel();
+        }
     }
 
     // Start is called before the first frame update
@@ -67,6 +70,13 @@ public class GhostBehaviourBase : MonoBehaviour
         }
 
         m_model = Instantiate(m_data.GhostCharModel.gameObject, transform);
+    }
+
+    public void SetData(GhostDataBase data)
+    {
+        m_data = data;
+
+        ChangeModel();
     }
 
     void Die()

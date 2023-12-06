@@ -40,7 +40,7 @@ namespace Game
         public int Score = 0;
         public int Health = 0;
 
-        public UnityEvent<int, int> PlayerScoredEvent {  get; private set; }
+        public UnityEvent<int, int> PlayerScoredEvent { get; private set; }
         public UnityEvent<int, int> PlayerLifeChangedEvent { get; private set; }
 
         public void Initialize()
@@ -53,6 +53,12 @@ namespace Game
 
         public void RegisterPlayer(PlayerController pc)
         {
+            if (m_pcToStatDictionary.TryGetValue(pc.Index, out var stat))
+            {
+                Debug.Log($"PC index {pc.Index} already registered!");
+                return;
+            }
+
             PlayerControllerAttributes attrib = pc.GetComponent<PlayerControllerAttributes>();
 
             attrib.UpdateHealth(GameModeBase.gameMode.StageData.StartingHealth);
@@ -68,7 +74,7 @@ namespace Game
             }
         }
 
-        public int GetPlayerScore(int pcIndex) 
+        public int GetPlayerScore(int pcIndex)
         {
             if (m_pcToStatDictionary.TryGetValue(pcIndex, out PlayerStats stat))
             {

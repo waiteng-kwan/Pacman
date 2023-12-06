@@ -39,7 +39,10 @@ public class PlayerBehaviour : MonoBehaviour
         m_rb = GetComponent<Rigidbody>();
         m_attributes = GetComponent<PlayerBehaviourAttributes>();
 
-        ChangeModel();
+        if (m_data != null)
+        {
+            ChangeModel();
+        }
     }
 
     // Start is called before the first frame update
@@ -80,6 +83,13 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         m_model = Instantiate(m_data.PacmanCharModel.gameObject, transform);
+    }
+
+    public void SetData(PacmanBaseData data)
+    {
+        m_data = data;
+
+        ChangeModel();
     }
 
     public void SetOwner(PlayerController owner)

@@ -10,6 +10,7 @@ namespace Client
     {
         [SerializeField]
         private PlayerBehaviour m_playerCharacter;
+        public PlayerBehaviour PlayerCharacter => m_playerCharacter;
 
         [SerializeField, ReadOnly]
         private int m_playerIndex;
@@ -17,16 +18,8 @@ namespace Client
 
         private void Awake()
         {
-            if (m_playerCharacter == null)
-                Debug.Log("Missing player character!");
-            else
-                m_playerCharacter.SetOwner(this);
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            GameModeBase.gameMode.RegisterPlayer(this);
+            if(GameModeBase.gameMode)
+                GameModeBase.gameMode.RegisterPlayer(this);
         }
 
         // Update is called once per frame
@@ -53,6 +46,18 @@ namespace Client
             {
                 m_playerCharacter.ResetMovement();
             }
+        }
+
+        public void PossessCharacter(PlayerBehaviour character)
+        {
+            character.SetOwner(this);
+
+            m_playerCharacter = character;
+        }
+
+        public void SetIndex(int index)
+        {
+            m_playerIndex = index;
         }
     }
 }

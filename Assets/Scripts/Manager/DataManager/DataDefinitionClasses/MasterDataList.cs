@@ -1,3 +1,4 @@
+using Client;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +8,16 @@ menuName = "Scriptable Objects/MasterDataList Data", order = 1)]
 public class MasterDataList : ScriptableObject
 {
     [Header("Characters")]
-    public List<ScriptableObject> m_charDataList = new List<ScriptableObject>();
+    public PlayerBehaviour PlayerCharacterPrefab;
+    public List<PacmanBaseData> m_charModelDataList = new List<PacmanBaseData>();
 
     [Header("Ghosts")]
-    public List<ScriptableObject> m_ghostDataList = new List<ScriptableObject>();
+    public GhostBehaviourBase GhostPrefab;
+    public List<GhostDataBase> m_ghostModelDataList = new List<GhostDataBase>();
 
     [Header("Dots/Pellets")]
-    public List<ScriptableObject> m_dotDataList = new List<ScriptableObject>();
+    public List<DotData> m_dotDataList = new List<DotData>();
+
+    [Header("Player Controller")]
+    public PlayerController PlayerControllerPrefab;
 }

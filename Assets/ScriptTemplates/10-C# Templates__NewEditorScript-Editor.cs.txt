@@ -1,0 +1,21 @@
+using UnityEditor;
+using UnityEditor.UIElements;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace HgbEditorTools
+{
+    [CustomEditor(typeof(MyPlayer))] #NOTRIM#
+    public class #SCRIPTNAME# : Editor #NOTRIM#
+    { #NOTRIM#
+        const string resourceFilename = "custom-editor-uie"; #NOTRIM#
+        public override VisualElement CreateInspectorGUI() #NOTRIM#
+        { #NOTRIM#
+            VisualElement customInspector = new VisualElement(); #NOTRIM#
+            var visualTree = Resources.Load(resourceFilename) as VisualTreeAsset; #NOTRIM#
+            visualTree.CloneTree(customInspector); #NOTRIM#
+            customInspector.styleSheets.Add(Resources.Load($"{resourceFilename}-style") as StyleSheet); #NOTRIM#
+            return customInspector; #NOTRIM#
+        }
+    } #NOTRIM#
+}

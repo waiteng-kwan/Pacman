@@ -12,10 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35da22d089e7cbf4783f08a707c19388, type: 3}
   m_Name: MasterDataList
   m_EditorClassIdentifier: 
-  m_charDataList:
+  PlayerCharacterPrefab: {fileID: 7857259387076297088, guid: 7fc36ae49248efb40862723defa131ac,
+    type: 3}
+  m_charModelDataList:
   - {fileID: 11400000, guid: ff0c2aefc83e46b4e99547ebbb4a8cd7, type: 2}
-  m_ghostDataList:
+  GhostPrefab: {fileID: 3780353164371426870, guid: d27318160e7267943a18baee04bcea53,
+    type: 3}
+  m_ghostModelDataList:
   - {fileID: 11400000, guid: 712e7c9db09e4a94295443cb313af8a6, type: 2}
   m_dotDataList:
   - {fileID: 11400000, guid: 0cee3922187e04e459356cd69d80bf08, type: 2}
   - {fileID: 11400000, guid: a3f912cf50dc08c44b06af046e0fa778, type: 2}
+  PlayerControllerPrefab: {fileID: 8379648845652869894, guid: f47204fad3051e64398a698756fa8c62,
+    type: 3}

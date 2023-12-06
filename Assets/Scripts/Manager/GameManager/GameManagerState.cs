@@ -19,7 +19,11 @@ namespace Game
     {
         Scene,
         Audio,
-        Data
+        Data,
+        Ui,
+        Fx,   //might split into vfx and sfx
+        Player,
+        Input
     }
 
     public class GameManagerState
@@ -51,7 +55,7 @@ namespace Game
         public void RegisterStateChangeCallback(Action<GameInstanceStates,
             GameInstanceStates, GameInstanceStates> callback)
         {
-            m_stateChangeCallback = callback;
+            m_stateChangeCallback += callback;
         }
 
         public T GetManager<T>(ManagerType managerType)

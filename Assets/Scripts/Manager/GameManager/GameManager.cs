@@ -11,6 +11,10 @@ namespace Game
         public static GameManager Instance { get; private set; }
         private GameManagerState m_data = new GameManagerState();
 
+        [Header("Debug purposes")]
+        [SerializeField]
+        private GameInstanceStates m_startStateDEBUG = GameInstanceStates.Menu;
+
         private void Awake()
         {
             if (Instance == null)
@@ -63,7 +67,14 @@ namespace Game
             }
 
             //switch out state
+#if DEV || UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Initialization")
+            {
+                Instance.ChangeState(Instance.m_startStateDEBUG);
+            }
+#else
             Instance.ChangeState(GameInstanceStates.Menu);
+#endif
         }
 
         public void ChangeState(GameInstanceStates newState)
