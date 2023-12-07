@@ -42,7 +42,7 @@ namespace Game
 
             IPlayerAttributes attrib = pc.GetComponent<PlayerControllerAttributes>();
 
-            attrib.SetHealth(GameModeBase.gameMode.StageData.StartingHealth);
+            attrib.SetHealth(GameModeBase.Instance.Settings.StartingHealth);
 
             m_pcToStatDictionary.Add(pc.Index,attrib );
         }

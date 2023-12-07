@@ -13,11 +13,12 @@ namespace Game
         private GameModeState m_data = new GameModeState();
 
         //temp
-        public static GameModeBase gameMode;
-        public GameModeData StageData;
+        public static GameModeBase Instance;
+        public GameModeData Settings;
 
         [ReadOnly]
         private GameBoardInstance m_gameBoard;
+        public GameBoardInstance Board => m_gameBoard;
 
         private List<GhostBehaviourBase> m_ghosts = new List<GhostBehaviourBase>();
 
@@ -31,7 +32,7 @@ namespace Game
         }
         private void Awake()
         {
-            gameMode = this;
+            Instance = this;
             m_gameBoard = FindObjectOfType<GameBoardInstance>();
         }
 
@@ -91,7 +92,7 @@ namespace Game
                 //spawn player controller
                 PlayerController pc = Instantiate(masterList.PlayerControllerPrefab, Vector3.zero, Quaternion.identity);
                 m_data.RegisterPlayer(pc);
-                m_data.UpdatePlayerHealth(ind, StageData.StartingHealth);
+                m_data.UpdatePlayerHealth(ind, Settings.StartingHealth);
 
                 //spawn character
                 PlayerBehaviour character = Instantiate(masterList.PlayerCharacterPrefab);
@@ -165,9 +166,10 @@ namespace Game
             }
         }
 
-        public void GhostHasDied(GhostBehaviourBase ghost)
+        public void GhostDied(GhostBehaviourBase ghost)
         {
-
+            print("Ghost died");
+            ghost.Die();
         }
     }
 }

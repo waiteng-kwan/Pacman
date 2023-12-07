@@ -104,13 +104,13 @@ public class PlayerBehaviour : MonoBehaviour
             //check current state
             if (m_attributes.CanEatGhosts)
             {
-                GameModeBase.gameMode.OnPlayerScored(BelongToPlayerIndex, 5);
-                GameModeBase.gameMode.GhostHasDied(other.GetComponent<GhostBehaviourBase>());
+                GameModeBase.Instance.OnPlayerScored(BelongToPlayerIndex, 5);
+                GameModeBase.Instance.GhostDied(other.GetComponent<GhostBehaviourBase>());
             }
             else
             {
                 //get eaten
-                GameModeBase.gameMode.PlayerLoseHealth(BelongToPlayerIndex);
+                GameModeBase.Instance.PlayerLoseHealth(BelongToPlayerIndex);
             }
         }
     }

@@ -1,3 +1,4 @@
+using Game;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,9 @@ public class GhostBehaviourBase : MonoBehaviour
         InitialSpawn,
         Standby,       //waiting to leave zone
         Active,        //on field
+        Dying,         //extra state for animation
         Dead,
-        Respawning
+        Respawning     //loops back to standby
     }
 
     [Header("Data")]
@@ -80,14 +82,18 @@ public class GhostBehaviourBase : MonoBehaviour
         ChangeModel();
     }
 
-    void Die()
+    /// <summary>
+    /// The game mode calls this
+    /// </summary>
+    public void Die()
     {
         gameObject.SetActive(false);
 
-
+        m_currGState = GhostState.Dead;
+        StartRespawnTimer(5f);
     }
 
-    void StartRespawnTimer()
+    void StartRespawnTimer(float time)
     {
         Invoke("Respawn", m_data.RespawnTime);
     }

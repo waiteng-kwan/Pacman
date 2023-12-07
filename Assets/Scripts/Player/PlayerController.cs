@@ -18,8 +18,8 @@ namespace Client
 
         private void Awake()
         {
-            if(GameModeBase.gameMode)
-                GameModeBase.gameMode.RegisterPlayer(this);
+            if(GameModeBase.Instance)
+                GameModeBase.Instance.RegisterPlayer(this);
         }
 
         // Update is called once per frame

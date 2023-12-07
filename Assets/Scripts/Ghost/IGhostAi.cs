@@ -1,9 +1,10 @@
+using Game;
+
 public interface IGhostAi
 {
-    void SetPawn();
-    
+    void SetPawn(GhostBehaviourBase pawn);
 
     //state
-    void SetNextState();
-    void GetCurrentState();
+    void SetNextState(GhostAiState value);
+    GhostAiState GetCurrentState();
 }

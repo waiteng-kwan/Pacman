@@ -19,10 +19,11 @@ public class GameBoardInstance : MonoBehaviour
 
     //temp af
     public BasicDot SpawnPelletPrefab;
+    public bool GenerateInXZAxisOnly = true;
 
     [Space, Header("Gameplay")]
     [ReadOnly, SerializeField]
-    private Dictionary<DotData.DotType, int> m_typeToNumberDict = 
+    private Dictionary<DotData.DotType, int> m_typeToNumberDict =
         new Dictionary<DotData.DotType, int>();
 
     private void OnValidate()
@@ -49,7 +50,7 @@ public class GameBoardInstance : MonoBehaviour
         foreach (var p in m_pelletParent.GetComponentsInChildren<BasicDot>())
         {
             //if exists already
-            if(m_typeToNumberDict.TryGetValue(p.DotPelletType, out int val))
+            if (m_typeToNumberDict.TryGetValue(p.DotPelletType, out int val))
             {
                 m_typeToNumberDict[p.DotPelletType]++;
             }
@@ -97,7 +98,7 @@ public class GameBoardInstance : MonoBehaviour
         }
         else
         {
-            if(ind >= 0 && ind < GhostRespawnZones.Length)
+            if (ind >= 0 && ind < GhostRespawnZones.Length)
             {
                 rt = GhostRespawnZones[ind];
             }
@@ -156,7 +157,9 @@ public class GameBoardInstance : MonoBehaviour
             }
 
             //the up down 3rd axis
-            pos.y = min.y + m_offset.y * i;
+            pos.y = GenerateInXZAxisOnly ?
+                m_volumeToSpawnPelletsIn.bounds.center.y :
+                min.y + m_offset.y * i;
 
             //if beyond the boundaries
             //only z for first check cos x alr handled by above when resetting axis
@@ -168,7 +171,7 @@ public class GameBoardInstance : MonoBehaviour
 
             //check if in exclude zone
             bool flag = false;
-            for(int k = 0; k < m_volumesToNotSpawnPelletsIn.Length; k++)
+            for (int k = 0; k < m_volumesToNotSpawnPelletsIn.Length; k++)
             {
                 //sort by distance first, no point if greater than extents
                 if ((pos - m_volumesToNotSpawnPelletsIn[k].transform.position).sqrMagnitude <= m_volumesToNotSpawnPelletsIn[k].bounds.extents.sqrMagnitude)

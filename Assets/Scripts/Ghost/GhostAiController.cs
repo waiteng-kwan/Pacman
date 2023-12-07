@@ -28,19 +28,21 @@ namespace Game
         [SerializeField]
         private int m_behaviourTree;
 
-        public void GetCurrentState()
+        #region IGhostAi
+        public GhostAiState GetCurrentState()
         {
-            throw new System.NotImplementedException();
+            return m_currState;
         }
 
-        public void SetNextState()
+        public void SetNextState(GhostAiState value)
         {
-            throw new System.NotImplementedException();
+            m_nextState = value;
         }
 
-        public void SetPawn()
+        public void SetPawn(GhostBehaviourBase pawn)
         {
-            throw new System.NotImplementedException();
+            m_ghost = pawn;
         }
+        #endregion
     }
 }
