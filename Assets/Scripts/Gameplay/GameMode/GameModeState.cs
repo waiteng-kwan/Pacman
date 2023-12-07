@@ -15,28 +15,9 @@ namespace Game
         GameOver
     }
 
-    public struct PlayerStats
-    {
-        public int Score;
-        public int Health;
-        public PlayerControllerAttributes Attributes { get; private set; }
-
-        public PlayerStats(PlayerControllerAttributes attributes)
-        {
-            Attributes = attributes;
-            Score = 0;
-            Health = 0;
-        }
-
-        public void UpdatePlayerAttributes(PlayerControllerAttributes attrib)
-        {
-            Attributes = attrib;
-        }
-    }
-
     public class GameModeState
     {
-        private Dictionary<int, PlayerStats> m_pcToStatDictionary;
+        private Dictionary<int, IPlayerAttributes> m_pcToStatDictionary;
         public int Score = 0;
         public int Health = 0;
 
@@ -45,7 +26,7 @@ namespace Game
 
         public void Initialize()
         {
-            m_pcToStatDictionary = new Dictionary<int, PlayerStats>();
+            m_pcToStatDictionary = new Dictionary<int, IPlayerAttributes>();
 
             PlayerScoredEvent = new UnityEvent<int, int>();
             PlayerLifeChangedEvent = new UnityEvent<int, int>();
@@ -59,24 +40,24 @@ namespace Game
                 return;
             }
 
-            PlayerControllerAttributes attrib = pc.GetComponent<PlayerControllerAttributes>();
+            IPlayerAttributes attrib = pc.GetComponent<PlayerControllerAttributes>();
 
-            attrib.UpdateHealth(GameModeBase.gameMode.StageData.StartingHealth);
+            attrib.SetHealth(GameModeBase.gameMode.StageData.StartingHealth);
 
-            m_pcToStatDictionary.Add(pc.Index, new PlayerStats(attrib));
+            m_pcToStatDictionary.Add(pc.Index,attrib );
         }
 
         public void UpdatePlayerScore(int pcIndex, int newScore)
         {
-            if (m_pcToStatDictionary.TryGetValue(pcIndex, out PlayerStats stat))
+            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerAttributes stat))
             {
-                stat.Score = newScore;
+                stat.SetScore(newScore);
             }
         }
 
         public int GetPlayerScore(int pcIndex)
         {
-            if (m_pcToStatDictionary.TryGetValue(pcIndex, out PlayerStats stat))
+            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerAttributes stat))
             {
                 return stat.Score;
             }
@@ -86,15 +67,15 @@ namespace Game
 
         public void UpdatePlayerHealth(int pcIndex, int newHealth)
         {
-            if (m_pcToStatDictionary.TryGetValue(pcIndex, out PlayerStats stat))
+            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerAttributes stat))
             {
-                stat.Health = newHealth;
+                stat.SetHealth(newHealth);
             }
         }
 
         public int GetPlayerHealth(int pcIndex)
         {
-            if (m_pcToStatDictionary.TryGetValue(pcIndex, out PlayerStats stat))
+            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerAttributes stat))
             {
                 return stat.Health;
             }
@@ -102,14 +83,14 @@ namespace Game
             return int.MinValue;
         }
 
-        public PlayerStats GetStats(int pcIndex)
+        public IPlayerAttributes GetStats(int pcIndex)
         {
-            if (m_pcToStatDictionary.TryGetValue(pcIndex, out PlayerStats stat))
+            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerAttributes stat))
             {
                 return stat;
             }
 
-            return default(PlayerStats);
+            return default(IPlayerAttributes);
         }
     }
 }

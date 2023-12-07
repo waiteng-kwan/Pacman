@@ -9,13 +9,21 @@ public class StageUI : MonoBehaviour
     private void Awake()
     {
         m_view = GetComponent<StageUIView>();
+
+        Initialize();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //GameModeBase.gameMode.EPlayerScored.AddListener(OnPlayerScored);
-        //GameModeBase.gameMode.EPlayerLifeChanged.AddListener(OnPlayerLifeChanged);
+        GameModeBase.gameMode.EPlayerScored.AddListener(OnPlayerScored);
+        GameModeBase.gameMode.EPlayerLifeChanged.AddListener(OnPlayerLifeChanged);
+    }
+
+    void Initialize()
+    {
+        m_view.ScoreCounter.text = "0";
+        m_view.LifeCounter.text = GameModeBase.gameMode.StageData.StartingHealth.ToString();
     }
 
     // Update is called once per frame

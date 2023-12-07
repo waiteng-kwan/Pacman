@@ -1,5 +1,6 @@
 using Client;
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Game
     public class GameModeBase : MonoBehaviour
     {
         private GameModeState m_data = new GameModeState();
-         
+
         //temp
         public static GameModeBase gameMode;
         public GameModeData StageData;
@@ -56,7 +57,7 @@ namespace Game
             //get data manager
             var dMgr = GameManager.Instance.GetManager<DataManager>(ManagerType.Data);
 
-            if(dMgr != null)
+            if (dMgr != null)
             {
 #if UNITY_EDITOR
                 InstantiatePlayer(0);
@@ -73,7 +74,7 @@ namespace Game
         /// <param name="numToInstantiate"></param>
         private void InstantiatePlayers_EditorTest(int numToInstantiate)
         {
-            for(int i = 0; i < numToInstantiate; i++)
+            for (int i = 0; i < numToInstantiate; i++)
             {
                 InstantiatePlayer(i);
             }
@@ -90,6 +91,7 @@ namespace Game
                 //spawn player controller
                 PlayerController pc = Instantiate(masterList.PlayerControllerPrefab, Vector3.zero, Quaternion.identity);
                 m_data.RegisterPlayer(pc);
+                m_data.UpdatePlayerHealth(ind, StageData.StartingHealth);
 
                 //spawn character
                 PlayerBehaviour character = Instantiate(masterList.PlayerCharacterPrefab);
@@ -110,7 +112,7 @@ namespace Game
 
         private void InstantiateGhosts(int numToInstantiate = 1)
         {
-            for(int i = 0; i < numToInstantiate; i++)
+            for (int i = 0; i < numToInstantiate; i++)
             {
                 m_ghosts.Add(InstantiateGhost(i));
             }
@@ -147,13 +149,12 @@ namespace Game
 
         public void PlayerLoseHealth(int index)
         {
-            m_data.UpdatePlayerHealth(index, 
-                m_data.GetStats(index).Health - 1);
+            int newHealth = m_data.GetPlayerHealth(index) - 1;
+            m_data.UpdatePlayerHealth(index, newHealth);
 
-            EPlayerLifeChanged?.Invoke(index,
-                m_data.GetStats(index).Health);
+            EPlayerLifeChanged?.Invoke(index, newHealth);
 
-            if (m_data.GetStats(index).Health <= 0)
+            if (newHealth <= 0)
             {
                 Debug.Log("GameOver!");
             }

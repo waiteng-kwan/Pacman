@@ -8,7 +8,8 @@ public class GhostBehaviourBase : MonoBehaviour
     public enum GhostState
     {
         InitialSpawn,
-        Active,
+        Standby,       //waiting to leave zone
+        Active,        //on field
         Dead,
         Respawning
     }

@@ -30,8 +30,9 @@ public class GhostDataBase : ScriptableObject
     public float Speed = 5f;
     public bool HasAccelDeccel = false;
 
-    [Header("AI Type")]
+    [Header("AI")]
     public bool UseNavMesh = false;       //replace with AI Tree next time
+    public float ChangeStateDamping = 1f; //the time before it changes state
 
     [Header("Gameplay")]
     public float RespawnTime = 5f;
