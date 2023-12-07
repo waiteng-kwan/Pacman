@@ -145,6 +145,11 @@ namespace Game
             int newScore = m_data.GetPlayerScore(index) + addScoreBy;
             m_data.UpdatePlayerScore(index, newScore);
             EPlayerScored?.Invoke(index, newScore);
+
+            if(m_gameBoard.CanGameEnd())
+            {
+                print("Game Ended! You win!");
+            }
         }
 
         public void PlayerLoseHealth(int index)

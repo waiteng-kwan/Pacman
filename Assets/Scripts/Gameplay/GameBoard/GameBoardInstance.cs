@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -19,6 +20,11 @@ public class GameBoardInstance : MonoBehaviour
     //temp af
     public BasicDot SpawnPelletPrefab;
 
+    [Space, Header("Gameplay")]
+    [ReadOnly, SerializeField]
+    private Dictionary<DotData.DotType, int> m_typeToNumberDict = 
+        new Dictionary<DotData.DotType, int>();
+
     private void OnValidate()
     {
         m_setupParentObj = transform.Find("Setup");
@@ -37,6 +43,41 @@ public class GameBoardInstance : MonoBehaviour
             Destroy(m_setupParentObj.gameObject);
         }
     }
+
+    private void Start()
+    {
+        foreach (var p in m_pelletParent.GetComponentsInChildren<BasicDot>())
+        {
+            //if exists already
+            if(m_typeToNumberDict.TryGetValue(p.DotPelletType, out int val))
+            {
+                m_typeToNumberDict[p.DotPelletType]++;
+            }
+            else
+                m_typeToNumberDict.Add(p.DotPelletType, 0);
+
+            p.EOnDestroy.AddListener(OnDotPelletCollected);
+        }
+    }
+
+    #region Game Mode Helpers
+    /// <summary>
+    /// Currently the only condition for game ending via game board
+    /// is when the normal pellets are all eaten.
+    /// </summary>
+    /// <returns></returns>
+    public bool CanGameEnd()
+    {
+        return m_typeToNumberDict[DotData.DotType.Normal] <= 0;
+    }
+    #endregion
+
+    #region Dot/Pellets
+    void OnDotPelletCollected(DotData.DotType type)
+    {
+        m_typeToNumberDict[type]--;
+    }
+    #endregion
 
     #region Re/Spawn
     /// <summary>
@@ -89,7 +130,7 @@ public class GameBoardInstance : MonoBehaviour
     #endregion
 
     #region Editor Stuff
-    [NaughtyAttributes.Button]
+    [Button]
     private void GenerateBoard()
     {
         DeleteBoard();
@@ -110,7 +151,8 @@ public class GameBoardInstance : MonoBehaviour
             if (pos.x > max.x)
             {
                 j++;
-                i = 0;  //reset horizontal axis 
+                i = 0;  //reset horizontal axis
+                continue;
             }
 
             //the up down 3rd axis
@@ -144,7 +186,7 @@ public class GameBoardInstance : MonoBehaviour
         }
     }
 
-    [NaughtyAttributes.Button]
+    [Button]
     private void DeleteBoard()
     {
         //destroy all pellets first
