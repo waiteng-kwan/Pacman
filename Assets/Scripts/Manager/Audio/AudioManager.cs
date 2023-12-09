@@ -18,6 +18,21 @@ namespace Client
             return typeof(AudioManager);
         }
 
+        public void OnStateChange(GameInstanceStates prevState, GameInstanceStates currState, GameInstanceStates nextState)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PostStateChange(GameInstanceStates nextState)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PreStateChange(GameInstanceStates nextState)
+        {
+            throw new NotImplementedException();
+        }
+
         public void RegisterManager(GameManager mgr)
         {
         }

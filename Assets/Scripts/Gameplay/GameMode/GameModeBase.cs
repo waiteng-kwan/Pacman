@@ -3,18 +3,21 @@ using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Game
 {
-    public class GameModeBase : MonoBehaviour
+    public class GameModeBase : MonoBehaviour, IGameMode
     {
         private GameModeState m_data = new GameModeState();
 
         //temp
-        public static GameModeBase Instance;
-        public GameModeData Settings;
+        static GameModeBase m_instance;
+        public static GameModeBase Instance => m_instance;
+        [SerializeField] private GameModeData m_settings;
+        public GameModeData Settings => m_settings;
 
         [ReadOnly]
         private GameBoardInstance m_gameBoard;
@@ -32,7 +35,7 @@ namespace Game
         }
         private void Awake()
         {
-            Instance = this;
+            m_instance = this;
             m_gameBoard = FindObjectOfType<GameBoardInstance>();
         }
 
@@ -64,7 +67,9 @@ namespace Game
                 InstantiatePlayer(0);
 #endif
                 //spawn ghosts!!
-                InstantiateGhosts(4);
+                InstantiateGhosts(1);
+
+                Instantiate(m_settings.StageUI, Vector3.zero, Quaternion.identity);
             }
             yield return null;
         }
@@ -106,11 +111,6 @@ namespace Game
             return null;
         }
 
-        public void RegisterPlayer(PlayerController player)
-        {
-            m_data.RegisterPlayer(player);
-        }
-
         private void InstantiateGhosts(int numToInstantiate = 1)
         {
             for (int i = 0; i < numToInstantiate; i++)
@@ -141,21 +141,38 @@ namespace Game
         }
         #endregion
 
-        public void OnPlayerScored(int index, int addScoreBy)
+        public void GhostDied(GhostBehaviourBase ghost)
+        {
+            print("Ghost died");
+            ghost.Die();
+        }
+
+        public void SetGameBoardInstance(GameBoardInstance board)
+        {
+            m_gameBoard = board;
+        }
+
+        #region Player Crap
+        public bool RegisterPlayer(PlayerController pc)
+        {
+            return m_data.RegisterPlayer(pc);
+        }
+
+        public void PlayerScored(int index, int addScoreBy = 1)
         {
             int newScore = m_data.GetPlayerScore(index) + addScoreBy;
             m_data.UpdatePlayerScore(index, newScore);
             EPlayerScored?.Invoke(index, newScore);
 
-            if(m_gameBoard.CanGameEnd())
+            if (CanGameEnd())
             {
-                print("Game Ended! You win!");
+                GameEnded();
             }
         }
-
-        public void PlayerLoseHealth(int index)
+        #region Health
+        public void PlayerUpdateHealth(int index, int addHpBy = -1)
         {
-            int newHealth = m_data.GetPlayerHealth(index) - 1;
+            int newHealth = m_data.GetPlayerHealth(index) + addHpBy;
             m_data.UpdatePlayerHealth(index, newHealth);
 
             EPlayerLifeChanged?.Invoke(index, newHealth);
@@ -163,13 +180,103 @@ namespace Game
             if (newHealth <= 0)
             {
                 Debug.Log("GameOver!");
+                GameEnded();
             }
         }
 
-        public void GhostDied(GhostBehaviourBase ghost)
+        public void PlayerDecHealth(int index)
         {
-            print("Ghost died");
-            ghost.Die();
+            PlayerUpdateHealth(index);
+        }
+
+        public void PlayerIncHealth(int index)
+        {
+            PlayerUpdateHealth(index, 1);
+        }
+        #endregion
+
+        public void PlayerDied(PlayerController pc)
+        {
+            //StartPlayerRespawn();
+        }
+
+        public void StartPlayerRespawn(PlayerController pc)
+        {
+            pc.PlayerCharacter.gameObject.SetActive(false);
+            pc.PlayerCharacter.Attributes.SetState(PlayerCharacterStates.Invul);
+        }
+
+        public void PlayerCollidedWithGhost(GhostBehaviourBase ghost,
+            PlayerBehaviour pChar)
+        {
+            //check current state
+            if (pChar.Attributes.CanEatGhosts)
+            {
+                PlayerScored(pChar.BelongToPlayerIndex, 5);
+                GhostDied(ghost);
+            }
+            else
+            {
+                //get eaten
+                PlayerDecHealth(pChar.BelongToPlayerIndex);
+                PlayerDied(pChar.Owner);
+                
+
+                //temp
+                StartPlayerRespawn(pChar.Owner);
+                pChar.Attributes.SetState(PlayerCharacterStates.Respawning);
+            }
+        }
+        #endregion
+
+        public GhostBehaviourBase SpawnGhost(int ind = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StartSetupGameMode()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerator GameModeSetupProcess()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GameEnded()
+        {
+            print("Game Ended! You win!");
+        }
+
+        public void GameStarted()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GamePaused()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsGamePaused()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanGameEnd()
+        {
+            return m_gameBoard.CanGameEnd();
+        }
+
+        public int CalculateWhichPlayerWon()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RegisterSubsystem(GameModeBase gameMode)
+        {
+            throw new NotImplementedException();
         }
     }
 }

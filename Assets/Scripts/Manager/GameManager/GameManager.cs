@@ -2,7 +2,9 @@ using Client;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Rendering.InspectorCurveEditor;
 
 namespace Game
 {
@@ -48,6 +50,9 @@ namespace Game
         {
             Debug.Log("First scene has loaded! 1 time only");
 
+            Instance.m_data.Services = new Services();
+            Instance.m_data.Services.Initialize();
+
             var mgrs = Instance.m_data.MgrList;
 
             //create all subsystems
@@ -80,15 +85,30 @@ namespace Game
         public void ChangeState(GameInstanceStates newState)
         {
             //prep state change stuff here
+            foreach (var mgr in Instance.m_data.MgrList.Values)
+            {
+                mgr.PreStateChange(m_data.CurrentState);
+            }
 
             //data change state
             m_data.ChangeState(newState);
+
+            //after state change stuff
+            foreach (var mgr in Instance.m_data.MgrList.Values)
+            {
+                mgr.PostStateChange(newState);
+            }
         }
 
         private void OnStateChange(GameInstanceStates prevState,
             GameInstanceStates currState, GameInstanceStates nextState)
         {
+            print("henshin1");
 
+            foreach(var mgr in  Instance.m_data.MgrList.Values)
+            {
+                mgr.OnStateChange(prevState, currState, nextState);
+            }
         }
 
         private void InitializeState()
@@ -100,5 +120,22 @@ namespace Game
         {
             return m_data.GetManager<T>(type);
         }
+
+        private void OnApplicationQuit()
+        {
+            if(Services.Instance != null)
+                Services.Instance.Shutdown();
+
+            foreach (var elem in m_data.MgrList.Values)
+            {
+                IManager m = elem as IManager;
+
+                if (m != null)
+                {
+                    m.ShutdownManager(Instance);
+                }
+            }
+        }
+
     }
 }

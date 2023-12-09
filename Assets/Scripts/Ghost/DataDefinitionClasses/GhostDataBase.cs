@@ -31,8 +31,10 @@ public class GhostDataBase : ScriptableObject
     public bool HasAccelDeccel = false;
 
     [Header("AI")]
-    public bool UseNavMesh = false;       //replace with AI Tree next time
-    public float ChangeStateDamping = 1f; //the time before it changes state
+    public bool UseNavMesh = false;          //replace with AI Tree next time
+    //the time before it changes state, x = min, y = max
+    [NaughtyAttributes.InfoBox("X = min, Y = max")]
+    public Vector2 ChangeStateDampingRange = Vector2.one;  
 
     [Header("Gameplay")]
     public float RespawnTime = 5f;

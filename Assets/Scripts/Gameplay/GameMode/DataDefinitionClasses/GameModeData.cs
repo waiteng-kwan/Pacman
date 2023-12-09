@@ -20,4 +20,7 @@ public class GameModeData : ScriptableObject
     public GhostDataBase[] Ghosts;
     public int MaxGhostsAtOnce = 4;
     public bool OneOfEach = true;
+
+    [Header("UI")]
+    public GameObject StageUI;
 }

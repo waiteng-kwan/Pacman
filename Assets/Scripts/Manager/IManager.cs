@@ -10,4 +10,10 @@ public interface IManager
     void ShutdownManager(GameManager mgr);
     IManager RetrieveInterface();
     Type GetManagerType();
+
+    //state change?
+    void PreStateChange(GameInstanceStates currentState);
+    void OnStateChange(GameInstanceStates prevState,
+            GameInstanceStates currState, GameInstanceStates nextState);
+    void PostStateChange(GameInstanceStates nextState);
 }

@@ -20,9 +20,11 @@ public class PlayerBehaviour : MonoBehaviour
     [NaughtyAttributes.ReadOnly, SerializeField]
     private PlayerController m_belongsTo;
     public int BelongToPlayerIndex => m_belongsTo.Index;
+    public PlayerController Owner => m_belongsTo;
 
     //attributes
     private PlayerBehaviourAttributes m_attributes;
+    public PlayerBehaviourAttributes Attributes => m_attributes;
 
     private void OnValidate()
     {
@@ -99,19 +101,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Ghost" && other.GetComponent<GhostBehaviourBase>())
+        if (other.tag == "Ghost" && Attributes.CurrentState != PlayerCharacterStates.Invul)
         {
-            //check current state
-            if (m_attributes.CanEatGhosts)
-            {
-                GameModeBase.Instance.OnPlayerScored(BelongToPlayerIndex, 5);
-                GameModeBase.Instance.GhostDied(other.GetComponent<GhostBehaviourBase>());
-            }
-            else
-            {
-                //get eaten
-                GameModeBase.Instance.PlayerLoseHealth(BelongToPlayerIndex);
-            }
+            var ghostBehaviour = other.GetComponent<GhostBehaviourBase>();
+            if (ghostBehaviour == null)
+                return;
+
+            GameModeBase.Instance.PlayerCollidedWithGhost(ghostBehaviour, this);
         }
     }
 

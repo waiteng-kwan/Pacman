@@ -6,14 +6,6 @@ using UnityEngine;
 
 public class PlayerControllerAttributes : MonoBehaviour, IPlayerAttributes
 {
-    public enum PlayerState
-    {
-        Alive,
-        Dead,
-        Respawning,
-        Invul
-    }
-
     //health
     [SerializeField, ReadOnly]
     private int m_health = 3;

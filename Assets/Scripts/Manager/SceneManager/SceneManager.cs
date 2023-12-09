@@ -18,6 +18,21 @@ namespace Game
             return typeof(SceneManager);
         }
 
+        public void PreStateChange(GameInstanceStates currentState)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnStateChange(GameInstanceStates prevState, GameInstanceStates currState, GameInstanceStates nextState)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PostStateChange(GameInstanceStates nextState)
+        {
+            throw new NotImplementedException();
+        }
+
         public void RegisterManager(GameManager mgr)
         {
             

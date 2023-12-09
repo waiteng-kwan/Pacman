@@ -8,6 +8,7 @@ TagManager:
   - DotPellet
   - Camera
   - GhostRespawnZone
+  - Floor
   layers:
   - Default
   - TransparentFX

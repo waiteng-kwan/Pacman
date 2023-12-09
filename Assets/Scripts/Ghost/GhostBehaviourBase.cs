@@ -19,6 +19,7 @@ public class GhostBehaviourBase : MonoBehaviour
     [Header("Data")]
     [SerializeField, NaughtyAttributes.Expandable]
     private GhostDataBase m_data;
+    public GhostDataBase Data => m_data;
 
     [Header("(Read Only) for Debug")]
     [NaughtyAttributes.ReadOnly, SerializeField]
@@ -55,7 +56,8 @@ public class GhostBehaviourBase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //testing!!!!
+        SetAIState();
     }
 
     // Update is called once per frame
@@ -101,5 +103,14 @@ public class GhostBehaviourBase : MonoBehaviour
     void Respawn()
     {
         gameObject.SetActive(true);
+    }
+
+    void SetAIState(bool isAI = true)
+    {
+        if(isAI)
+        {
+            gameObject.AddComponent<GhostAiController>();
+            GetComponent<GhostAiController>().SetPawn(this);
+        }
     }
 }

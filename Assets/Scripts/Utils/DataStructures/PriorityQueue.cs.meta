@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 599fd9a58100ed14a91870ee1bac770e
+guid: 31caa166e159c554eb2d5eb54d98cea0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - StageUI: {fileID: 3393564159302382200, guid: 39c66cec0c2426b41a229b98626b5d9c,
-      type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

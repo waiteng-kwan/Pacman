@@ -21,4 +21,5 @@ MonoBehaviour:
   Speed: 5
   HasAccelDeccel: 0
   UseNavMesh: 0
+  ChangeStateDampingRange: {x: 0.5, y: 5}
   RespawnTime: 5

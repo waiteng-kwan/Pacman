@@ -2,20 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBehaviourAttributes : MonoBehaviour
+namespace Game
 {
-    private bool m_canEatGhosts = false;
-    public bool CanEatGhosts => m_canEatGhosts;
-
-    public void SetCanEatGhostState(bool canEatGhost)
+    public enum PlayerCharacterStates
     {
-        m_canEatGhosts = canEatGhost;
-
-        Invoke("SetEatGhostStateInactive", 5f);
+        Alive,
+        Dead,
+        Respawning,
+        Invul
     }
 
-    public void SetEatGhostStateInactive()
+    public class PlayerBehaviourAttributes : MonoBehaviour
     {
-        m_canEatGhosts = false;
+        private bool m_canEatGhosts = false;
+        public bool CanEatGhosts => m_canEatGhosts;
+
+        private PlayerCharacterStates m_currState;
+        public PlayerCharacterStates CurrentState => m_currState;
+
+        public void SetState(PlayerCharacterStates state)
+        {
+            m_currState = state;
+        }
+
+        public void SetCanEatGhostState(bool canEatGhost)
+        {
+            m_canEatGhosts = canEatGhost;
+
+            Invoke("SetEatGhostStateInactive", 5f);
+        }
+
+        public void SetEatGhostStateInactive()
+        {
+            m_canEatGhosts = false;
+        }
     }
 }

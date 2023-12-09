@@ -1,4 +1,5 @@
 using Game;
+using UnityEngine;
 
 public interface IGhostAi
 {
@@ -7,4 +8,9 @@ public interface IGhostAi
     //state
     void SetNextState(GhostAiState value);
     GhostAiState GetCurrentState();
+    void PrepChangeState(GhostAiState nextState);
+    void SwitchState();
+
+    //Movement
+    void SetDestination(Vector3 destination);
 }

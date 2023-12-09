@@ -36,12 +36,18 @@ public class DataManager : MonoBehaviour, IManager
         return typeof(DataManager);
     }
 
-    private void Awake()
+    public void PreStateChange(GameInstanceStates currentState)
     {
-        
+        throw new NotImplementedException();
     }
-    private void Start()
+
+    public void OnStateChange(GameInstanceStates prevState, GameInstanceStates currState, GameInstanceStates nextState)
     {
-        
+        throw new NotImplementedException();
+    }
+
+    public void PostStateChange(GameInstanceStates nextState)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -7,7 +7,7 @@ namespace Game
 {
     public enum GameInstanceStates
     {
-        None,
+        None = 0,
         Menu,
         CharSelect,
         Gameplay,
@@ -36,15 +36,17 @@ namespace Game
             GameInstanceStates> m_stateChangeCallback;
 
         //managers
-        private Dictionary<ManagerType, object> m_managers;
-        public Dictionary<ManagerType, object> MgrList => m_managers;
+        private Dictionary<ManagerType, IManager> m_managers;
+        public Dictionary<ManagerType, IManager> MgrList => m_managers;
+
+        public Services Services;
 
         public void Initialize()
         {
             PreviousState = CurrentState = NextState =
                 GameInstanceStates.None;
 
-            m_managers = new Dictionary<ManagerType, object>();
+            m_managers = new Dictionary<ManagerType, IManager>();
         }
 
         public void Shutdown()

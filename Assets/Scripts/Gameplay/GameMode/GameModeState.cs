@@ -32,19 +32,20 @@ namespace Game
             PlayerLifeChangedEvent = new UnityEvent<int, int>();
         }
 
-        public void RegisterPlayer(PlayerController pc)
+        public bool RegisterPlayer(PlayerController pc)
         {
             if (m_pcToStatDictionary.TryGetValue(pc.Index, out var stat))
             {
                 Debug.Log($"PC index {pc.Index} already registered!");
-                return;
+                return false;
             }
 
             IPlayerAttributes attrib = pc.GetComponent<PlayerControllerAttributes>();
 
             attrib.SetHealth(GameModeBase.Instance.Settings.StartingHealth);
 
-            m_pcToStatDictionary.Add(pc.Index,attrib );
+            m_pcToStatDictionary.Add(pc.Index, attrib);
+            return true;
         }
 
         public void UpdatePlayerScore(int pcIndex, int newScore)

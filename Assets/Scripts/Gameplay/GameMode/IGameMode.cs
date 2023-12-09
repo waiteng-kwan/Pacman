@@ -1,5 +1,6 @@
 using Client;
 using Game;
+using System;
 using System.Collections;
 
 public interface IGameMode
@@ -16,9 +17,10 @@ public interface IGameMode
     void PlayerScored(int index, int addScoreBy = 1);
     void PlayerUpdateHealth(int index, int addHpBy = -1);
     void PlayerDecHealth(int index);
-    void PlayerDied(int index);
+    void PlayerIncHealth(int index);
+    void PlayerDied(PlayerController pc);
     void StartPlayerRespawn(PlayerController pc);
-    void PlayerCollidedWithGhost(GhostBehaviourBase ghost);
+    void PlayerCollidedWithGhost(GhostBehaviourBase ghost, PlayerBehaviour pChar);
     
     GhostBehaviourBase SpawnGhost(int ind = 0);
     void GhostDied(GhostBehaviourBase ghost);

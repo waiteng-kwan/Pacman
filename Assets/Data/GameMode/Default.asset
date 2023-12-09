@@ -15,7 +15,11 @@ MonoBehaviour:
   DisplayName: Stage1
   SceneName: BasicStage
   StartingHealth: 3
+  GhostDefaultRespawnTime: 5
+  CanPlayerRespawn: 0
+  PlayerRespawnTime: 5
   Ghosts:
   - {fileID: 11400000, guid: 712e7c9db09e4a94295443cb313af8a6, type: 2}
   MaxGhostsAtOnce: 4
   OneOfEach: 1
+  StageUI: {fileID: 3393564159302382200, guid: 39c66cec0c2426b41a229b98626b5d9c, type: 3}

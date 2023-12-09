@@ -39,7 +39,7 @@ public class BasicDot : MonoBehaviour
 
     protected virtual void ResolveCollideWithPlayer(PlayerBehaviour player)
     {
-        GameModeBase.Instance.OnPlayerScored(player.BelongToPlayerIndex, m_data.CalculateScoreToAdd());
+        GameModeBase.Instance.PlayerScored(player.BelongToPlayerIndex, m_data.CalculateScoreToAdd());
     }
 
     protected void ResolveEatenBehaviour()
