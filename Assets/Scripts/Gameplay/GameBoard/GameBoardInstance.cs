@@ -163,11 +163,14 @@ public class GameBoardInstance : MonoBehaviour
 
             //if beyond the boundaries
             //only z for first check cos x alr handled by above when resetting axis
-            if ((pos.z > max.z) ||
-                (pos.z > max.z && pos.y > max.y)) //this is for 3d
+            if (GenerateInXZAxisOnly)
             {
-                break;
+                if (pos.z > max.z)
+                    break;
             }
+            else
+                if (pos.z > max.z && pos.y > max.y) //this is for 3d
+                    break;
 
             //check if in exclude zone
             bool flag = false;
@@ -176,8 +179,33 @@ public class GameBoardInstance : MonoBehaviour
                 //sort by distance first, no point if greater than extents
                 if ((pos - m_volumesToNotSpawnPelletsIn[k].transform.position).sqrMagnitude <= m_volumesToNotSpawnPelletsIn[k].bounds.extents.sqrMagnitude)
                 {
-                    flag = true;
-                    break;
+                    //additional check to see if in bounds
+                    var volToSkipBounds = m_volumesToNotSpawnPelletsIn[k].bounds;
+                    Vector3 skipMin = volToSkipBounds.min;
+                    Vector3 skipMax = volToSkipBounds.max;
+
+                    //if greater than min x and smaller than max x, aka inside
+                    if (pos.x >= skipMin.x  &&
+                        pos.x <= skipMax.x)
+                    {
+                        //then check if in z value
+                        if (pos.z >= skipMin.z &&
+                        pos.z <= skipMax.z)
+                        {
+                            if(!GenerateInXZAxisOnly)
+                            {
+                                //then check if not in y value
+                                if (pos.y < skipMin.y &&
+                                pos.y > skipMax.y)
+                                    continue;
+                            }
+
+                            flag = true;
+                            break;
+                        }
+                    }
+
+                    
                 }
             }
             //if in exclude zone then do not spawn
