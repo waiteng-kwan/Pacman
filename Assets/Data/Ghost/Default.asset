@@ -22,4 +22,7 @@ MonoBehaviour:
   HasAccelDeccel: 0
   UseNavMesh: 0
   ChangeStateDampingRange: {x: 0.5, y: 5}
+  ChangeIdleWaitngRange: {x: 1, y: 4}
+  DetectionRange: 8
   RespawnTime: 5
+  GhostIdleTime: 3.5

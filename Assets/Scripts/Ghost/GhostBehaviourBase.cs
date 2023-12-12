@@ -59,7 +59,7 @@ public class GhostBehaviourBase : MonoBehaviour
     void Start()
     {
         //testing!!!!
-        SetAIState();
+        SetIsAI();
     }
 
     // Update is called once per frame
@@ -100,7 +100,7 @@ public class GhostBehaviourBase : MonoBehaviour
 
     void StartRespawnTimer(float time)
     {
-        Invoke("Respawn", m_data.RespawnTime);
+        Invoke("Respawn", time);
     }
 
     void Respawn()
@@ -121,7 +121,7 @@ public class GhostBehaviourBase : MonoBehaviour
         m_ghostRespawnZone = respawnZone;
     }
 
-    void SetAIState(bool isAI = true)
+    void SetIsAI(bool isAI = true)
     {
         if(isAI)
         {
@@ -145,7 +145,7 @@ public class GhostBehaviourBase : MonoBehaviour
 
         m_model.gameObject.SetActive(false);
 
-        StartRespawnTimer(5f);
+        StartRespawnTimer(m_data.RespawnTime);
 
         yield return null;
     }

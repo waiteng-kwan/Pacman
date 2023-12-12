@@ -54,6 +54,7 @@ namespace Game
             m_agent = gameObject.AddComponent<NavMeshAgent>();
             m_agent.agentTypeID = GameObject.FindGameObjectWithTag("Floor").GetComponent<NavMeshSurface>().agentTypeID;
             m_agent.baseOffset = 0.5f;
+            m_agent.stoppingDistance = 0.5f;
 
             Invoke("Test", 3f);
         }
@@ -62,17 +63,25 @@ namespace Game
         {
             if (m_agent != null)
                 m_agent.enabled = false;
+
+            m_nextState = GhostAiState.Idle;
+            m_playerTarget = null;
         }
 
         private void OnEnable()
         {
-            if(m_agent != null)
+            if (m_agent != null)
                 m_agent.enabled = true;
+
+            m_nextState = GhostAiState.Idle;
+            m_playerTarget = null;
         }
 
         void Test()
         {
-            SetNextState(GhostAiState.Chasing);
+            PrepChangeState(GhostAiState.Idle);
+
+            //SetNextState(GhostAiState.Chasing);
         }
 
         private void Update()
@@ -126,6 +135,27 @@ namespace Game
                 case GhostAiState.Idle:
                     m_agent.autoBraking = true;
 
+                    //calculate path?
+                    m_navData.ClearIdle();
+                    var col = m_ghost.GhostRespawnZone;
+
+                    for (int i = 0; i < 2; i++)
+                    {
+                        //get random point on extent
+                        float randX = Random.Range(col.transform.position.x, col.bounds.min.x);
+                        float randZ = Random.Range(col.transform.position.z, col.bounds.min.z);
+
+                        m_navData.AddPointToIdlePath(new Vector3(randX, col.transform.position.y, randZ));
+
+                        //get random point on extent
+                        randX = Random.Range(col.transform.position.x, col.bounds.max.x);
+                        randZ = Random.Range(col.transform.position.z, col.bounds.max.z);
+
+                        m_navData.AddPointToIdlePath(new Vector3(randX, col.transform.position.y, randZ));
+                    }
+
+                    m_destination = m_navData.CurrentPointOnIdlePath();
+                    SetDestination(m_destination);
                     break;
                 case GhostAiState.Patrol:
                     m_agent.autoBraking = false;
@@ -171,24 +201,21 @@ namespace Game
         {
             print("Idkle");
 
-            var pos = m_ghost.transform.position;
-            //print(m_agent.velocity.sqrMagnitude);
-            if(m_agent.velocity.sqrMagnitude <= 5f)
+            var distance = (transform.position - m_destination).sqrMagnitude;
+
+            if(distance <= 1f)
             {
-                if(m_agent.velocity.x < 0)
+                if(m_currChangeStateTime > 0)
                 {
-                    Ray ray = new Ray(transform.position, Vector3.left * 5f);
-                    
-                    if (Physics.Raycast(ray, out var hit))
-                    {
-                        print("test");
-                        if(hit.collider != null)
-                        {
-                            m_destination = hit.collider.ClosestPoint(transform.position);
-                            SetDestination(m_destination);
-                        }
-                    }
+                    m_currChangeStateTime -= Time.deltaTime;
+                    return;
                 }
+
+                m_destination = m_navData.NextPointOnIdlePath();
+                SetDestination(m_destination);
+
+                m_maxChangeStateTime = GetRandomIdleWaitingTime();
+                m_currChangeStateTime = m_maxChangeStateTime;
             }
         }
 
@@ -205,8 +232,13 @@ namespace Game
             m_destination = m_playerTarget.transform.position;
             SetDestination(m_destination);
 
-            if(m_playerTarget.Attributes.CurrentState != PlayerCharacterStates.Alive)
+            if (m_playerTarget.Attributes.CurrentState != PlayerCharacterStates.Alive)
             {
+                //stop movement
+                m_agent.isStopped = true;
+
+                //add recalculate here next time
+
                 SetNextState(GhostAiState.Idle);
             }
         }
@@ -220,6 +252,11 @@ namespace Game
         float GetRandomStateChangeDampingPoint()
         {
             return Random.Range(m_settings.ChangeStateDampingRange.x, m_settings.ChangeStateDampingRange.y);
+        }
+
+        float GetRandomIdleWaitingTime()
+        {
+            return Random.Range(m_settings.ChangeIdleWaitngRange.x, m_settings.ChangeIdleWaitngRange.y);
         }
     }
 }
