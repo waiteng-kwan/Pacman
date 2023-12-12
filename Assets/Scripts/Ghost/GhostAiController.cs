@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace Game
 {
@@ -43,6 +40,7 @@ namespace Game
         //navigation
         private Vector3 m_destination = Vector3.zero;
         private PlayerBehaviour m_playerTarget = null;
+        private GhostAiNavigationData m_navData = new GhostAiNavigationData();
 
         private void Awake()
         {
@@ -58,6 +56,18 @@ namespace Game
             m_agent.baseOffset = 0.5f;
 
             Invoke("Test", 3f);
+        }
+
+        private void OnDisable()
+        {
+            if (m_agent != null)
+                m_agent.enabled = false;
+        }
+
+        private void OnEnable()
+        {
+            if(m_agent != null)
+                m_agent.enabled = true;
         }
 
         void Test()
@@ -154,9 +164,32 @@ namespace Game
         }
         #endregion
 
+        /// <summary>
+        /// This is the function that will be called before the ghost exits the respawn zone
+        /// </summary>
         void Idle()
         {
             print("Idkle");
+
+            var pos = m_ghost.transform.position;
+            //print(m_agent.velocity.sqrMagnitude);
+            if(m_agent.velocity.sqrMagnitude <= 5f)
+            {
+                if(m_agent.velocity.x < 0)
+                {
+                    Ray ray = new Ray(transform.position, Vector3.left * 5f);
+                    
+                    if (Physics.Raycast(ray, out var hit))
+                    {
+                        print("test");
+                        if(hit.collider != null)
+                        {
+                            m_destination = hit.collider.ClosestPoint(transform.position);
+                            SetDestination(m_destination);
+                        }
+                    }
+                }
+            }
         }
 
         void Patrol()
@@ -169,7 +202,8 @@ namespace Game
             print("chgase");
 
             //set object of interest to player
-            m_agent.SetDestination(m_playerTarget.transform.position);
+            m_destination = m_playerTarget.transform.position;
+            SetDestination(m_destination);
 
             if(m_playerTarget.Attributes.CurrentState != PlayerCharacterStates.Alive)
             {

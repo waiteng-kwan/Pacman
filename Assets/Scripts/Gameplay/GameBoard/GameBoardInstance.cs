@@ -128,6 +128,20 @@ public class GameBoardInstance : MonoBehaviour
 
         return rt;
     }
+
+    public (Vector3 pt, Collider zone) GetRandomPointAndGhostSpawnZone(int ind = 0, bool rand = false, bool includeYAxis = false)
+    {
+        Vector3 rt = Vector3.zero;
+        Collider col = GetGhostSpawnZone(ind, rand);
+
+        //get position
+        rt.x = Random.Range(col.bounds.min.x, col.bounds.max.x);
+        rt.z = Random.Range(col.bounds.min.z, col.bounds.max.z);
+        rt.y = includeYAxis ? Random.Range(col.bounds.min.y, col.bounds.max.y) :
+            col.transform.position.y;
+
+        return (rt, col);
+    }
     #endregion
 
     #region Editor Stuff

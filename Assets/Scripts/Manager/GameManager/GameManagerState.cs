@@ -67,7 +67,7 @@ namespace Game
                 return (T)manager;
             }
 
-            return default(T);
+            return default;
         }
 
         public void ChangeState(GameInstanceStates newState)

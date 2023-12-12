@@ -28,6 +28,8 @@ public class GhostBehaviourBase : MonoBehaviour
     private Rigidbody m_rb;
     [NaughtyAttributes.ReadOnly, SerializeField]
     private Collider m_col;
+    private Collider m_ghostRespawnZone;
+    public Collider GhostRespawnZone => m_ghostRespawnZone;
 
     //states
     [NaughtyAttributes.ReadOnly, SerializeField]
@@ -64,6 +66,7 @@ public class GhostBehaviourBase : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(transform.position, transform.forward * 15f, Color.magenta);
+        Debug.DrawRay(transform.position, Vector3.left * 5f, Color.cyan);
     }
 
     public void ChangeModel()
@@ -89,10 +92,10 @@ public class GhostBehaviourBase : MonoBehaviour
     /// </summary>
     public void Die()
     {
-        gameObject.SetActive(false);
+        GetComponent<GhostAiController>().enabled = false;
 
         m_currGState = GhostState.Dead;
-        StartRespawnTimer(5f);
+        StartCoroutine(Blink());
     }
 
     void StartRespawnTimer(float time)
@@ -102,7 +105,20 @@ public class GhostBehaviourBase : MonoBehaviour
 
     void Respawn()
     {
-        gameObject.SetActive(true);
+        //pick respawn point
+        Vector3 pos = m_ghostRespawnZone.transform.position;
+        pos.x = Random.Range(m_ghostRespawnZone.bounds.min.x, m_ghostRespawnZone.bounds.max.x);
+        pos.z = Random.Range(m_ghostRespawnZone.bounds.min.z, m_ghostRespawnZone.bounds.max.z);
+        transform.position = pos;
+
+        GetComponent<GhostAiController>().enabled = true;
+
+        m_model.gameObject.SetActive(true);
+    }
+
+    public void PickRespawnZone(Collider respawnZone)
+    {
+        m_ghostRespawnZone = respawnZone;
     }
 
     void SetAIState(bool isAI = true)
@@ -112,5 +128,25 @@ public class GhostBehaviourBase : MonoBehaviour
             gameObject.AddComponent<GhostAiController>();
             GetComponent<GhostAiController>().SetPawn(this);
         }
+    }
+
+    IEnumerator Blink()
+    {
+        float currTime = 0f;
+
+        while (currTime <= 3f)
+        {
+            m_model.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            m_model.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            currTime += 1f;
+        }
+
+        m_model.gameObject.SetActive(false);
+
+        StartRespawnTimer(5f);
+
+        yield return null;
     }
 }

@@ -20,5 +20,6 @@ namespace Game
     public class GhostAiNavigationData
     {
         public PriorityQueue<Vector3, float> m_nodePriority;
+        public List<GameObject> m_patrolPath;
     }
 }

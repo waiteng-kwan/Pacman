@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEditor.Rendering.InspectorCurveEditor;
 
 namespace Game
@@ -16,6 +17,17 @@ namespace Game
         [Header("Debug purposes")]
         [SerializeField]
         private GameInstanceStates m_startStateDEBUG = GameInstanceStates.Menu;
+
+        private static void CreateInstance()
+        {
+            if (Instance != null)
+                return;
+
+            GameObject go = new GameObject("Game Manager (Created)");
+            go.AddComponent<GameManager>();
+            
+            Instance.Awake();
+        }
 
         private void Awake()
         {
@@ -49,6 +61,17 @@ namespace Game
         private static void OnAfterFirstSceneLoad()
         {
             Debug.Log("First scene has loaded! 1 time only");
+
+            if(Instance == null)
+            {
+                Debug.LogWarning("Game Manager not found! Creating one...");
+
+                //set active scene because it has not been set yet
+                UnityEngine.SceneManagement.SceneManager.SetActiveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
+                
+                //create instance
+                CreateInstance();
+            }
 
             Instance.m_data.Services = new Services();
             Instance.m_data.Services.Initialize();

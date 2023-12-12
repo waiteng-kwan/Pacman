@@ -3,7 +3,6 @@ using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -56,7 +55,7 @@ namespace Game
 
             //wait until game manager isnt null
             yield return GameManager.Instance != null;
-            yield return GameManager.Instance.GetManager<DataManager>(ManagerType.Data);
+            yield return GameManager.Instance.GetManager<DataManager>(ManagerType.Data) != null;
 
             //get data manager
             var dMgr = GameManager.Instance.GetManager<DataManager>(ManagerType.Data);
@@ -133,7 +132,9 @@ namespace Game
                 g.SetData(masterList.m_ghostModelDataList[0]);
 
                 //set position
-                g.transform.position = m_gameBoard.GetRandomPointInGhostSpawnZone();
+                (Vector3 pos, Collider c) = m_gameBoard.GetRandomPointAndGhostSpawnZone();
+                g.transform.position = pos;
+                g.PickRespawnZone(c);
                 return g;
             }
 
@@ -143,8 +144,11 @@ namespace Game
 
         public void GhostDied(GhostBehaviourBase ghost)
         {
-            print("Ghost died");
             ghost.Die();
+
+            //pick random respawn zone
+            Collider col = m_gameBoard.GetGhostSpawnZone(0, true);
+            ghost.PickRespawnZone(col);
         }
 
         public void SetGameBoardInstance(GameBoardInstance board)
