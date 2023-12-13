@@ -26,6 +26,7 @@ public class PlayerBehaviour : MonoBehaviour
     private PlayerBehaviourAttributes m_attributes;
     public PlayerBehaviourAttributes Attributes => m_attributes;
 
+    #region Unity Fn
     private void OnValidate()
     {
         m_rb = GetComponent<Rigidbody>();
@@ -47,23 +48,26 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private Vector3 moveVec = Vector3.zero;
     private void FixedUpdate()
     {
         m_rb.velocity = moveVec * m_data.Speed;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Ghost" && !Attributes.IsPlayerInvul())
+        {
+            var ghostBehaviour = other.GetComponent<GhostBehaviourBase>();
+            if (ghostBehaviour == null)
+                return;
+
+            GameModeBase.Instance.PlayerCollidedWithGhost(ghostBehaviour, this);
+        }
+    }
+    #endregion
+
+    #region Movement
     public void SetMoveDir(Vector2 moveDir)
     {
         //x = left, right, y = up, down (in 3d space its z)
@@ -75,6 +79,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         moveVec = Vector3.zero;
     }
+    #endregion
 
     public void ChangeModel()
     {
@@ -99,20 +104,27 @@ public class PlayerBehaviour : MonoBehaviour
         m_belongsTo = owner;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Ghost" && Attributes.CurrentState != PlayerCharacterStates.Invul)
-        {
-            var ghostBehaviour = other.GetComponent<GhostBehaviourBase>();
-            if (ghostBehaviour == null)
-                return;
-
-            GameModeBase.Instance.PlayerCollidedWithGhost(ghostBehaviour, this);
-        }
-    }
 
     public void SetPlayerEatGhostState(bool canEat)
     {
         m_attributes.SetCanEatGhostState(canEat);
+    }
+
+    public void SetPlayerState(PlayerCharacterStates state)
+    {
+        m_attributes.SetState(state);
+
+        //handle state change here
+        switch (state)
+        {
+            case PlayerCharacterStates.Alive:
+                break;
+            case PlayerCharacterStates.Dead:
+                break;
+            case PlayerCharacterStates.Respawning:
+                break;
+            default:
+                break;
+        }
     }
 }

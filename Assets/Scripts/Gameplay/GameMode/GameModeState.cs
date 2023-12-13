@@ -11,6 +11,7 @@ namespace Game
     {
         Standby,
         Pause,
+        TransitToGameplay,
         Gameplay,
         GameOver
     }
@@ -18,18 +19,25 @@ namespace Game
     public class GameModeState
     {
         private Dictionary<int, IPlayerAttributes> m_pcToStatDictionary;
-        public int Score = 0;
-        public int Health = 0;
 
-        public UnityEvent<int, int> PlayerScoredEvent { get; private set; }
-        public UnityEvent<int, int> PlayerLifeChangedEvent { get; private set; }
+        public UnityEvent<int, int> EPlayerScored { get; private set; }
+        public UnityEvent<int, int> EPlayerLifeChanged { get; private set; }
+
+        //state
+        public GameplayState CurrentState { get; private set; }
+        public GameplayState PrevState { get; private set; }
+        public UnityEvent EGameplayStateChanged { get; private set; }
+
+        //time
+        private float m_elapsedTime = 0f;
 
         public void Initialize()
         {
             m_pcToStatDictionary = new Dictionary<int, IPlayerAttributes>();
 
-            PlayerScoredEvent = new UnityEvent<int, int>();
-            PlayerLifeChangedEvent = new UnityEvent<int, int>();
+            EPlayerScored = new UnityEvent<int, int>();
+            EPlayerLifeChanged = new UnityEvent<int, int>();
+            EGameplayStateChanged = new UnityEvent();
         }
 
         public bool RegisterPlayer(PlayerController pc)
@@ -92,6 +100,13 @@ namespace Game
             }
 
             return default(IPlayerAttributes);
+        }
+
+        public void SetState(GameplayState newState)
+        {
+            PrevState = CurrentState;
+            CurrentState = newState;
+            EGameplayStateChanged?.Invoke();
         }
     }
 }

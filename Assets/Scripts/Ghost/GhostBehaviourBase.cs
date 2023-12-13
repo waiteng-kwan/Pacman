@@ -55,13 +55,6 @@ public class GhostBehaviourBase : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //testing!!!!
-        SetIsAI();
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -121,7 +114,7 @@ public class GhostBehaviourBase : MonoBehaviour
         m_ghostRespawnZone = respawnZone;
     }
 
-    void SetIsAI(bool isAI = true)
+    public void SetIsAI(bool isAI = true)
     {
         if(isAI)
         {

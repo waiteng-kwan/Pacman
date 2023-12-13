@@ -9,7 +9,10 @@ public class StageUIView : MonoBehaviour
     private TextMeshProUGUI m_scoreCounter;
     [SerializeField]
     private TextMeshProUGUI m_lifeCounter;
+    [SerializeField]
+    private GameObject m_cdGrp;
 
     public TextMeshProUGUI ScoreCounter => m_scoreCounter;
     public TextMeshProUGUI LifeCounter => m_lifeCounter;
+    public GameObject CountdownGroup => m_cdGrp;
 }

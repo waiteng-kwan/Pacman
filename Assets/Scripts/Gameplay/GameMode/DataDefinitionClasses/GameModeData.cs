@@ -23,4 +23,7 @@ public class GameModeData : ScriptableObject
 
     [Header("UI")]
     public GameObject StageUI;
+
+    [Header("Gameplay")]
+    public float InitialWaitTimeBeforeGhostMove = 3f;
 }

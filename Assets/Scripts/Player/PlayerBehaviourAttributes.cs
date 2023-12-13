@@ -8,8 +8,7 @@ namespace Game
     {
         Alive,
         Dead,
-        Respawning,
-        Invul
+        Respawning
     }
 
     public class PlayerBehaviourAttributes : MonoBehaviour
@@ -19,6 +18,7 @@ namespace Game
 
         private PlayerCharacterStates m_currState;
         public PlayerCharacterStates CurrentState => m_currState;
+        private bool m_isInvul;
 
         public void SetState(PlayerCharacterStates state)
         {
@@ -35,6 +35,17 @@ namespace Game
         public void SetEatGhostStateInactive()
         {
             m_canEatGhosts = false;
+        }
+
+        public bool IsPlayerInvul()
+        {
+            //only invul when dead or respawning
+            return m_currState != PlayerCharacterStates.Alive;
+        }
+
+        public void SetIsPlayerInvul(bool isInvul)
+        {
+            m_isInvul = isInvul;
         }
     }
 }

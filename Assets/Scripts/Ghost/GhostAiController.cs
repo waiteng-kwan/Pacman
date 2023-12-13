@@ -11,6 +11,7 @@ namespace Game
         Patrol,      //waiting to leave zone
         Chasing,     //wobbling around,
         Returning,   //chasing player
+        RunAway      //running away from player
     }
 
     public class GhostAiController : MonoBehaviour, IGhostAi
@@ -49,14 +50,16 @@ namespace Game
             m_stateToFuncDict.Add(GhostAiState.Patrol, Patrol);
             m_stateToFuncDict.Add(GhostAiState.Chasing, ChasePlayer);
             m_stateToFuncDict.Add(GhostAiState.Returning, Returning);
+            m_stateToFuncDict.Add(GhostAiState.RunAway, RunAway);
 
             //set up navmesh agent
             m_agent = gameObject.AddComponent<NavMeshAgent>();
             m_agent.agentTypeID = GameObject.FindGameObjectWithTag("Floor").GetComponent<NavMeshSurface>().agentTypeID;
             m_agent.baseOffset = 0.5f;
             m_agent.stoppingDistance = 0.5f;
+            m_agent.angularSpeed = 270f;
 
-            Invoke("Test", 3f);
+            Invoke("Test", 1f);
         }
 
         private void OnDisable()
@@ -80,8 +83,6 @@ namespace Game
         void Test()
         {
             PrepChangeState(GhostAiState.Idle);
-
-            //SetNextState(GhostAiState.Chasing);
         }
 
         private void Update()
@@ -139,6 +140,18 @@ namespace Game
                     m_navData.ClearIdle();
                     var col = m_ghost.GhostRespawnZone;
 
+                    if (!col)
+                    {
+                        Debug.Log("No collider for ghost respawn zone found!");
+                        return;
+                    }
+
+                    if (!col.enabled)
+                    {
+                        //enable so extents can be calculated
+                        col.enabled = true;
+                    }
+
                     for (int i = 0; i < 2; i++)
                     {
                         //get random point on extent
@@ -166,9 +179,14 @@ namespace Game
 
                     //next time get closest player or something
 
+                    //temp!!
                     m_playerTarget = FindObjectOfType<PlayerBehaviour>();
                     break;
                 case GhostAiState.Returning:
+                    m_agent.autoBraking = false;
+
+                    break;
+                case GhostAiState.RunAway:
                     m_agent.autoBraking = false;
 
                     break;
@@ -199,8 +217,6 @@ namespace Game
         /// </summary>
         void Idle()
         {
-            print("Idkle");
-
             var distance = (transform.position - m_destination).sqrMagnitude;
 
             if(distance <= 1f)
@@ -210,7 +226,6 @@ namespace Game
                     m_currChangeStateTime -= Time.deltaTime;
                     return;
                 }
-
                 m_destination = m_navData.NextPointOnIdlePath();
                 SetDestination(m_destination);
 
@@ -219,11 +234,23 @@ namespace Game
             }
         }
 
+        /// <summary>
+        /// This is the state where the player has not been detected and ghost isn't chasing it.
+        /// By default this is the state that will happen most frequently outside of idle.
+        /// Can get out of this state when detecting player
+        /// </summary>
         void Patrol()
         {
             print("pattrol");
         }
 
+        /// <summary>
+        /// This fn is called when state is chasing player.
+        /// Stop condition: when player is no longer alive
+        /// @todo: 
+        /// - set different ways of chasing player, coordination etc
+        /// - get new target (multiplayer)
+        /// </summary>
         void ChasePlayer()
         {
             print("chgase");
@@ -239,14 +266,27 @@ namespace Game
 
                 //add recalculate here next time
 
-                SetNextState(GhostAiState.Idle);
+                SetNextState(GhostAiState.Returning);
             }
         }
 
+        /// <summary>
+        /// This fn is called when player has finished chasing.
+        /// </summary>
         void Returning()
         {
             print("return");
 
+            //once finish returning to og point, then set to patrol
+            SetNextState(GhostAiState.Patrol);
+        }
+
+        /// <summary>
+        /// This fn is the default state when player is able to eat ghosts.
+        /// </summary>
+        void RunAway()
+        {
+            print("Run away!!!");
         }
 
         float GetRandomStateChangeDampingPoint()
