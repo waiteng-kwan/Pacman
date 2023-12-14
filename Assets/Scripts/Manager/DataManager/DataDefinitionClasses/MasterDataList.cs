@@ -7,6 +7,9 @@ using UnityEngine;
 menuName = "Scriptable Objects/MasterDataList Data", order = 1)]
 public class MasterDataList : ScriptableObject
 {
+    [Header("Data")]
+    public MasterSceneList SceneData;
+
     [Header("Characters")]
     public PlayerBehaviour PlayerCharacterPrefab;
     public List<PacmanBaseData> m_charModelDataList = new List<PacmanBaseData>();

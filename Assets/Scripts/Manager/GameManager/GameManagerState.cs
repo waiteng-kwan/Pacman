@@ -74,10 +74,9 @@ namespace Game
         {
             PreviousState = CurrentState;
             CurrentState = GameInstanceStates.Loading;
+            NextState = newState;
 
             m_stateChangeCallback(PreviousState, CurrentState, NextState);
-
-            NextState = newState;
         }
     }
 }

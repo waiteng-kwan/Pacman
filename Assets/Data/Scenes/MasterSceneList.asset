@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091a12a4344727f4f938eda6afdda4f9, type: 3}
+  m_Name: MasterSceneList
+  m_EditorClassIdentifier: 
+  SceneList:
+  - TypeOfScene: 0
+    SceneObj:
+      asset: {fileID: 102900000, guid: c434dabc02c7b054c9a5ce9ef316e71e, type: 3}
+      guid: c434dabc02c7b054c9a5ce9ef316e71e
+    SceneName: LoadingUI
+    LoadSceneMode: 1
+    BoundToGameState: 5
+  - TypeOfScene: 1
+    SceneObj:
+      asset: {fileID: 102900000, guid: f802c9557a5a0d64d99c50dc4b545820, type: 3}
+      guid: f802c9557a5a0d64d99c50dc4b545820
+    SceneName: BasicPacmanLevel
+    LoadSceneMode: 1
+    BoundToGameState: 3

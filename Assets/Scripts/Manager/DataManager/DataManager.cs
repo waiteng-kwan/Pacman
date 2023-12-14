@@ -38,16 +38,16 @@ public class DataManager : MonoBehaviour, IManager
 
     public void PreStateChange(GameInstanceStates currentState)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnStateChange(GameInstanceStates prevState, GameInstanceStates currState, GameInstanceStates nextState)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void PostStateChange(GameInstanceStates nextState)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 }

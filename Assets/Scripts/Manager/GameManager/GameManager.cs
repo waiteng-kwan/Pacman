@@ -79,8 +79,8 @@ namespace Game
             var mgrs = Instance.m_data.MgrList;
 
             //create all subsystems
-            mgrs.Add(ManagerType.Scene, SceneManager.CreateInstance());
             mgrs.Add(ManagerType.Data, DataManager.CreateInstance(Instance.gameObject));
+            mgrs.Add(ManagerType.Scene, SceneManager.CreateInstance());
             mgrs.Add(ManagerType.Audio, AudioManager.CreateInstance());
 
             //register subsystems
@@ -107,6 +107,7 @@ namespace Game
 
         public void ChangeState(GameInstanceStates newState)
         {
+            //m_data.NextState = newState;
             //prep state change stuff here
             foreach (var mgr in Instance.m_data.MgrList.Values)
             {
