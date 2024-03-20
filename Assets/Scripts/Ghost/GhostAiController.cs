@@ -14,7 +14,7 @@ namespace Game
         RunAway      //running away from player
     }
 
-    public class GhostAiController : MonoBehaviour, IGhostAi
+    public class GhostAiController : CharacterController, IGhostAi
     {
         [Header("Debug View")]
         [NaughtyAttributes.ReadOnly, SerializeField]
@@ -168,7 +168,9 @@ namespace Game
                     }
 
                     m_destination = m_navData.CurrentPointOnIdlePath();
-                    SetDestination(m_destination);
+
+                    if(!m_ghost.IsDead)
+                        SetDestination(m_destination);
                     break;
                 case GhostAiState.Patrol:
                     m_agent.autoBraking = false;

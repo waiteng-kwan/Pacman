@@ -2,6 +2,8 @@ using Eflatun.SceneReference;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using USceneMgr = UnityEngine.SceneManagement.SceneManager;
@@ -25,39 +27,27 @@ namespace Game
 
         public void PreStateChange(GameInstanceStates currentState)
         {
-            
-            switch (currentState)
-            {
-                case GameInstanceStates.None:
+            var toUnload = m_state.ActiveSceneQueue;
 
-                    break;
-                case GameInstanceStates.Menu:
-                    break;
-                case GameInstanceStates.CharSelect:
-                    break;
-                case GameInstanceStates.Gameplay:
-                    break;
-                case GameInstanceStates.Result:
-                    break;
-                case GameInstanceStates.Loading:
-                    
-                    break;
-                default:
-                    break;
+            foreach (var sceneData in toUnload)
+            {
+                m_state.AddSceneToUnload(sceneData);
             }
         }
 
         public void OnStateChange(GameInstanceStates prevState, GameInstanceStates currState, GameInstanceStates nextState)
         {
             //curr state will always be loading
-            LoadScene(m_state.LoadingScene);
+            if (USceneMgr.GetActiveScene().name != "Initialization")
+                LoadScene(m_state.LoadingScene);
 
+            List<CustomSceneData> scene = new List<CustomSceneData>();
             switch (nextState)
             {
                 case GameInstanceStates.None:
                     break;
                 case GameInstanceStates.Menu:
-                    LoadScene(m_state.MasterSceneList.SceneList[1]);
+                    scene = m_state.MasterSceneList.Find(GameInstanceStates.Menu);
                     break;
                 case GameInstanceStates.CharSelect:
                     break;
@@ -69,28 +59,28 @@ namespace Game
                     break;
                 default:
                     break;
+            }
+
+            foreach (var s in scene)
+            {
+                LoadScene(s);
             }
         }
 
         public void PostStateChange(GameInstanceStates nextState)
         {
-            switch (nextState)
+            if(GetAllScenes().Count() > 2)
+                UnloadScene(m_state.LoadingScene);
+
+            foreach (var sceneData in m_state.NextToUnloadSceneQueue)
             {
-                case GameInstanceStates.None:
-                    break;
-                case GameInstanceStates.Menu:
-                    break;
-                case GameInstanceStates.CharSelect:
-                    break;
-                case GameInstanceStates.Gameplay:
-                    break;
-                case GameInstanceStates.Result:
-                    break;
-                case GameInstanceStates.Loading:
-                    break;
-                default:
-                    break;
+                UnloadScene(sceneData);
             }
+        }
+
+        public IManager RetrieveInterface()
+        {
+            return this;
         }
 
         public void RegisterManager(GameManager mgr)
@@ -103,11 +93,16 @@ namespace Game
             USceneMgr.sceneUnloaded += OnSceneUnloaded;
             USceneMgr.sceneLoaded += OnSceneLoaded;
 
+            var currScenes = GetAllScenes();
+
+            //first load
+            foreach (var s in currScenes)
+            {
+                var data = m_state.MasterSceneList.Find(s.name);
+                m_state.AddActiveScenes(data);
+            }
+
             m_state.Initialize();
-        }
-        public IManager RetrieveInterface()
-        {
-            return this;
         }
 
         public void ShutdownManager(GameManager mgr)
@@ -118,17 +113,79 @@ namespace Game
         }
         #endregion
 
-        private void FirstSceneSwitch()
+        private void LoadScene(CustomSceneData data, bool async = true)
         {
-
+            if (async)
+            {
+                LoadNonAddressableSceneAsync(data);
+            }
+            else
+            {
+                USceneMgr.LoadScene(data.SceneObj.Name, data.LoadSceneMode);
+            }
         }
 
-        private void LoadScene(CustomSceneData data)
+        private void UnloadScene(CustomSceneData data)
         {
-            USceneMgr.LoadScene(data.SceneObj.Name, data.LoadSceneMode);
+            UnloadNonAddressableSceneAsync(data);
         }
 
         #region Default Unity Scene Manager
+        Scene[] GetAllScenes()
+        {
+            Scene[] rt = new Scene[USceneMgr.sceneCount];
+
+            for (int i = 0; i < USceneMgr.sceneCount; i++)
+            {
+                rt[i] = USceneMgr.GetSceneAt(i);
+            }
+
+            return rt;
+        }
+
+        void LoadNonAddressableSceneAsync(CustomSceneData data)
+        {
+            AsyncOperation handle = USceneMgr.LoadSceneAsync(data.SceneName, data.LoadSceneMode);
+            handle.completed += OnNonAddressableSceneLoaded;
+        }
+
+        private void OnNonAddressableSceneLoaded(AsyncOperation operation)
+        {
+            //clean up
+            operation.completed -= OnNonAddressableSceneLoaded;
+
+            if (operation.isDone)
+            {
+                Debug.Log("whee");
+            }
+        }
+
+        void UnloadNonAddressableSceneAsync(CustomSceneData data)
+        {
+            try
+            {
+                AsyncOperation handle = USceneMgr.UnloadSceneAsync(data.SceneObj.Name);
+
+                handle.completed += OnNonAddressableSceneUnloaded;
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Error unloading async with unity scene manager " + e);
+            }
+        }
+
+
+        private void OnNonAddressableSceneUnloaded(AsyncOperation operation)
+        {
+            //clean up
+            operation.completed -= OnNonAddressableSceneUnloaded;
+
+            if (operation.isDone)
+            {
+                Debug.Log("boooo");
+            }
+        }
+
         #endregion
 
         #region By Addressables
@@ -140,15 +197,14 @@ namespace Game
             Debug.Log($"Scene switch from {prev.name} to {newScene.name}");
         }
 
-
         private void OnSceneLoaded(Scene newScene, LoadSceneMode mode)
         {
-            Debug.Log($"Scene unloded from {newScene.name}");
+            Debug.Log($"Scene loaded {newScene.name}");
         }
 
         void OnSceneUnloaded(Scene prev)
         {
-            Debug.Log($"Scene unloded from {prev.name}");
+            Debug.Log($"Scene unloaded {prev.name}");
         }
         #endregion
     }

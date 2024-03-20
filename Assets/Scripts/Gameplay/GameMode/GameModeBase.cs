@@ -15,12 +15,11 @@ namespace Game
         //temp
         static GameModeBase m_instance;
         public static GameModeBase Instance => m_instance;
-        [SerializeField] private GameModeData m_settings;
-        public GameModeData Settings => m_settings;
+        [field: SerializeField]
+        public GameModeData Settings { get; private set; }
 
-        [ReadOnly]
-        private GameBoardInstance m_gameBoard;
-        public GameBoardInstance Board => m_gameBoard;
+        [field: SerializeField, ReadOnly]
+        public GameBoardInstance Board { get; private set; }
 
         private List<GhostBehaviourBase> m_ghosts = new List<GhostBehaviourBase>();
 
@@ -31,17 +30,16 @@ namespace Game
         #region Set Up
         private void OnValidate()
         {
-            m_gameBoard = FindObjectOfType<GameBoardInstance>();
+            Board = FindObjectOfType<GameBoardInstance>();
         }
         private void Awake()
         {
             m_instance = this;
-            m_gameBoard = FindObjectOfType<GameBoardInstance>();
+            Board = FindObjectOfType<GameBoardInstance>();
         }
 
         private void Start()
         {
-            m_data.Initialize();
             m_data.EGameplayStateChanged.AddListener(OnGameStateChange);
 
             m_data.SetState(GameplayState.Standby);
@@ -49,7 +47,7 @@ namespace Game
 
         private void Update()
         {
-            
+
         }
 
         private void OnGameStateChange()
@@ -68,15 +66,15 @@ namespace Game
                 case GameplayState.TransitToGameplay:
                     print("321 go!");
 
+                    //ready up stuff here
+
+                    //then go to game play
+                    m_data.SetState(GameplayState.Gameplay);
                     break;
                 case GameplayState.Gameplay:
-
-                    if (prevState == GameplayState.Standby)
+                    foreach (var g in m_ghosts)
                     {
-                        foreach (var g in m_ghosts)
-                        {
-                            g.GetComponent<GhostAiController>().SetNextState(GhostAiState.Chasing);
-                        }
+                        g.GetComponent<GhostAiController>().SetNextState(GhostAiState.Chasing);
                     }
                     break;
                 case GameplayState.GameOver:
@@ -111,12 +109,14 @@ namespace Game
                 //spawn ghosts!!
                 InstantiateGhosts(4);
 
-                Instantiate(m_settings.StageUI, Vector3.zero, Quaternion.identity);
+                //instantiate UI
+                Instantiate(Settings.StageUI, Vector3.zero, Quaternion.identity);
             }
 
             //init done, wait for stuff
 
-            yield return new WaitForSeconds(3f);
+            //wait for count down
+            yield return new WaitForSeconds(Settings.SecondsBeforeGameStart);
 
             //move to next state
             m_data.SetState(GameplayState.TransitToGameplay);
@@ -146,11 +146,14 @@ namespace Game
 
                 //spawn player controller
                 PlayerController pc = Instantiate(masterList.PlayerControllerPrefab, Vector3.zero, Quaternion.identity);
-                m_data.RegisterPlayer(pc);
+                m_data.RegisterPlayer(pc, ind);
                 m_data.UpdatePlayerHealth(ind, Settings.StartingHealth);
 
+                //get player spawn position
+                Vector3 spawnPos = Board.GetPlayerSpawnPoint();
+
                 //spawn character
-                PlayerBehaviour character = Instantiate(masterList.PlayerCharacterPrefab);
+                PlayerBehaviour character = Instantiate(masterList.PlayerCharacterPrefab, spawnPos, Quaternion.identity);
                 character.SetData(masterList.m_charModelDataList[0]);
 
                 pc.PossessCharacter(character);
@@ -183,7 +186,7 @@ namespace Game
                 g.SetData(masterList.m_ghostModelDataList[0]);
 
                 //set position
-                (Vector3 pos, Collider c) = m_gameBoard.GetRandomPointAndGhostSpawnZone();
+                (Vector3 pos, Collider c) = Board.GetRandomPointAndGhostSpawnZone();
                 g.transform.position = pos;
                 g.PickRespawnZone(c);
                 g.SetIsAI();
@@ -200,13 +203,13 @@ namespace Game
             ghost.Die();
 
             //pick random respawn zone
-            Collider col = m_gameBoard.GetGhostSpawnZone(0, true);
+            Collider col = Board.GetGhostSpawnZone(0, true);
             ghost.PickRespawnZone(col);
         }
 
         public void SetGameBoardInstance(GameBoardInstance board)
         {
-            m_gameBoard = board;
+            Board = board;
         }
 
         #region Player Crap
@@ -320,7 +323,7 @@ namespace Game
 
         public bool CanGameEnd()
         {
-            return m_gameBoard.CanGameEnd();
+            return Board.CanGameEnd();
         }
 
         public int CalculateWhichPlayerWon()

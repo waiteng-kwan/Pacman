@@ -8,6 +8,9 @@ using static CustomSceneData;
 menuName = "Scriptable Objects/MasterSceneList Data", order = 1)]
 public class MasterSceneList : ScriptableObject
 {
+    //to ensure it wont be too short and look weird
+    public float GlobalCommonMinLoadTime = 2f;
+
     public List<CustomSceneData> SceneList = new List<CustomSceneData>();
 
     private void OnValidate()
@@ -30,7 +33,6 @@ public class MasterSceneList : ScriptableObject
         //return SceneList.Find(x => x.SceneName.Equals(name));
         return SceneList.Find(x => x.SceneObj.Name.Equals(name));
     }
-
 
     public List<CustomSceneData> Find(GameInstanceStates state)
     {

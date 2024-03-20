@@ -1,4 +1,5 @@
 using Client;
+using Service;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ namespace Game
         [Header("Debug purposes")]
         [SerializeField]
         private GameInstanceStates m_startStateDEBUG = GameInstanceStates.Menu;
+        public GameInstanceStates CurrentState => m_data.CurrentState;
+        public GameInstanceStates PrevState => m_data.PreviousState;
+        public GameInstanceStates NextState => m_data.NextState;
 
         private static void CreateInstance()
         {
@@ -95,6 +99,11 @@ namespace Game
             }
 
             //switch out state
+            Instance.StartCoroutine(Instance.WaitForStateChange(1f, () => { Instance.OnFirstStateChange(); }));
+        }
+
+        void OnFirstStateChange()
+        {
 #if DEV || UNITY_EDITOR || DEVELOPMENT_BUILD
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Initialization")
             {
@@ -107,7 +116,8 @@ namespace Game
 
         public void ChangeState(GameInstanceStates newState)
         {
-            //m_data.NextState = newState;
+            float startTime = Time.time;
+
             //prep state change stuff here
             foreach (var mgr in Instance.m_data.MgrList.Values)
             {
@@ -117,22 +127,39 @@ namespace Game
             //data change state
             m_data.ChangeState(newState);
 
-            //after state change stuff
-            foreach (var mgr in Instance.m_data.MgrList.Values)
+            float elapsedTime = Time.time;
+
+            float waitTime = GetManager<DataManager>(ManagerType.Data).MasterDataList.SceneData.GlobalCommonMinLoadTime;
+
+            if (elapsedTime - startTime < waitTime)
             {
-                mgr.PostStateChange(newState);
+                waitTime -= elapsedTime;
+
+                StartCoroutine(
+                    WaitForStateChange(waitTime, () =>
+                    {
+                        //after state change stuff
+                        foreach (var mgr in Instance.m_data.MgrList.Values)
+                        {
+                            mgr.PostStateChange(newState);
+                        }
+                    }));
             }
         }
 
         private void OnStateChange(GameInstanceStates prevState,
             GameInstanceStates currState, GameInstanceStates nextState)
         {
-            print("henshin1");
-
             foreach(var mgr in  Instance.m_data.MgrList.Values)
             {
                 mgr.OnStateChange(prevState, currState, nextState);
             }
+        }
+
+        private IEnumerator WaitForStateChange(float s, Action callback)
+        {
+            yield return new WaitForSeconds(s);
+            callback?.Invoke();
         }
 
         private void InitializeState()

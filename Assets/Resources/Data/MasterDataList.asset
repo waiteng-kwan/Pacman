@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35da22d089e7cbf4783f08a707c19388, type: 3}
   m_Name: MasterDataList
   m_EditorClassIdentifier: 
+  SceneData: {fileID: 11400000, guid: ec260f475d1608d4387b88ac6ffb6553, type: 2}
   PlayerCharacterPrefab: {fileID: 7857259387076297088, guid: 7fc36ae49248efb40862723defa131ac,
     type: 3}
   m_charModelDataList:

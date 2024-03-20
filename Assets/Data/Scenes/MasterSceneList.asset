@@ -12,7 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091a12a4344727f4f938eda6afdda4f9, type: 3}
   m_Name: MasterSceneList
   m_EditorClassIdentifier: 
+  GlobalCommonMinLoadTime: 2
   SceneList:
+  - TypeOfScene: 4
+    SceneObj:
+      asset: {fileID: 102900000, guid: 1e1a75dbd84222a40b1f48d58a8c8047, type: 3}
+      guid: 1e1a75dbd84222a40b1f48d58a8c8047
+    SceneName: Initialization
+    LoadSceneMode: 0
+    BoundToGameState: 3
+    IsActiveSceneWhenLoaded: 0
   - TypeOfScene: 0
     SceneObj:
       asset: {fileID: 102900000, guid: c434dabc02c7b054c9a5ce9ef316e71e, type: 3}
@@ -20,6 +29,7 @@ MonoBehaviour:
     SceneName: LoadingUI
     LoadSceneMode: 1
     BoundToGameState: 5
+    IsActiveSceneWhenLoaded: 1
   - TypeOfScene: 1
     SceneObj:
       asset: {fileID: 102900000, guid: f802c9557a5a0d64d99c50dc4b545820, type: 3}
@@ -27,3 +37,12 @@ MonoBehaviour:
     SceneName: BasicPacmanLevel
     LoadSceneMode: 1
     BoundToGameState: 3
+    IsActiveSceneWhenLoaded: 0
+  - TypeOfScene: 0
+    SceneObj:
+      asset: {fileID: 102900000, guid: 35b7ca665286e9d4d865a6def942d882, type: 3}
+      guid: 35b7ca665286e9d4d865a6def942d882
+    SceneName: MainMenuUI
+    LoadSceneMode: 1
+    BoundToGameState: 1
+    IsActiveSceneWhenLoaded: 0

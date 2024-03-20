@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GhostBehaviourBase : MonoBehaviour
+public class GhostBehaviourBase : PawnBase
 {
     public enum GhostState
     {
@@ -15,6 +15,7 @@ public class GhostBehaviourBase : MonoBehaviour
         Dead,
         Respawning     //loops back to standby
     }
+    public bool IsDead { get; private set; } = false;
 
     [Header("Data")]
     [SerializeField, NaughtyAttributes.Expandable]
@@ -88,6 +89,8 @@ public class GhostBehaviourBase : MonoBehaviour
         GetComponent<GhostAiController>().enabled = false;
 
         m_currGState = GhostState.Dead;
+        IsDead = true;
+
         StartCoroutine(Blink());
     }
 
@@ -104,6 +107,7 @@ public class GhostBehaviourBase : MonoBehaviour
         pos.z = Random.Range(m_ghostRespawnZone.bounds.min.z, m_ghostRespawnZone.bounds.max.z);
         transform.position = pos;
 
+        IsDead = false;
         GetComponent<GhostAiController>().enabled = true;
 
         m_model.gameObject.SetActive(true);
@@ -118,8 +122,11 @@ public class GhostBehaviourBase : MonoBehaviour
     {
         if(isAI)
         {
-            gameObject.AddComponent<GhostAiController>();
-            GetComponent<GhostAiController>().SetPawn(this);
+            GhostAiController ai = GetComponent<GhostAiController>();
+            if (!ai)
+                ai = gameObject.AddComponent<GhostAiController>();
+
+            ai.SetPawn(this);
         }
     }
 
@@ -131,6 +138,7 @@ public class GhostBehaviourBase : MonoBehaviour
         {
             m_model.gameObject.SetActive(false);
             yield return new WaitForSeconds(0.5f);
+
             m_model.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.5f);
             currTime += 1f;

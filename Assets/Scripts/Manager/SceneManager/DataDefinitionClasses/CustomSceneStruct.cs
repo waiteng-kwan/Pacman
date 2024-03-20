@@ -11,7 +11,8 @@ public struct CustomSceneData
         UI,
         Game,
         Environment,
-        Loading
+        Loading,
+        Init
     }
 
     public SceneType TypeOfScene;
@@ -21,4 +22,5 @@ public struct CustomSceneData
 
     [Header("Optional")]
     public GameInstanceStates BoundToGameState;
+    public bool IsActiveSceneWhenLoaded;
 }

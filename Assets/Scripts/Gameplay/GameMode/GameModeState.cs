@@ -9,7 +9,7 @@ namespace Game
 {
     public enum GameplayState
     {
-        Standby,
+        Standby = 0,
         Pause,
         TransitToGameplay,
         Gameplay,
@@ -18,29 +18,24 @@ namespace Game
 
     public class GameModeState
     {
-        private Dictionary<int, IPlayerAttributes> m_pcToStatDictionary;
+        private Dictionary<int, IPlayerAttributes> m_pcToStatDictionary =
+            new Dictionary<int, IPlayerAttributes>();
 
-        public UnityEvent<int, int> EPlayerScored { get; private set; }
-        public UnityEvent<int, int> EPlayerLifeChanged { get; private set; }
+        public UnityEvent<int, int> EPlayerScored { get; private set; } =
+            new UnityEvent<int, int>();
+        public UnityEvent<int, int> EPlayerLifeChanged { get; private set; } =
+            new UnityEvent<int, int>();
 
         //state
-        public GameplayState CurrentState { get; private set; }
-        public GameplayState PrevState { get; private set; }
-        public UnityEvent EGameplayStateChanged { get; private set; }
+        public GameplayState CurrentState { get; private set; } = GameplayState.Standby;
+        public GameplayState PrevState { get; private set; } = GameplayState.Standby;
+        public UnityEvent EGameplayStateChanged { get; private set; } =
+            new UnityEvent();
 
         //time
         private float m_elapsedTime = 0f;
 
-        public void Initialize()
-        {
-            m_pcToStatDictionary = new Dictionary<int, IPlayerAttributes>();
-
-            EPlayerScored = new UnityEvent<int, int>();
-            EPlayerLifeChanged = new UnityEvent<int, int>();
-            EGameplayStateChanged = new UnityEvent();
-        }
-
-        public bool RegisterPlayer(PlayerController pc)
+        public bool RegisterPlayer(PlayerController pc, int index = 0)
         {
             if (m_pcToStatDictionary.TryGetValue(pc.Index, out var stat))
             {
@@ -53,6 +48,8 @@ namespace Game
             attrib.SetHealth(GameModeBase.Instance.Settings.StartingHealth);
 
             m_pcToStatDictionary.Add(pc.Index, attrib);
+
+            pc.SetIndex(index);
             return true;
         }
 

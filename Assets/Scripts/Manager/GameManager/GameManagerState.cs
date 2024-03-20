@@ -39,7 +39,7 @@ namespace Game
         private Dictionary<ManagerType, IManager> m_managers;
         public Dictionary<ManagerType, IManager> MgrList => m_managers;
 
-        public Services Services;
+        public Service.Services Services;
 
         public void Initialize()
         {

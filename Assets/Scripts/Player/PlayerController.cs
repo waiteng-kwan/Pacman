@@ -6,19 +6,15 @@ using UnityEngine;
 
 namespace Client
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : CharacterController
     {
         [SerializeField]
         private PlayerBehaviour m_playerCharacter;
         public PlayerBehaviour PlayerCharacter => m_playerCharacter;
 
-        [SerializeField, ReadOnly]
-        private int m_playerIndex;
-        public int Index => m_playerIndex;
-
         private void Awake()
         {
-            if(GameModeBase.Instance)
+            if(GameModeBase.Instance && Index < 0)
                 GameModeBase.Instance.RegisterPlayer(this);
         }
 
@@ -57,7 +53,7 @@ namespace Client
 
         public void SetIndex(int index)
         {
-            m_playerIndex = index;
+            Index = index;
         }
     }
 }

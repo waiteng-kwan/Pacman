@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SceneManagerState
 {
-    public Queue<CustomSceneData> LoadedSceneData = new Queue<CustomSceneData>();
+    public Queue<CustomSceneData> ActiveSceneQueue = new Queue<CustomSceneData>();
     public Queue<CustomSceneData> NextToLoadSceneQueue = new Queue<CustomSceneData>();
     public Queue<CustomSceneData> NextToUnloadSceneQueue = new Queue<CustomSceneData>();
 
@@ -29,9 +29,9 @@ public class SceneManagerState
         NextToUnloadSceneQueue.Enqueue(scene);
     }
 
-    public void PopSceneToUnload()
+    public CustomSceneData PopSceneToUnload()
     {
-        NextToUnloadSceneQueue.Dequeue();
+        return NextToUnloadSceneQueue.Dequeue();
     }
 
     public void AddSceneToLoad(CustomSceneData scene)
@@ -39,18 +39,18 @@ public class SceneManagerState
         NextToLoadSceneQueue.Enqueue(scene);
     }
 
-    public void PopSceneToLoad()
+    public CustomSceneData PopSceneToLoad()
     {
-        NextToLoadSceneQueue.Dequeue();
+        return NextToLoadSceneQueue.Dequeue();
     }
 
     public void AddActiveScenes(CustomSceneData scene)
     {
-        LoadedSceneData.Enqueue(scene);
+        ActiveSceneQueue.Enqueue(scene);
     }
 
     public void PopActiveScenes()
     {
-        LoadedSceneData.Dequeue();
+        ActiveSceneQueue.Dequeue();
     }
 }

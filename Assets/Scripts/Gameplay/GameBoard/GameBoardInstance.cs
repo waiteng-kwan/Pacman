@@ -7,7 +7,10 @@ using UnityEngine;
 public class GameBoardInstance : MonoBehaviour
 {
     [Header("Level Stuff")]
-    [SerializeField] private Collider[] GhostRespawnZones;
+    [SerializeField] 
+    private Collider[] m_ghostRespawnZones;
+    public Transform[] m_playerSpawnPoints;
+
     private Transform m_levelParent;
     private Transform m_pelletParent;
 
@@ -34,7 +37,9 @@ public class GameBoardInstance : MonoBehaviour
 
         m_volumeToSpawnPelletsIn = transform.Find("Setup/SpawnVolumes").GetComponentInChildren<Collider>();
         m_volumesToNotSpawnPelletsIn = transform.Find("Setup/ExcludeSpawnVolumes").GetComponentsInChildren<Collider>();
-        GhostRespawnZones = m_levelParent.Find("GhostRespawnZones").GetComponentsInChildren<Collider>();
+        m_ghostRespawnZones = m_levelParent.Find("GhostRespawnZones").GetComponentsInChildren<Collider>();
+
+        m_playerSpawnPoints = Utils.GameObjectUtils.GetChildren<Transform>(m_levelParent.Find("PlayerSpawnPoints"));
     }
 
     private void Awake()
@@ -42,6 +47,12 @@ public class GameBoardInstance : MonoBehaviour
         if (m_setupParentObj != null)
         {
             Destroy(m_setupParentObj.gameObject);
+
+            //remove the colliders that were there for easy to see
+            foreach(Transform t in m_playerSpawnPoints)
+            {
+                Destroy(t.GetComponent<Collider>());
+            }
         }
     }
 
@@ -81,6 +92,7 @@ public class GameBoardInstance : MonoBehaviour
     #endregion
 
     #region Re/Spawn
+    #region Ghost
     /// <summary>
     /// Get ghost respawn zone from the list by specified index or random.
     /// Returns first instance if not specified.
@@ -94,13 +106,13 @@ public class GameBoardInstance : MonoBehaviour
         if (rand)
         {
             //the int version of random range is max exclusive
-            rt = GhostRespawnZones[Random.Range(0, GhostRespawnZones.Length)];
+            rt = m_ghostRespawnZones[Random.Range(0, m_ghostRespawnZones.Length)];
         }
         else
         {
-            if (ind >= 0 && ind < GhostRespawnZones.Length)
+            if (ind >= 0 && ind < m_ghostRespawnZones.Length)
             {
-                rt = GhostRespawnZones[ind];
+                rt = m_ghostRespawnZones[ind];
             }
         }
 
@@ -142,6 +154,14 @@ public class GameBoardInstance : MonoBehaviour
 
         return (rt, col);
     }
+    #endregion
+
+    #region Player
+    public Vector3 GetPlayerSpawnPoint(bool rand = false)
+    {
+        return m_playerSpawnPoints[rand ? 0 : Random.Range(0, m_playerSpawnPoints.Length)].position;
+    }
+    #endregion
     #endregion
 
     #region Editor Stuff
