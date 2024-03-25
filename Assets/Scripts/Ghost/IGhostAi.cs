@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface IGhostAi
 {
-    void SetPawn(GhostBehaviourBase pawn);
+    void PossessPawn(GhostBehaviourBase pawn);
 
     //state
     void SetNextState(GhostAiState value);

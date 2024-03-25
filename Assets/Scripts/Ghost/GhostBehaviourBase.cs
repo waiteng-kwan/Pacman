@@ -2,7 +2,7 @@ using Game;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class GhostBehaviourBase : PawnBase
 {
@@ -12,7 +12,7 @@ public class GhostBehaviourBase : PawnBase
         Standby,       //waiting to leave zone
         Active,        //on field
         Dying,         //extra state for animation
-        Dead,
+        Dead,          //finally dead
         Respawning     //loops back to standby
     }
     public bool IsDead { get; private set; } = false;
@@ -29,12 +29,16 @@ public class GhostBehaviourBase : PawnBase
     private Rigidbody m_rb;
     [NaughtyAttributes.ReadOnly, SerializeField]
     private Collider m_col;
-    private Collider m_ghostRespawnZone;
-    public Collider GhostRespawnZone => m_ghostRespawnZone;
+    public Collider GhostRespawnZone { get; private set; } = null;
 
     //states
     [NaughtyAttributes.ReadOnly, SerializeField]
     private GhostState m_currGState;
+
+    //events
+    //current state, new state
+    public UnityEvent<GhostState, GhostState> EOnStateChange { get; private set; } = 
+        new UnityEvent<GhostState, GhostState>();
 
     private void OnValidate()
     {
@@ -63,6 +67,11 @@ public class GhostBehaviourBase : PawnBase
         Debug.DrawRay(transform.position, Vector3.left * 5f, Color.cyan);
     }
 
+    private void OnDestroy()
+    {
+        EOnStateChange.RemoveAllListeners();
+    }
+
     public void ChangeModel()
     {
         if (m_model)
@@ -86,36 +95,39 @@ public class GhostBehaviourBase : PawnBase
     /// </summary>
     public void Die()
     {
-        GetComponent<GhostAiController>().enabled = false;
-
-        m_currGState = GhostState.Dead;
+        SwitchState(GhostState.Dying);
         IsDead = true;
+        m_col.enabled = false;
 
         StartCoroutine(Blink());
     }
 
     void StartRespawnTimer(float time)
     {
+        SwitchState(GhostState.Respawning);
+        //respawn after time
         Invoke("Respawn", time);
     }
 
     void Respawn()
     {
-        //pick respawn point
-        Vector3 pos = m_ghostRespawnZone.transform.position;
-        pos.x = Random.Range(m_ghostRespawnZone.bounds.min.x, m_ghostRespawnZone.bounds.max.x);
-        pos.z = Random.Range(m_ghostRespawnZone.bounds.min.z, m_ghostRespawnZone.bounds.max.z);
+        //REWORK THIS, THE GHOST SHOULDN'T BE PICKING
+        Vector3 pos = GhostRespawnZone.transform.position;
+        pos.x = Random.Range(GhostRespawnZone.bounds.min.x, GhostRespawnZone.bounds.max.x);
+        pos.z = Random.Range(GhostRespawnZone.bounds.min.z, GhostRespawnZone.bounds.max.z);
         transform.position = pos;
 
         IsDead = false;
-        GetComponent<GhostAiController>().enabled = true;
+        
+        SwitchState(GhostState.Standby);
 
         m_model.gameObject.SetActive(true);
+        m_col.enabled = true;
     }
 
     public void PickRespawnZone(Collider respawnZone)
     {
-        m_ghostRespawnZone = respawnZone;
+        GhostRespawnZone = respawnZone;
     }
 
     public void SetIsAI(bool isAI = true)
@@ -126,7 +138,7 @@ public class GhostBehaviourBase : PawnBase
             if (!ai)
                 ai = gameObject.AddComponent<GhostAiController>();
 
-            ai.SetPawn(this);
+            ai.PossessPawn(this);
         }
     }
 
@@ -149,5 +161,29 @@ public class GhostBehaviourBase : PawnBase
         StartRespawnTimer(m_data.RespawnTime);
 
         yield return null;
+    }
+
+    void SwitchState(GhostState nextState)
+    {
+        EOnStateChange?.Invoke(m_currGState, nextState);
+        m_currGState = nextState;
+
+        switch (nextState)
+        {
+            case GhostState.InitialSpawn:
+                break;
+            case GhostState.Standby:
+                break;
+            case GhostState.Active:
+                break;
+            case GhostState.Dying:
+                break;
+            case GhostState.Dead:
+                break;
+            case GhostState.Respawning:
+                break;
+            default:
+                break;
+        }
     }
 }

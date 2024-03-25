@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
+using GhostState = GhostBehaviourBase.GhostState;
 
 namespace Game
 {
@@ -11,7 +12,8 @@ namespace Game
         Patrol,      //waiting to leave zone
         Chasing,     //wobbling around,
         Returning,   //chasing player
-        RunAway      //running away from player
+        RunAway,     //running away from player
+        StandBy      // nothing
     }
 
     public class GhostAiController : CharacterController, IGhostAi
@@ -51,6 +53,7 @@ namespace Game
             m_stateToFuncDict.Add(GhostAiState.Chasing, ChasePlayer);
             m_stateToFuncDict.Add(GhostAiState.Returning, Returning);
             m_stateToFuncDict.Add(GhostAiState.RunAway, RunAway);
+            m_stateToFuncDict.Add(GhostAiState.StandBy, null);
 
             //set up navmesh agent
             m_agent = gameObject.AddComponent<NavMeshAgent>();
@@ -115,7 +118,8 @@ namespace Game
             }
 
             //exec
-            m_stateToFuncDict[m_currState]();
+            if (m_stateToFuncDict[m_currState] != null)
+                m_stateToFuncDict[m_currState]();
         }
 
         #region IGhostAi
@@ -134,6 +138,7 @@ namespace Game
             switch (nextState)
             {
                 case GhostAiState.Idle:
+                    m_agent.enabled = true;
                     m_agent.autoBraking = true;
 
                     //calculate path?
@@ -146,12 +151,11 @@ namespace Game
                         return;
                     }
 
-                    if (!col.enabled)
-                    {
-                        //enable so extents can be calculated
-                        col.enabled = true;
-                    }
+                    //enable so extents can be calculated
+                    col.enabled = true;
 
+                    //doing in pairs so it will always be 1 point on the min, 1 on the max
+                    //fake the idle movement
                     for (int i = 0; i < 2; i++)
                     {
                         //get random point on extent
@@ -169,7 +173,7 @@ namespace Game
 
                     m_destination = m_navData.CurrentPointOnIdlePath();
 
-                    if(!m_ghost.IsDead)
+                    if (!m_ghost.IsDead)
                         SetDestination(m_destination);
                     break;
                 case GhostAiState.Patrol:
@@ -192,6 +196,17 @@ namespace Game
                     m_agent.autoBraking = false;
 
                     break;
+
+                case GhostAiState.StandBy:
+                    print("standy");
+                    //have to turn this off if not it resets position on its own
+                    m_agent.enabled = false;
+
+                    m_agent.autoBraking = true;
+
+                    //clear path data
+                    m_agent.velocity = Vector3.zero;
+                    break;
                 default:
                     break;
             }
@@ -202,10 +217,23 @@ namespace Game
             m_currState = m_nextState;
         }
 
-        public void SetPawn(GhostBehaviourBase pawn)
+        public void PossessPawn(GhostBehaviourBase pawn)
         {
             m_ghost = pawn;
             m_settings = pawn.Data;
+
+            pawn.EOnStateChange.AddListener(OnPawnStateChange);
+        }
+
+        public void UnposessPawn(GhostBehaviourBase pawn)
+        {
+            //clean up
+            SetNextState(GhostAiState.StandBy);
+
+            m_ghost = null;
+            m_settings = null;
+
+            pawn.EOnStateChange.RemoveListener(OnPawnStateChange);
         }
 
         public void SetDestination(Vector3 destination)
@@ -221,9 +249,9 @@ namespace Game
         {
             var distance = (transform.position - m_destination).sqrMagnitude;
 
-            if(distance <= 1f)
+            if (distance <= 1f)
             {
-                if(m_currChangeStateTime > 0)
+                if (m_currChangeStateTime > 0)
                 {
                     m_currChangeStateTime -= Time.deltaTime;
                     return;
@@ -291,6 +319,34 @@ namespace Game
             print("Run away!!!");
         }
 
+        void OnPawnStateChange(GhostState oldState, GhostState newState)
+        {
+            switch (newState)
+            {
+                case GhostState.InitialSpawn:
+                    break;
+                case GhostState.Standby:
+                    SetNextState(GhostAiState.Idle);
+                    break;
+                case GhostState.Active:
+                    break;
+                case GhostState.Dying:
+                    //need to overwrite the queue, we want immediate reaction
+                    m_enqueueChangingState = true;
+                    
+                    SetNextState(GhostAiState.StandBy);
+                    break;
+                case GhostState.Dead:
+                    break;
+                case GhostState.Respawning:
+                    //teleport the ghost
+                    m_ghost.transform.position = GetRandomSpawnPointInZone();
+                    break;
+                default:
+                    break;
+            }
+        }
+
         float GetRandomStateChangeDampingPoint()
         {
             return Random.Range(m_settings.ChangeStateDampingRange.x, m_settings.ChangeStateDampingRange.y);
@@ -299,6 +355,28 @@ namespace Game
         float GetRandomIdleWaitingTime()
         {
             return Random.Range(m_settings.ChangeIdleWaitngRange.x, m_settings.ChangeIdleWaitngRange.y);
+        }
+
+        Vector3 GetRandomSpawnPointInZone()
+        {
+            var col = m_ghost.GhostRespawnZone;
+
+            if (!col)
+            {
+                Debug.Log("No collider for ghost respawn zone found!");
+                return Vector3.zero;
+            }
+
+            //enable so extents can be calculated
+            col.enabled = true;
+
+            Vector3 modelSize = m_ghost.GetComponent<Collider>().bounds.size;
+
+            //get random point on extent
+            float randX = Random.Range(col.bounds.min.x + modelSize.x, col.bounds.max.x - modelSize.x);
+            float randZ = Random.Range(col.bounds.min.z + modelSize.z, col.bounds.max.z - modelSize.z);
+
+            return new Vector3(randX, col.transform.position.y, randZ);
         }
     }
 }
