@@ -14,6 +14,9 @@ namespace Client.UI
         [field: SerializeField]
         public string TextLabel { get; private set; } = "Label";
 
+        [Header("Event Type")]
+        public UITypeToEvents EventList;
+
         public bool IsInteractable
         {
             get { return Button.interactable; }
@@ -47,7 +50,9 @@ namespace Client.UI
             if(m_disableTimekeepCr != null)
                 StopCoroutine(m_disableTimekeepCr);
 
-            m_disableTimekeepCr = StartCoroutine(DisableInteractionFor(1f));
+            m_disableTimekeepCr = StartCoroutine(DisableInteractionFor(UIConsts.GlobalButtonCooldownTime));
+
+            EventList.Execute();
         }
 
         private void SetInteractable(bool value)
