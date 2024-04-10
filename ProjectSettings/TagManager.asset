@@ -9,6 +9,7 @@ TagManager:
   - Camera
   - GhostRespawnZone
   - Floor
+  - UI
   layers:
   - Default
   - TransparentFX
