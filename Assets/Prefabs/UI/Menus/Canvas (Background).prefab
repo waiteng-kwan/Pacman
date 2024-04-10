@@ -279,12 +279,8 @@ GameObject:
   - component: {fileID: 3079269213153007345}
   - component: {fileID: 5389822591046063605}
   - component: {fileID: 9086430027738661172}
-  - component: {fileID: 1388741000972692659}
   - component: {fileID: 2443561697875777897}
   - component: {fileID: 3360535410648164507}
-  - component: {fileID: 5403511526857933793}
-  - component: {fileID: 6278343010538505920}
-  - component: {fileID: 1998815892147215828}
   m_Layer: 5
   m_Name: Txt_Title1
   m_TagString: Untagged
@@ -410,18 +406,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1388741000972692659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6986248948796204263}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91b8ba3d52e041fab2d0e0f169855539, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2443561697875777897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,52 +476,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   AngleMultiplier: 50
-  SpeedMultiplier: 1
-  CurveScale: 1
---- !u!114 &5403511526857933793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6986248948796204263}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7cfa58e417a46ea8889989684c2522e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AngleMultiplier: 1
-  SpeedMultiplier: 1
-  ScaleMultiplier: 1
-  RotationMultiplier: 1
---- !u!114 &6278343010538505920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6986248948796204263}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4e0d9ccee5f4950be8979268c9014e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AngleMultiplier: 1
-  SpeedMultiplier: 1
-  CurveScale: 1
---- !u!114 &1998815892147215828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6986248948796204263}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52ec835d14bd486f900952b77698b7eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AngleMultiplier: 1
   SpeedMultiplier: 1
   CurveScale: 1
 --- !u!1 &7850819868210152559
@@ -781,7 +719,12 @@ PrefabInstance:
     - target: {fileID: 5899725849554979112, guid: d628ed03f99d9994e8211776852aa2b7,
         type: 3}
       propertyPath: m_Name
-      value: Canvas (Background) Variant
+      value: Canvas (Background)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091577832438668947, guid: d628ed03f99d9994e8211776852aa2b7,
+        type: 3}
+      propertyPath: TransitionAnimationType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8820863442384613380, guid: d628ed03f99d9994e8211776852aa2b7,
         type: 3}
@@ -796,7 +739,7 @@ PrefabInstance:
     - target: {fileID: 8820863442384613380, guid: d628ed03f99d9994e8211776852aa2b7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8820863442384613380, guid: d628ed03f99d9994e8211776852aa2b7,
         type: 3}

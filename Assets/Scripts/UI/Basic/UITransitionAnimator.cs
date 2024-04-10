@@ -13,11 +13,16 @@ namespace Client.UI
             Fade,
             Ease,
             Blink,
-            Custom
+            Custom,
+            None
         }
 
         private Animator m_animator;
         public AnimationType TransitionAnimationType;
+        [SerializeField, ReadOnly]
+        private string m_animationName;
+
+        private Coroutine m_transitionCr;
 
         private void OnValidate()
         {
@@ -29,10 +34,19 @@ namespace Client.UI
         {
             base.DoTransition();
 
-            string append = IsTransitOut ? "Out" : "In";
+            //if its none then dont play
+            if (TransitionAnimationType == AnimationType.None)
+                return;
 
-            m_animator.ResetTrigger(TransitionAnimationType.ToString() + append);
-            m_animator.SetTrigger(TransitionAnimationType.ToString() + append);
+            string append = IsTransitOut ? "Out" : "In";
+            m_animationName = TransitionAnimationType.ToString() + append;
+
+            m_animator.ResetTrigger(m_animationName);
+
+            if (m_transitionCr != null)
+                StopCoroutine(m_transitionCr);
+
+            m_transitionCr = StartCoroutine(DoTransitionCr(IsTransitOut));
         }
 
         bool AnimatorIsPlaying()
@@ -49,9 +63,47 @@ namespace Client.UI
         IEnumerator WaitForAnimation()
         {
             while (AnimatorIsPlaying())
-            {
                 yield return new WaitForSeconds(.2f);
+        }
+
+        IEnumerator DoTransitionCr(bool isIn)
+        {
+            if (isIn)
+            {
+                TransitionEvent.OnRaised?.Invoke();
             }
+            else
+            {
+                TransitionEvent.OnClosed?.Invoke();
+            }
+
+            yield return DoTransitionCrInner(m_animationName);
+
+            if (isIn)
+                TransitionEvent.OnRaisedFinished?.Invoke();
+            else
+                TransitionEvent.OnClosedFinished?.Invoke();
+
+            yield break;
+        }
+
+        private IEnumerator DoTransitionCrInner(string animName)
+        {
+            var stateId = Animator.StringToHash(animName);
+            var hasState = m_animator.HasState(0, stateId);
+            if (!hasState)
+            {
+                Debug.LogError($"no such state name {animName}");
+                yield break;
+            }
+            m_animator.Play(stateId, 0, 0);
+
+            //wait 1 frame to start
+            yield return null;
+
+            //wait for animation to finish
+            while (m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.99f)
+                yield return null;
         }
     }
 }

@@ -8,18 +8,8 @@ namespace Client.UI
     {
         public UnityEvent OnRaised = new();
         public UnityEvent OnRaisedFinished = new();
-        //public UnityEvent OnClosed = delegate { };
-        //public UnityEvent OnClosedFinished = delegate { };
-
-        public void BeginTransitionIn()
-        {
-            OnRaised?.Invoke();
-        }
-
-        public void TransitionDone()
-        {
-            OnRaisedFinished?.Invoke();
-        }
+        public UnityEvent OnClosed = new();
+        public UnityEvent OnClosedFinished = new());
     }
 
     public class UITransition : MonoBehaviour
@@ -40,7 +30,7 @@ namespace Client.UI
 
         protected virtual void BeginTransitionIn()
         {
-            TransitionEvent.BeginTransitionIn();
+            TransitionEvent.OnRaised?.Invoke();
             DoTransition();
         }
 
@@ -51,7 +41,7 @@ namespace Client.UI
 
         protected virtual void OnTransitionDone()
         {
-            TransitionEvent.TransitionDone();
+            TransitionEvent.OnRaisedFinished?.Invoke();
         }
     }
 }
