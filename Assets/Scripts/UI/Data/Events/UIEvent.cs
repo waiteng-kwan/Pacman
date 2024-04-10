@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "UIEvent",
-menuName = "Scriptable Objects/UI/UIEvent Data", order = 1)]
+/// <summary>
+/// Base class of all UI Events
+/// </summary>
 public class UIEvent : ScriptableObject
 {
-    public void Execute()
+    public virtual void Execute()
     {
         Debug.Log("Execute");
     }    

@@ -128,6 +128,27 @@ PrefabInstance:
       propertyPath: <TextLabel>k__BackingField
       value: Exit
       objectReference: {fileID: 0}
+    - target: {fileID: 2951592344648048988, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
+        type: 3}
+      propertyPath: Events.CommandList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951592344648048988, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
+        type: 3}
+      propertyPath: Events.CommandList.Array.data[0].Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951592344648048988, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
+        type: 3}
+      propertyPath: Events.CommandList.Array.data[0].ExecuteOn.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951592344648048988, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
+        type: 3}
+      propertyPath: Events.CommandList.Array.data[0].ExecuteOn.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9f65e2399e12c0047bf184a1dfa894f8,
+        type: 2}
     - target: {fileID: 7299478270110543490, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
         type: 3}
       propertyPath: m_Name

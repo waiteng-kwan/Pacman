@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,6 +11,7 @@ namespace Client.UI
     {
         Open,
         Close,
+        Pop,       //back
         FireEvent,
         Custom
     }
@@ -30,9 +32,42 @@ namespace Client.UI
             {
                 //open
                 case UIEventTypes.Open:
+                    foreach (var obj in ExecuteOn)
+                    {
+                        var transition = obj.GetComponent<UITransition>();
+
+                        if (transition)
+                            transition.DoTransitionIn();
+                        else
+                        {
+                            GameObject go = obj as GameObject;
+                            go.SetActive(true);
+                        }
+                    }
                     break;
                 //transit out, set inactive etc
                 case UIEventTypes.Close:
+                    foreach (var obj in ExecuteOn)
+                    {
+                        var transition = obj.GetComponent<UITransition>();
+
+                        if (transition)
+                            transition.DoTransitionOut();
+                        else
+                        {
+                            GameObject go = obj as GameObject;
+                            go.SetActive(false);
+                        }
+                    }
+                    break;
+                case UIEventTypes.Pop:
+                    foreach (var obj in ExecuteOn)
+                    {
+                        var transition = obj.GetComponent<UITransition>();
+
+                        if (transition)
+                            transition.DoTransitionOut();
+                    }
                     break;
                 //fire whatever is inside
                 case UIEventTypes.FireEvent:
@@ -55,7 +90,7 @@ namespace Client.UI
     {
         public List<UITypeToEvents> CommandList;
 
-        void Execute()
+        public void Execute()
         {
             foreach (var command in CommandList)
             {

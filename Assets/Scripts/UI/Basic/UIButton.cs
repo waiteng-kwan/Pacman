@@ -15,7 +15,7 @@ namespace Client.UI
         public string TextLabel { get; private set; } = "Label";
 
         [Header("Event Type")]
-        public UITypeToEvents EventList;
+        public UICommand Events;
 
         public bool IsInteractable
         {
@@ -34,6 +34,9 @@ namespace Client.UI
 
         private void Awake()
         {
+            Button = GetComponent<Button>();
+            Label = GetComponentInChildren<TextMeshProUGUI>();
+
             Label.text = TextLabel;
             Button.interactable = IsInteractable;
 
@@ -52,7 +55,7 @@ namespace Client.UI
 
             m_disableTimekeepCr = StartCoroutine(DisableInteractionFor(UIConsts.GlobalButtonCooldownTime));
 
-            EventList.Execute();
+            Events.Execute();
         }
 
         private void SetInteractable(bool value)

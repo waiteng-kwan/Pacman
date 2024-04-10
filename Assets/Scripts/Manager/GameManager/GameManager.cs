@@ -2,11 +2,7 @@ using Client;
 using Service;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using static UnityEditor.Rendering.InspectorCurveEditor;
 
 namespace Game
 {

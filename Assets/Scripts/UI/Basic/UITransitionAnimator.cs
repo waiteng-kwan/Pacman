@@ -1,7 +1,5 @@
-using Client.UI;
 using NaughtyAttributes;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Client.UI
@@ -17,10 +15,14 @@ namespace Client.UI
             None
         }
 
-        private Animator m_animator;
-        public AnimationType TransitionAnimationType;
+        [Header("Animation")]
+        public AnimationType TransitionInAnimationType;
+        public AnimationType TransitionOutAnimationType;
+
         [SerializeField, ReadOnly]
         private string m_animationName;
+
+        private Animator m_animator;
 
         private Coroutine m_transitionCr;
 
@@ -35,11 +37,11 @@ namespace Client.UI
             base.DoTransition();
 
             //if its none then dont play
-            if (TransitionAnimationType == AnimationType.None)
+            if (TransitionInAnimationType == AnimationType.None)
                 return;
 
             string append = IsTransitOut ? "Out" : "In";
-            m_animationName = TransitionAnimationType.ToString() + append;
+            m_animationName = (IsTransitOut ? TransitionOutAnimationType : TransitionInAnimationType).ToString() + append;
 
             m_animator.ResetTrigger(m_animationName);
 
@@ -51,19 +53,7 @@ namespace Client.UI
 
         bool AnimatorIsPlaying()
         {
-            return m_animator.GetCurrentAnimatorStateInfo(0).length >
-               m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        }
-
-        bool AnimatorIsPlaying(string stateName)
-        {
-            return AnimatorIsPlaying() && m_animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
-        }
-
-        IEnumerator WaitForAnimation()
-        {
-            while (AnimatorIsPlaying())
-                yield return new WaitForSeconds(.2f);
+            return m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.99f;
         }
 
         IEnumerator DoTransitionCr(bool isIn)
@@ -79,10 +69,7 @@ namespace Client.UI
 
             yield return DoTransitionCrInner(m_animationName);
 
-            if (isIn)
-                TransitionEvent.OnRaisedFinished?.Invoke();
-            else
-                TransitionEvent.OnClosedFinished?.Invoke();
+            OnTransitionDone();
 
             yield break;
         }
@@ -102,7 +89,7 @@ namespace Client.UI
             yield return null;
 
             //wait for animation to finish
-            while (m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.99f)
+            while (AnimatorIsPlaying())
                 yield return null;
         }
     }

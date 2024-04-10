@@ -112,6 +112,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1448719680475178414, guid: d628ed03f99d9994e8211776852aa2b7,
+        type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
     - target: {fileID: 5899725849554979112, guid: d628ed03f99d9994e8211776852aa2b7,
         type: 3}
       propertyPath: m_Name
@@ -232,6 +237,12 @@ PrefabInstance:
       addedObject: {fileID: 6228964367042445621}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d628ed03f99d9994e8211776852aa2b7, type: 3}
+--- !u!1 &5771613908488722644 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5899725849554979112, guid: d628ed03f99d9994e8211776852aa2b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 142124126378037756}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8904440766543618552 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8820863442384613380, guid: d628ed03f99d9994e8211776852aa2b7,
@@ -669,7 +680,7 @@ PrefabInstance:
     - target: {fileID: 1367128764992212492, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
         type: 3}
       propertyPath: m_text
-      value: Exit
+      value: Back
       objectReference: {fileID: 0}
     - target: {fileID: 1367128764992212492, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
         type: 3}
@@ -680,12 +691,32 @@ PrefabInstance:
     - target: {fileID: 2951592344648048988, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
         type: 3}
       propertyPath: <TextLabel>k__BackingField
-      value: Exit
+      value: Back
       objectReference: {fileID: 0}
+    - target: {fileID: 2951592344648048988, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
+        type: 3}
+      propertyPath: Events.CommandList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951592344648048988, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
+        type: 3}
+      propertyPath: Events.CommandList.Array.data[0].Type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951592344648048988, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
+        type: 3}
+      propertyPath: Events.CommandList.Array.data[0].ExecuteOn.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951592344648048988, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
+        type: 3}
+      propertyPath: Events.CommandList.Array.data[0].ExecuteOn.Array.data[0]
+      value: 
+      objectReference: {fileID: 5771613908488722644}
     - target: {fileID: 7299478270110543490, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
         type: 3}
       propertyPath: m_Name
-      value: Btn_Exit
+      value: Btn_Back
       objectReference: {fileID: 0}
     - target: {fileID: 8660970500696658490, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
         type: 3}

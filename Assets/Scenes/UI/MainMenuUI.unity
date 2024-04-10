@@ -241,79 +241,18 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &772048280 stripped
+--- !u!1 &751379172 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 6986248948796204263, guid: 8bf7eb715b6e4de49872f12be9934d95,
+  m_CorrespondingSourceObject: {fileID: 5771613908488722644, guid: 0af68c3c6b58f1743a3134f4890e269f,
     type: 3}
-  m_PrefabInstance: {fileID: 8522755197070256676}
+  m_PrefabInstance: {fileID: 2326074810179229944}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &772048291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+--- !u!1 &1357346377 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 542730736470086803, guid: 9c05f088fb3650c49b6c01d4c9ff56cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 8618520975210626410}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 772048280}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46acf675dad3654479c164024288d075, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MeshAnimationMode: 2
-  VertexCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.25
-      value: 2
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.5
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.75
-      value: 2
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  AngleMultiplier: 1
-  SpeedMultiplier: 1
-  CurveScale: 1
 --- !u!1001 &2326074810179229944
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -416,6 +355,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5777576243201934745, guid: 0af68c3c6b58f1743a3134f4890e269f,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7803653129484047077, guid: 0af68c3c6b58f1743a3134f4890e269f,
         type: 3}
@@ -564,7 +508,7 @@ PrefabInstance:
     - target: {fileID: 3360535410648164507, guid: 8bf7eb715b6e4de49872f12be9934d95,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5797305913194752574, guid: 8bf7eb715b6e4de49872f12be9934d95,
         type: 3}
@@ -671,6 +615,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8919612481696026207, guid: 8bf7eb715b6e4de49872f12be9934d95,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 8934617146601034514, guid: 8bf7eb715b6e4de49872f12be9934d95,
         type: 3}
       propertyPath: m_Name
@@ -679,11 +628,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6986248948796204263, guid: 8bf7eb715b6e4de49872f12be9934d95,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 772048291}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bf7eb715b6e4de49872f12be9934d95, type: 3}
 --- !u!1001 &8618520975210626410
 PrefabInstance:
@@ -721,11 +666,16 @@ PrefabInstance:
     - target: {fileID: 558125317757684190, guid: 9c05f088fb3650c49b6c01d4c9ff56cf,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1324699355806684614, guid: 9c05f088fb3650c49b6c01d4c9ff56cf,
         type: 3}
       propertyPath: EventList.Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1324699355806684614, guid: 9c05f088fb3650c49b6c01d4c9ff56cf,
+        type: 3}
+      propertyPath: Events.CommandList.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1324699355806684614, guid: 9c05f088fb3650c49b6c01d4c9ff56cf,
@@ -737,8 +687,37 @@ PrefabInstance:
         type: 3}
       propertyPath: EventList.ExecuteOn.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: ea4eab7938bbc32449888f4766003669,
-        type: 2}
+      objectReference: {fileID: 751379172}
+    - target: {fileID: 1324699355806684614, guid: 9c05f088fb3650c49b6c01d4c9ff56cf,
+        type: 3}
+      propertyPath: Events.CommandList.Array.data[1].Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1324699355806684614, guid: 9c05f088fb3650c49b6c01d4c9ff56cf,
+        type: 3}
+      propertyPath: Events.CommandList.Array.data[0].ExecuteOn.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1324699355806684614, guid: 9c05f088fb3650c49b6c01d4c9ff56cf,
+        type: 3}
+      propertyPath: Events.CommandList.Array.data[1].ExecuteOn.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1324699355806684614, guid: 9c05f088fb3650c49b6c01d4c9ff56cf,
+        type: 3}
+      propertyPath: Events.CommandList.Array.data[0].ExecuteOn.Array.data[0]
+      value: 
+      objectReference: {fileID: 751379172}
+    - target: {fileID: 1324699355806684614, guid: 9c05f088fb3650c49b6c01d4c9ff56cf,
+        type: 3}
+      propertyPath: Events.CommandList.Array.data[1].ExecuteOn.Array.data[0]
+      value: 
+      objectReference: {fileID: 1357346377}
+    - target: {fileID: 1324699355806684614, guid: 9c05f088fb3650c49b6c01d4c9ff56cf,
+        type: 3}
+      propertyPath: Events.CommandList.Array.data[1].ExecuteOn.Array.data[1]
+      value: 
+      objectReference: {fileID: 1357346377}
     - target: {fileID: 1326628792382810728, guid: 9c05f088fb3650c49b6c01d4c9ff56cf,
         type: 3}
       propertyPath: m_SizeDelta.y
