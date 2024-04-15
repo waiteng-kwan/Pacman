@@ -4,18 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using GhostState = GhostBehaviourBase.GhostState;
 
-namespace Game
+namespace Game.Ghost
 {
-    public enum GhostAiState
-    {
-        Idle,
-        Patrol,      //waiting to leave zone
-        Chasing,     //wobbling around,
-        Returning,   //chasing player
-        RunAway,     //running away from player
-        StandBy      // nothing
-    }
-
     public class GhostAiController : CharacterController, IGhostAi
     {
         [Header("Debug View")]
@@ -34,7 +24,7 @@ namespace Game
 
         [Header("Behaviour Tree")]
         [SerializeField]
-        private int m_behaviourTree;
+        private GhostBehaviourDataBase m_behaviourTree;
         private NavMeshAgent m_agent;
 
         //functions

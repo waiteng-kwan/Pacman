@@ -131,7 +131,7 @@ public class VertexAttributeModifier : MonoBehaviour {
             newVertexColors[vertexIndex + 3] = c1;
             
             m_TextMeshPro.mesh.vertices = textInfo.meshInfo[0].vertices;
-            m_TextMeshPro.mesh.uv = textInfo.meshInfo[0].uvs0;
+            //m_TextMeshPro.mesh.uv = textInfo.meshInfo[0].uvs0;
             m_TextMeshPro.mesh.uv2 = textInfo.meshInfo[0].uvs2;
             m_TextMeshPro.mesh.colors32 = newVertexColors;
 
@@ -244,7 +244,7 @@ public class VertexAttributeModifier : MonoBehaviour {
 
             // Upload the mesh with the revised information
             m_TextMeshPro.mesh.vertices = newVertexPositions;           
-            m_TextMeshPro.mesh.uv = m_TextMeshPro.textInfo.meshInfo[0].uvs0;
+            //m_TextMeshPro.mesh.uv = m_TextMeshPro.textInfo.meshInfo[0].uvs0;
             m_TextMeshPro.mesh.uv2 = m_TextMeshPro.textInfo.meshInfo[0].uvs2;
             m_TextMeshPro.mesh.colors32 = m_TextMeshPro.textInfo.meshInfo[0].colors32;
                 
@@ -327,7 +327,7 @@ public class VertexAttributeModifier : MonoBehaviour {
             loopCount += 1;           
 
             m_TextMeshPro.mesh.vertices = vertices;
-            m_TextMeshPro.mesh.uv = m_TextMeshPro.textInfo.meshInfo[0].uvs0;
+            //m_TextMeshPro.mesh.uv = m_TextMeshPro.textInfo.meshInfo[0].uvs0;
             m_TextMeshPro.mesh.uv2 = m_TextMeshPro.textInfo.meshInfo[0].uvs2;
             //m_TextMeshPro.mesh.colors32 = m_TextMeshPro.textInfo.meshInfo.vertexColors;
 
@@ -440,7 +440,7 @@ public class VertexAttributeModifier : MonoBehaviour {
 
             // Upload the mesh with the revised information
             m_TextMeshPro.mesh.vertices = vertexPositions;
-            m_TextMeshPro.mesh.uv = m_TextMeshPro.textInfo.meshInfo[0].uvs0;
+            //m_TextMeshPro.mesh.uv = m_TextMeshPro.textInfo.meshInfo[0].uvs0;
             m_TextMeshPro.mesh.uv2 = m_TextMeshPro.textInfo.meshInfo[0].uvs2;
             m_TextMeshPro.mesh.colors32 = m_TextMeshPro.textInfo.meshInfo[0].colors32;
            
@@ -651,7 +651,7 @@ public class VertexAttributeModifier : MonoBehaviour {
             loopCount += 1;
 
             m_TextMeshPro.mesh.vertices = vertices;
-            m_TextMeshPro.mesh.uv = m_TextMeshPro.textInfo.meshInfo[0].uvs0;
+            //m_TextMeshPro.mesh.uv = m_TextMeshPro.textInfo.meshInfo[0].uvs0;
             m_TextMeshPro.mesh.uv2 = m_TextMeshPro.textInfo.meshInfo[0].uvs2;
             m_TextMeshPro.mesh.colors32 = m_TextMeshPro.textInfo.meshInfo[0].colors32;
 
@@ -703,7 +703,7 @@ public class VertexAttributeModifier : MonoBehaviour {
 
             // Upload the mesh with the revised information           
             m_TextMeshPro.mesh.vertices = newVertexPositions;
-            m_TextMeshPro.mesh.uv = m_TextMeshPro.textInfo.meshInfo[0].uvs0;
+            //m_TextMeshPro.mesh.uv = m_TextMeshPro.textInfo.meshInfo[0].uvs0;
             m_TextMeshPro.mesh.uv2 = m_TextMeshPro.textInfo.meshInfo[0].uvs2;
             m_TextMeshPro.mesh.colors32 = m_TextMeshPro.textInfo.meshInfo[0].colors32;
 
@@ -788,7 +788,7 @@ public class VertexAttributeModifier : MonoBehaviour {
                     vertices[vertexIndex + 3] += offset;  
                     
                     m_TextMeshPro.mesh.vertices = vertices;
-                    m_TextMeshPro.mesh.uv = m_TextMeshPro.textInfo.meshInfo[0].uvs0;
+                    //m_TextMeshPro.mesh.uv = m_TextMeshPro.textInfo.meshInfo[0].uvs0;
                     m_TextMeshPro.mesh.uv2 = m_TextMeshPro.textInfo.meshInfo[0].uvs2;
                     m_TextMeshPro.mesh.colors32 = m_TextMeshPro.textInfo.meshInfo[0].colors32;
 

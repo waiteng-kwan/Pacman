@@ -1,4 +1,5 @@
 using Client;
+using Game.Ghost;
 using NaughtyAttributes;
 using System;
 using System.Collections;
@@ -30,12 +31,12 @@ namespace Game
         #region Set Up
         private void OnValidate()
         {
-            Board = FindObjectOfType<GameBoardInstance>();
+            Board = FindFirstObjectByType<GameBoardInstance>();
         }
         private void Awake()
         {
             m_instance = this;
-            Board = FindObjectOfType<GameBoardInstance>();
+            Board = FindFirstObjectByType<GameBoardInstance>();
         }
 
         private void Start()

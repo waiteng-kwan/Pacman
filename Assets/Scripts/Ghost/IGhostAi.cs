@@ -1,4 +1,4 @@
-using Game;
+using Game.Ghost;
 using UnityEngine;
 
 public interface IGhostAi
