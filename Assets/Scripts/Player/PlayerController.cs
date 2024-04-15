@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Client
 {
-    public class PlayerController : CharacterController
+    public class PlayerController : Game.CharacterController
     {
         [SerializeField]
         private PlayerBehaviour m_playerCharacter;

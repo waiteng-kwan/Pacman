@@ -35,6 +35,15 @@ namespace Game.Ghost
         private PlayerBehaviour m_playerTarget = null;
         private GhostAiNavigationData m_navData = new GhostAiNavigationData();
 
+        //arbiturary cycle time
+        private float m_currCycleCounter = 0f;
+        private float m_maxCycleCounter = 5f;
+
+        public static GhostAiController CreateInstance()
+        {
+            return new GhostAiController();
+        }
+
         private void Awake()
         {
             //set up function dictionary
@@ -176,7 +185,7 @@ namespace Game.Ghost
                     //next time get closest player or something
 
                     //temp!!
-                    m_playerTarget = FindObjectOfType<PlayerBehaviour>();
+                    m_playerTarget = FindFirstObjectByType<PlayerBehaviour>();
                     break;
                 case GhostAiState.Returning:
                     m_agent.autoBraking = false;
@@ -273,11 +282,20 @@ namespace Game.Ghost
         /// </summary>
         void ChasePlayer()
         {
-            print("chgase");
-
             //set object of interest to player
             m_destination = m_playerTarget.transform.position;
             SetDestination(m_destination);
+
+            if(m_currCycleCounter >= m_maxCycleCounter)
+            {
+                m_currCycleCounter = 0f;
+                //stop movement
+                m_agent.isStopped = true;
+
+                //add recalculate here next time
+
+                SetNextState(GhostAiState.Patrol);
+            }
 
             if (m_playerTarget.Attributes.CurrentState != PlayerCharacterStates.Alive)
             {
@@ -288,6 +306,8 @@ namespace Game.Ghost
 
                 SetNextState(GhostAiState.Returning);
             }
+
+            m_currCycleCounter += Time.deltaTime;
         }
 
         /// <summary>

@@ -3,18 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterController : MonoBehaviour
+namespace Game
 {
-    //serialize properties use field:
-    [field: SerializeField]
-    public int Index { get; protected set; } = -1;
+    public class CharacterController : MonoBehaviour
+    {
+        //serialize properties use field:
+        [field: SerializeField]
+        public int Index { get; protected set; } = -1;
 
-    //character/pawn
-    [field:SerializeField, ReadOnly]
-    public PawnBase Pawn { get; protected set; }
+        //character/pawn
+        [field: SerializeField, ReadOnly]
+        public PawnBase Pawn { get; protected set; }
 
-    public void SetIndex(int index)
-    { 
-        Index = index; 
+        public void SetIndex(int index)
+        {
+            Index = index;
+        }
     }
-}
+} 

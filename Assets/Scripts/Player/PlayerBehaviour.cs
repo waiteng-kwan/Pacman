@@ -6,7 +6,7 @@ using static GhostBehaviourBase;
 using Game;
 
 
-public class PlayerBehaviour : CharacterController
+public class PlayerBehaviour : MonoBehaviour
 {
     [Header("Data")]
     [SerializeField, NaughtyAttributes.Expandable]

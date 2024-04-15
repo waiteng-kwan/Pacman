@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class GameBoardInstance : MonoBehaviour
+public class GameBoardInstance : MonoBehaviour, IGameBoard
 {
     [Header("Level Stuff")]
     [SerializeField] 
@@ -28,6 +28,8 @@ public class GameBoardInstance : MonoBehaviour
     [ReadOnly, SerializeField]
     private Dictionary<DotData.DotType, int> m_typeToNumberDict =
         new Dictionary<DotData.DotType, int>();
+
+    public int RemainingTotalPellets => GetRemainingAllPellets();
 
     private void OnValidate()
     {
@@ -162,6 +164,28 @@ public class GameBoardInstance : MonoBehaviour
         return m_playerSpawnPoints[rand ? 0 : Random.Range(0, m_playerSpawnPoints.Length)].position;
     }
     #endregion
+    #endregion
+
+    #region Getter
+    private int GetRemainingAllPellets()
+    {
+        int total = 0;
+        foreach (var elem in m_typeToNumberDict.Values)
+        {
+            total += elem;
+        }
+
+        return total;
+    }
+
+    public int GetRemainingPellets(DotData.DotType type)
+    {
+        return m_typeToNumberDict[type];
+    }
+    public int GetMaxScorePellets()
+    {
+        return m_typeToNumberDict[DotData.DotType.Normal];
+    }
     #endregion
 
     #region Editor Stuff

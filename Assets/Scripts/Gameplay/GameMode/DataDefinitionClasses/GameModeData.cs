@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using Game.Ghost;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GameModeData",
@@ -18,8 +17,7 @@ public class GameModeData : ScriptableObject
 
     [Header("Ghost Set")]
     public GhostDataBase[] Ghosts;
-    public int MaxGhostsAtOnce = 4;
-    public bool OneOfEach = true;
+    public GhostAiController[] AiControllers;
 
     [Header("UI")]
     public GameObject StageUI;
