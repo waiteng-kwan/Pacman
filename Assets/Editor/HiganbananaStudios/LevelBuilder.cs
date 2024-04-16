@@ -13,7 +13,7 @@ public class LevelBuilder : EditorWindow
     public GameObject DefaultGameBoard = null;
     Transform lvlParent;
 
-    [MenuItem("Tools/Pellet Man/Level Builder")]
+    [MenuItem("Higanbanana/Pellet Man/Level Builder")]
     public static void ShowWindow()
     {
         GetWindow<LevelBuilder>();
@@ -30,23 +30,17 @@ public class LevelBuilder : EditorWindow
         CubePrefab = EditorGUILayout.ObjectField("Basic Tile Prefab", CubePrefab, typeof(GameObject), false) as GameObject;
 
         if (GUILayout.Button("Create Basic Level"))
-        {
             CreateLevel();
-        }
 
         GUILayout.Space(5);
 
         if (GUILayout.Button("Create Basic Cube"))
-        {
             CreateTile();
-        }
 
         GUILayout.Space(30);
 
         if(GUILayout.Button("DestroyLevel"))
-        {
             DestroyLevel();
-        }
     }
 
     void CreateLevel()

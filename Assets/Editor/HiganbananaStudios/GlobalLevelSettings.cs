@@ -6,7 +6,7 @@ public class GlobalLevelSettings : EditorWindow
     public Vector2 FloorSize = Vector2.one;
     public Vector2 TileSize = Vector2.one;
 
-    [MenuItem("Tools/Pellet Man/Gloabl Level Settings")]
+    [MenuItem("Higanbanana/Pellet Man/Global Level Settings")]
     public static void ShowWindow()
     {
         GetWindow<GlobalLevelSettings>();

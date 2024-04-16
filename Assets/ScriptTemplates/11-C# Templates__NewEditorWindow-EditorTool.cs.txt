@@ -1,0 +1,21 @@
+using UnityEditor;
+using UnityEngine;
+
+//see https://learn.unity.com/tutorial/editor-scripting for more
+public class #SCRIPTNAME# : EditorWindow
+{
+    [MenuItem("Higanbanana/Pellet Man/#SCRIPTNAME#")]
+    public static void ShowWindow()#NOTRIM#
+    {#NOTRIM#
+        GetWindow<#SCRIPTNAME#>();#NOTRIM#
+    }#NOTRIM#
+#NOTRIM#
+    private void OnGUI()#NOTRIM#
+    {#NOTRIM#
+    }#NOTRIM#
+    [MenuItem("Higanbanana/")]
+    private static void NewMenuOption()
+    {
+    }
+}
+}
