@@ -34,5 +34,15 @@ namespace Service.CoroutineSvc
         {
             throw new System.NotImplementedException();
         }
+
+        public void StartCoroutine(IEnumerator cr)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void StopCoroutine(ICoroutineHandle cr)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

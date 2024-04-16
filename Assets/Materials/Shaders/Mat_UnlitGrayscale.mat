@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Unlit_Grayscale
+  m_Name: Mat_UnlitGrayscale
   m_Shader: {fileID: -6465566751694194690, guid: 73fc272bf81afc241b29c05a9bd67e2b,
     type: 3}
   m_Parent: {fileID: 0}

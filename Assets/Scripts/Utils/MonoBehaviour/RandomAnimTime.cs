@@ -9,8 +9,6 @@ public class RandomAnimTime : MonoBehaviour
     public float randomMin, randomMax;
     public bool startRandomState = false;
 
-    
-
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +16,5 @@ public class RandomAnimTime : MonoBehaviour
             animator = GetComponent<Animator>();
         
         animator.speed = Random.Range(randomMin, randomMax);
-
-        var stateMachine = animator.GetCurrentAnimatorStateInfo(0);
-        //print(stateMachine.length);
     }
 }

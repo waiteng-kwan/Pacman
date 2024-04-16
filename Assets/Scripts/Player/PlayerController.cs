@@ -1,11 +1,12 @@
 using Game;
-using NaughtyAttributes;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Client
 {
+    /// <summary>
+    /// Like the Unreal Engine version of player controller, it should take in input
+    /// Should not directly control the pawn but rather pass info along to it
+    /// </summary>
     public class PlayerController : Game.CharacterController
     {
         [SerializeField]
@@ -49,11 +50,6 @@ namespace Client
             character.SetOwner(this);
 
             m_playerCharacter = character;
-        }
-
-        public void SetIndex(int index)
-        {
-            Index = index;
         }
     }
 }
