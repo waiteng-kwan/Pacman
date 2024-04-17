@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
 public class LevelBuilder : EditorWindow
 {
@@ -26,21 +27,30 @@ public class LevelBuilder : EditorWindow
         FloorSize = EditorGUILayout.Vector2IntField("Floor/Stage Size", FloorSize);
         TileSize = EditorGUILayout.Vector3IntField("Tile Size", TileSize);
 
-        //CubePrefab = AssetDatabase.FindAssets("")
+        /*if(!CubePrefab)
+            CubePrefab = AssetDataUtils.Get("\\Prefabs\\Gameplay\\Level\\LevelConstruction\\BasicTile").editorAsset as Gameobject;
+        5526660982397063291
+        */
         CubePrefab = EditorGUILayout.ObjectField("Basic Tile Prefab", CubePrefab, typeof(GameObject), false) as GameObject;
 
+        GUILayout.Space(15);
+
+        GUILayout.BeginHorizontal();
         if (GUILayout.Button("Create Basic Level"))
             CreateLevel();
 
-        GUILayout.Space(5);
+        if (GUILayout.Button("DestroyLevel"))
+            DestroyLevel();
 
-        if (GUILayout.Button("Create Basic Cube"))
+        GUILayout.EndHorizontal();
+
+        if (GUILayout.Button("Clear Level"))
             CreateTile();
 
-        GUILayout.Space(30);
+        GUILayout.Space(5);
 
-        if(GUILayout.Button("DestroyLevel"))
-            DestroyLevel();
+        if (GUILayout.Button("Create Basic Tile"))
+            CreateTile();
     }
 
     void CreateLevel()
@@ -67,6 +77,12 @@ public class LevelBuilder : EditorWindow
 
         if (!wallParent)
             wallParent = CreateGameObject(null, "Walls", lvlParent);
+
+        //outer walls go
+        wallParent = wallParent.Find("Outer Walls");
+
+        if (!wallParent)
+            wallParent = CreateGameObject(null, "Outer Walls", lvlParent);
 
         //4 walls
         int cubesInX = FloorSize.x / TileSize.x;
@@ -153,6 +169,11 @@ public class LevelBuilder : EditorWindow
         {
             Destroy(lvl);
         }
+    }
+
+    void ClearLevel()
+    {
+        
     }
 
     void CreateTile()
