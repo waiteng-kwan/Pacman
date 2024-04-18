@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3612040297665434862}
   - component: {fileID: 7871705771013724163}
   m_Layer: 8
-  m_Name: BasicDotPellet
+  m_Name: BasicEdibleBall
   m_TagString: DotPellet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

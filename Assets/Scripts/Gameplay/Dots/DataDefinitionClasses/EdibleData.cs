@@ -5,9 +5,9 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "BasicDotData",
 menuName = "Scriptable Objects/BasicDotData Data", order = 1)]
-public class DotData : ScriptableObject
+public class EdibleData : ScriptableObject
 {
-    public enum DotType
+    public enum EdibleType
     {
         Normal,
         Multiply,
@@ -15,16 +15,16 @@ public class DotData : ScriptableObject
         EatGhost
     }
 
-    public DotType EdibleDotType;
+    public EdibleType EdibleDotType;
 
     [Header("Effect")]
-    [ShowIf("EdibleDotType", DotType.Normal)]
+    [ShowIf("EdibleDotType", EdibleType.Normal)]
     public int Score = 1;
-    [ShowIf("EdibleDotType", DotType.Multiply)]
+    [ShowIf("EdibleDotType", EdibleType.Multiply)]
     public int Multiplier = 2;
-    [ShowIf("EdibleDotType", DotType.Add)]
+    [ShowIf("EdibleDotType", EdibleType.Add)]
     public int AddBy = 1;
-    [ShowIf("EdibleDotType", DotType.EatGhost)]
+    [ShowIf("EdibleDotType", EdibleType.EatGhost)]
     public float Duration = 3f;
 
     [Header("Respawn")]
@@ -36,11 +36,11 @@ public class DotData : ScriptableObject
     {
         switch (EdibleDotType)
         {
-            case DotData.DotType.Normal:
+            case EdibleData.EdibleType.Normal:
                 return Score;
-            case DotData.DotType.Multiply:
+            case EdibleData.EdibleType.Multiply:
                 return Score * Multiplier;
-            case DotData.DotType.Add:
+            case EdibleData.EdibleType.Add:
                 return Score * AddBy;
             default:
                 return 0;

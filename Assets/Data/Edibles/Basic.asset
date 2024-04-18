@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1813931d505d88147938b49621858be2, type: 3}
+  m_Name: Basic
+  m_EditorClassIdentifier: 
+  EdibleDotType: 0
+  Score: 1
+  Multiplier: 2
+  AddBy: 1
+  Duration: 3

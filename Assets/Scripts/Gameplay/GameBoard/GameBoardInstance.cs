@@ -21,13 +21,13 @@ public class GameBoardInstance : MonoBehaviour, IGameBoard
     private Transform m_setupParentObj;
 
     //temp af
-    public BasicDot SpawnPelletPrefab;
+    public EdiblesBase SpawnPelletPrefab;
     public bool GenerateInXZAxisOnly = true;
 
     [Space, Header("Gameplay")]
     [ReadOnly, SerializeField]
-    private Dictionary<DotData.DotType, int> m_typeToNumberDict =
-        new Dictionary<DotData.DotType, int>();
+    private Dictionary<EdibleData.EdibleType, int> m_typeToNumberDict =
+        new Dictionary<EdibleData.EdibleType, int>();
 
     public int RemainingTotalPellets => GetRemainingAllPellets();
 
@@ -60,7 +60,7 @@ public class GameBoardInstance : MonoBehaviour, IGameBoard
 
     private void Start()
     {
-        foreach (var p in m_pelletParent.GetComponentsInChildren<BasicDot>())
+        foreach (var p in m_pelletParent.GetComponentsInChildren<EdiblesBase>())
         {
             //if exists already
             if (m_typeToNumberDict.TryGetValue(p.DotPelletType, out int val))
@@ -82,12 +82,12 @@ public class GameBoardInstance : MonoBehaviour, IGameBoard
     /// <returns></returns>
     public bool CanGameEnd()
     {
-        return m_typeToNumberDict[DotData.DotType.Normal] <= 0;
+        return m_typeToNumberDict[EdibleData.EdibleType.Normal] <= 0;
     }
     #endregion
 
     #region Dot/Pellets
-    void OnDotPelletCollected(DotData.DotType type)
+    void OnDotPelletCollected(EdibleData.EdibleType type)
     {
         m_typeToNumberDict[type]--;
     }
@@ -178,13 +178,13 @@ public class GameBoardInstance : MonoBehaviour, IGameBoard
         return total;
     }
 
-    public int GetRemainingPellets(DotData.DotType type)
+    public int GetRemainingPellets(EdibleData.EdibleType type)
     {
         return m_typeToNumberDict[type];
     }
     public int GetMaxScorePellets()
     {
-        return m_typeToNumberDict[DotData.DotType.Normal];
+        return m_typeToNumberDict[EdibleData.EdibleType.Normal];
     }
     #endregion
 

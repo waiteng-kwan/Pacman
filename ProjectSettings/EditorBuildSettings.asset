@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UI/MainMenuUI.unity
     guid: 35b7ca665286e9d4d865a6def942d882
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: c7bb813018f3f004e888e9a5f836b88f,
+      type: 2}
+  m_UseUCBPForAssetBundles: 0

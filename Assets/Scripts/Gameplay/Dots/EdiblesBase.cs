@@ -4,19 +4,19 @@ using UnityEngine;
 using Game;
 using UnityEngine.Events;
 
-public class BasicDot : MonoBehaviour
+public class EdiblesBase : MonoBehaviour
 {
     [Header("Data")]
     [SerializeField, NaughtyAttributes.Expandable]
-    public DotData m_data;
-    public DotData.DotType DotPelletType => m_data.EdibleDotType;
+    public EdibleData m_data;
+    public EdibleData.EdibleType DotPelletType => m_data.EdibleDotType;
 
     //destroy event
-    public UnityEvent<DotData.DotType> EOnDestroy { get; private set; }
+    public UnityEvent<EdibleData.EdibleType> EOnDestroy { get; private set; }
 
     private void Awake()
     {
-        EOnDestroy = new UnityEvent<DotData.DotType>();
+        EOnDestroy = new UnityEvent<EdibleData.EdibleType>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,6 +39,7 @@ public class BasicDot : MonoBehaviour
 
     protected virtual void ResolveCollideWithPlayer(PlayerBehaviour player)
     {
+        //! TODO: remove direct reference
         GameModeBase.Instance.PlayerScored(player.BelongToPlayerIndex, m_data.CalculateScoreToAdd());
     }
 

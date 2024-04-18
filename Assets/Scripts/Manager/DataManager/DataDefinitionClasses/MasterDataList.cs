@@ -19,7 +19,7 @@ public class MasterDataList : ScriptableObject
     public List<GhostDataBase> m_ghostModelDataList = new List<GhostDataBase>();
 
     [Header("Dots/Pellets")]
-    public List<DotData> m_dotDataList = new List<DotData>();
+    public List<EdibleData> m_dotDataList = new List<EdibleData>();
 
     [Header("Player Controller")]
     public PlayerController PlayerControllerPrefab;
