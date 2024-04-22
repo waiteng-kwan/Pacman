@@ -12,6 +12,12 @@ using UnityEngine;
 menuName = "Scriptable Objects/Ghost/GhostBehaviour Data", order = 1)]
 public class GhostBehaviourDataBase : ScriptableObject
 {
+    [Header("Damping Data")]
+    [InfoBox("X = min, Y = max")]
+    public Vector2 ChangeStateDampingRange = Vector2.one;
+    [InfoBox("X = min, Y = max")]
+    public Vector2 ChangeIdleWaitngRange = Vector2.one;
+    public float DetectionRange = 8f;
     [Header("Target Type")]
     [SerializeField, InfoBox("This influences the type of movement")]
     private GhostTargetType TargetType;
@@ -35,6 +41,8 @@ public class GhostBehaviourDataBase : ScriptableObject
     private MovementWeight m_movementWeight;
 
     [Header("State")]
+    [SerializeField]
+    private GhostAiState m_entryState = GhostAiState.Idle;
     [field: SerializeField, ReadOnly]
     public GhostAiState PreviousAiState { get; private set; }
     [field: SerializeField, ReadOnly]
@@ -58,6 +66,8 @@ public class GhostBehaviourDataBase : ScriptableObject
     [field: SerializeField, ReadOnly]
     public Vector3 Destination { get; private set; } = Vector3.zero;
 
+    private bool m_update = false;
+
     public virtual void Initialize()
     {
         m_movementWeight = new(m_upWeight, m_downWeight,
@@ -75,6 +85,40 @@ public class GhostBehaviourDataBase : ScriptableObject
         };
     }
 
+    public virtual void Update()
+    {
+        if (!m_update)
+            return;
+
+        if (CurrentAiState != NextAiState)
+        {
+            if (!m_enqueueChangingState)
+            {
+                m_enqueueChangingState = true;
+
+                m_maxChangeStateTime = GetRandomStateChangeDampingPoint();
+                m_currChangeStateTime = m_maxChangeStateTime;
+            }
+
+            //countdown to change state time
+            m_currChangeStateTime -= Time.deltaTime;
+
+            //finally change state
+            if (m_currChangeStateTime <= 0)
+            {
+                PrepareToSwitchState();
+                SwitchState();
+
+                //reset flag
+                m_enqueueChangingState = false;
+            }
+        }
+
+        //exec
+        if (m_stateToFuncDict[CurrentAiState] != null)
+            m_stateToFuncDict[CurrentAiState]();
+    }
+
     public virtual void CleanUp()
     {
         m_stateToFuncDict?.Clear();
@@ -85,20 +129,34 @@ public class GhostBehaviourDataBase : ScriptableObject
     /// </summary>
     public void StartAI()
     {
+        NextAiState = m_entryState;
+    }
 
+    public void PauseAI(bool pause = true)
+    {
+        m_update = !pause;
     }
 
     #region States
+    /// <summary>
+    /// Idling. Generally only happens at HOME POINT
+    /// </summary>
     protected virtual void Idle()
     {
 
     }
 
+    /// <summary>
+    /// Patrolling around the maze
+    /// </summary>
     protected virtual void Patrol()
     {
 
     }
 
+    /// <summary>
+    /// Chasing the player, 'active' state
+    /// </summary>
     protected virtual void ChasePlayer()
     {
 
@@ -112,11 +170,17 @@ public class GhostBehaviourDataBase : ScriptableObject
 
     }
 
+    /// <summary>
+    /// Frightened, running away from player
+    /// </summary>
     protected virtual void RunAway()
     {
 
     }
 
+    /// <summary>
+    /// Do nothing
+    /// </summary>
     protected virtual void StandBy()
     {
 
@@ -129,7 +193,7 @@ public class GhostBehaviourDataBase : ScriptableObject
 
     protected virtual void PrepareToSwitchState()
     {
-
+        GhostAiState next = NextAiState;
     }
 
     protected virtual void SwitchState()
@@ -173,6 +237,13 @@ public class GhostBehaviourDataBase : ScriptableObject
         }
 
         return Vector2.zero;
+    }
+    #endregion
+
+    #region Damping Point
+    float GetRandomStateChangeDampingPoint()
+    {
+        return Random.Range(ChangeStateDampingRange.x, ChangeStateDampingRange.y);
     }
     #endregion
 }
