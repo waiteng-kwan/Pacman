@@ -388,5 +388,10 @@ namespace Game.Ghost
 
             return new Vector3(randX, col.transform.position.y, randZ);
         }
+
+        public void SetTarget(Transform target)
+        {
+            print("aaaa");
+        }
     }
 }

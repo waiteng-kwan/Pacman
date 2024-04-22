@@ -13,4 +13,5 @@ public interface IGhostAi
 
     //Movement
     void SetDestination(Vector3 destination);
+    void SetTarget(Transform target);
 }

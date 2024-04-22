@@ -15,12 +15,12 @@ namespace Game.Ghost
 
     public enum GhostAiState
     {
+        StandBy = 0, //nothing
         Idle,        //at home point idling
         Patrol,      //wobbling around
         Chasing,     //chasing player
         Returning,   //returning to home point
         RunAway,     //running away from player, frightened
-        StandBy = 0  //nothing
     }
 
     public enum AiTargetType

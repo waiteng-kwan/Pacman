@@ -92,6 +92,7 @@ public class GhostBehaviourDataBase : ScriptableObject
 
         if (CurrentAiState != NextAiState)
         {
+            //this is to get a random point before changing state
             if (!m_enqueueChangingState)
             {
                 m_enqueueChangingState = true;
@@ -106,8 +107,7 @@ public class GhostBehaviourDataBase : ScriptableObject
             //finally change state
             if (m_currChangeStateTime <= 0)
             {
-                PrepareToSwitchState();
-                SwitchState();
+                StartSwitchState();
 
                 //reset flag
                 m_enqueueChangingState = false;
@@ -167,7 +167,7 @@ public class GhostBehaviourDataBase : ScriptableObject
     /// </summary>
     protected virtual void Returning()
     {
-
+        Debug.Log("return");
     }
 
     /// <summary>
@@ -175,7 +175,7 @@ public class GhostBehaviourDataBase : ScriptableObject
     /// </summary>
     protected virtual void RunAway()
     {
-
+        Debug.Log("Run away!!!");
     }
 
     /// <summary>
@@ -188,7 +188,9 @@ public class GhostBehaviourDataBase : ScriptableObject
 
     public void StartSwitchState()
     {
-
+        PrepareToSwitchState();
+        SwitchState();
+        PostSwitchState();
     }
 
     protected virtual void PrepareToSwitchState()
@@ -198,6 +200,10 @@ public class GhostBehaviourDataBase : ScriptableObject
 
     protected virtual void SwitchState()
     {
+        PreviousAiState = CurrentAiState;
+        CurrentAiState = NextAiState;
+
+        //do switch logic here
 
     }
 
@@ -244,6 +250,11 @@ public class GhostBehaviourDataBase : ScriptableObject
     float GetRandomStateChangeDampingPoint()
     {
         return Random.Range(ChangeStateDampingRange.x, ChangeStateDampingRange.y);
+    }
+
+    float GetRandomIdleWaitingTime()
+    {
+        return Random.Range(ChangeIdleWaitngRange.x, ChangeIdleWaitngRange.y);
     }
     #endregion
 }
