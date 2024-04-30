@@ -43,9 +43,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _CycleTime: 10
+    - _CycleTime: 8
     - _Rotation: -90
-    - _Speed: 1
+    - _Speed: 0.3
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -53,10 +53,12 @@ Material:
     - _StencilWriteMask: 255
     - _UIMaskSoftnessX: 1
     - _UIMaskSoftnessY: 1
+    - _UseUIAlphaClip: 0
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Scale: {r: 1, g: 5, b: 0, a: 0}
-    - _ShineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _ShineColor: {r: 0.9811321, g: 0.92358303, b: 0.6525454, a: 0.050980393}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
