@@ -34,7 +34,6 @@ RectTransform:
   m_Children:
   - {fileID: 4116800419737711504}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -135,6 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a4691c955c0b842bb0c85dd550d0a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <TextLabel>k__BackingField: Label
+  <IsLocked>k__BackingField: 0
+  m_iconImg: {fileID: 0}
+  Events:
+    CommandList: []
 --- !u!1001 &4274326271480510220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -250,8 +254,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5728817982276928098, guid: e63aa813072805f4e9ebc7244c4d4dc2,
         type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 5728817982276928098, guid: e63aa813072805f4e9ebc7244c4d4dc2,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 5728817982276928098, guid: e63aa813072805f4e9ebc7244c4d4dc2,
+        type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5728817982276928098, guid: e63aa813072805f4e9ebc7244c4d4dc2,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 9008380408672434830, guid: e63aa813072805f4e9ebc7244c4d4dc2,
         type: 3}

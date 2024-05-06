@@ -24,7 +24,7 @@ namespace Client.UI
     {
         public UIEventTypes Type;
         // if its event, the things filled in should be scriptable objects
-        public List<Object> ExecuteOn = new();
+        public List<Object> EventList = new();
 
         public void Execute()
         {
@@ -32,7 +32,7 @@ namespace Client.UI
             {
                 //open
                 case UIEventTypes.Open:
-                    foreach (var obj in ExecuteOn)
+                    foreach (var obj in EventList)
                     {
                         var transition = obj.GetComponent<UITransition>();
 
@@ -47,7 +47,7 @@ namespace Client.UI
                     break;
                 //transit out, set inactive etc
                 case UIEventTypes.Close:
-                    foreach (var obj in ExecuteOn)
+                    foreach (var obj in EventList)
                     {
                         var transition = obj.GetComponent<UITransition>();
 
@@ -61,7 +61,7 @@ namespace Client.UI
                     }
                     break;
                 case UIEventTypes.Pop:
-                    foreach (var obj in ExecuteOn)
+                    foreach (var obj in EventList)
                     {
                         var transition = obj.GetComponent<UITransition>();
 
@@ -71,7 +71,7 @@ namespace Client.UI
                     break;
                 //fire whatever is inside
                 case UIEventTypes.FireEvent:
-                    foreach (var e in ExecuteOn)
+                    foreach (var e in EventList)
                     {
                         if (e is UIEvent uiEvent)
                         {

@@ -1,5 +1,6 @@
-using Game;
+using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Game
 {
@@ -9,13 +10,26 @@ namespace Game
     /// </summary>
     public class PlayerController : Game.CharacterController
     {
+        [Header("Characters")]
         [SerializeField]
         private PlayerBehaviour m_playerCharacter;
         public PlayerBehaviour PlayerCharacter => m_playerCharacter;
 
+        [Header("Input")]
+        [SerializeField, ReadOnly]
+        private PlayerInput m_pInput;
+
+        private void OnValidate()
+        {
+            m_pInput = GetComponentInChildren<PlayerInput>();
+        }
+
         private void Awake()
         {
-            if(GameModeBase.Instance && Index < 0)
+            if(!m_pInput)
+                m_pInput = GetComponentInChildren<PlayerInput>();
+
+            if (GameModeBase.Instance && Index < 0)
                 GameModeBase.Instance.RegisterPlayer(this);
         }
 

@@ -9,10 +9,16 @@ namespace Client.UI
     public class UIButton : MonoBehaviour
     {
         public Button Button { get; private set; }
-        public TextMeshProUGUI Label { get; private set; }
+        public TextMeshProUGUI TMProLabelObj { get; private set; }
 
         [field: SerializeField]
         public string TextLabel { get; private set; } = "Label";
+        [field: SerializeField]
+        public bool IsLocked { get; private set; } = false;
+
+        [Header("Icon if any")]
+        [SerializeField]
+        private Image m_iconImg;
 
         [Header("Event Type")]
         public UICommand Events;
@@ -28,19 +34,41 @@ namespace Client.UI
         private void OnValidate()
         {
             Button = GetComponent<Button>();
-            Label = GetComponentInChildren<TextMeshProUGUI>();
-            Label.text = TextLabel;
+            TMProLabelObj = GetComponentInChildren<TextMeshProUGUI>();
+            TMProLabelObj.text = TextLabel;
+
+            if (m_iconImg)
+                m_iconImg.gameObject.SetActive(IsLocked);
         }
 
         private void Awake()
         {
             Button = GetComponent<Button>();
-            Label = GetComponentInChildren<TextMeshProUGUI>();
+            TMProLabelObj = GetComponentInChildren<TextMeshProUGUI>();
 
-            Label.text = TextLabel;
-            Button.interactable = IsInteractable;
+            TMProLabelObj.text = TextLabel;
 
-            Button.onClick.AddListener(OnClick);
+            Animator a = Button.GetComponent<Animator>();
+
+            if (a != null)
+                a.SetBool("Locked", IsLocked);
+
+            if (m_iconImg)
+                m_iconImg.gameObject.SetActive(IsLocked);
+
+            if (!IsLocked)
+            {
+                Button.interactable = IsInteractable;
+
+                Button.onClick.AddListener(OnClick);
+            }
+            else
+            {
+                Button.interactable = false;
+
+                if (a)
+                    a.Play("Locked");
+            }
         }
 
         private void OnDestroy()
@@ -65,11 +93,17 @@ namespace Client.UI
             //do other stuff here
         }
 
-        IEnumerator DisableInteractionFor(float seconds)
+        IEnumerator DisableInteractionFor(float seconds = .15f)
         {
             IsInteractable = false;
             yield return new WaitForSeconds(seconds);
             IsInteractable = true;
+        }
+
+        public void SetLabelText(string text)
+        {
+            TextLabel = text;
+            TMProLabelObj.text = text;
         }
     }
 }

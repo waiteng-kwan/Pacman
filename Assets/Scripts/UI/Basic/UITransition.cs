@@ -27,6 +27,7 @@ namespace Client.UI
             BeginTransitionIn();
         }
 
+        [Button]
         public void DoTransitionOut()
         {
             IsTransitOut = true;

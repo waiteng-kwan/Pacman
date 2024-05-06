@@ -43,7 +43,7 @@ namespace Game
                 return false;
             }
 
-            IPlayerAttributes attrib = pc.GetComponent<PlayerControllerAttributes>();
+            IPlayerAttributes attrib = pc.GetComponent<PlayerState>();
 
             attrib.SetHealth(GameModeBase.Instance.Settings.StartingHealth);
 

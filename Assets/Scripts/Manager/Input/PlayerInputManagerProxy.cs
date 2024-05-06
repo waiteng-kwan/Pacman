@@ -8,8 +8,6 @@ namespace Game
     /// <summary>
     /// This script handles business logic with the unity component 
     /// PlayerInputManager, ie what to do when joining
-    /// 
-    /// NOTE: Local only!
     /// </summary>
     [RequireComponent(typeof(PlayerInputManager))]
     public class PlayerInputManagerProxy : MonoBehaviour
@@ -52,6 +50,8 @@ namespace Game
 
         private void OnPlayerJoined(PlayerInput obj)
         {
+            Debug.Log("Player has joined!");
+
             var pc = obj.GetComponent<PlayerController>();
 
             SetUpPlayer(pc);
@@ -65,7 +65,7 @@ namespace Game
         private void SetUpPlayer(PlayerController controller)
         {
             controller.SetIndex(pCount++);
-            PlayerBehaviour character = SpawnAndSetCharacter(ref controller);
+            //PlayerBehaviour character = SpawnAndSetCharacter(ref controller);
 
             //do other stuff here
         }

@@ -6,18 +6,11 @@ namespace Client.UI
 {
     public class UITransitionAnimator : UITransition
     {
-        public enum AnimationType
-        {
-            Fade,
-            Ease,
-            Blink,
-            Custom,
-            None
-        }
-
         [Header("Animation")]
-        public AnimationType TransitionInAnimationType;
-        public AnimationType TransitionOutAnimationType;
+        [AnimatorParam("m_animator")]
+        public string TransitionInAnimationType;
+        [AnimatorParam("m_animator")]
+        public string TransitionOutAnimationType;
 
         [SerializeField, ReadOnly]
         private string m_animationName;
@@ -32,16 +25,25 @@ namespace Client.UI
                 m_animator = GetComponent<Animator>();
         }
 
+        private void Awake()
+        {
+            if (!m_animator)
+                m_animator = GetComponent<Animator>();
+        }
+
         protected override void DoTransition()
         {
             base.DoTransition();
 
             //if its none then dont play
-            if (TransitionInAnimationType == AnimationType.None)
+            if (string.IsNullOrEmpty(TransitionInAnimationType))
                 return;
 
-            string append = IsTransitOut ? "Out" : "In";
-            m_animationName = (IsTransitOut ? TransitionOutAnimationType : TransitionInAnimationType).ToString() + append;
+            m_animationName = IsTransitOut ? TransitionOutAnimationType : TransitionInAnimationType;
+
+            //fail safe
+            if (!m_animator)
+                m_animator = GetComponent<Animator>();
 
             m_animator.ResetTrigger(m_animationName);
 

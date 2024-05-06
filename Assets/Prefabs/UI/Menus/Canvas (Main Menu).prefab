@@ -35,7 +35,6 @@ RectTransform:
   - {fileID: 7712747455928331835}
   - {fileID: 7033187968030260310}
   m_Father: {fileID: 3171135899136568767}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -97,7 +96,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1326628792382810728}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -140,14 +138,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2951592344648048988, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
         type: 3}
+      propertyPath: Events.CommandList.Array.data[0].EventList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951592344648048988, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
+        type: 3}
       propertyPath: Events.CommandList.Array.data[0].ExecuteOn.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2951592344648048988, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
         type: 3}
-      propertyPath: Events.CommandList.Array.data[0].ExecuteOn.Array.data[0]
+      propertyPath: 'Events.CommandList.Array.data[0].EventList.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 9f65e2399e12c0047bf184a1dfa894f8,
+      objectReference: {fileID: 11400000, guid: 67442f5fb2fd56b4b9d8cbe5799b9119,
+        type: 2}
+    - target: {fileID: 2951592344648048988, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
+        type: 3}
+      propertyPath: 'Events.CommandList.Array.data[0].ExecuteOn.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 67442f5fb2fd56b4b9d8cbe5799b9119,
         type: 2}
     - target: {fileID: 7299478270110543490, guid: 3b07cfe6cc56e9a429f7fe770aa81afc,
         type: 3}

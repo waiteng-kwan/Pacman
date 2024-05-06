@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7164416376685736841}
   - component: {fileID: 8379648845652869894}
-  - component: {fileID: 1759336254525437953}
   - component: {fileID: 5757916660501985810}
+  - component: {fileID: 5427507074061805869}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -50,20 +50,7 @@ MonoBehaviour:
   <Index>k__BackingField: -1
   <Pawn>k__BackingField: {fileID: 0}
   m_playerCharacter: {fileID: 0}
---- !u!114 &1759336254525437953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2801043665453976553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c305df0075cefe40808f87b15435e09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_health: 3
-  m_score: 0
+  m_pInput: {fileID: 5757916660501985810}
 --- !u!114 &5757916660501985810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +82,20 @@ MonoBehaviour:
   m_DefaultActionMap: Start
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &5427507074061805869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2801043665453976553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f91a8d810858f4a8e7c65e69f37365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_health: 3
+  m_score: 0
 --- !u!1 &3896057222304576081
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +108,7 @@ GameObject:
   - component: {fileID: 5074444870809785917}
   - component: {fileID: 664803821504849772}
   m_Layer: 0
-  m_Name: Input
+  m_Name: InputEventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
