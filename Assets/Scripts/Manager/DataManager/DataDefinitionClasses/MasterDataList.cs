@@ -22,5 +22,5 @@ public class MasterDataList : ScriptableObject
     public List<EdibleData> m_dotDataList = new List<EdibleData>();
 
     [Header("Player Controller")]
-    public PlayerController PlayerControllerPrefab;
+    public Game.PlayerController PlayerControllerPrefab;
 }

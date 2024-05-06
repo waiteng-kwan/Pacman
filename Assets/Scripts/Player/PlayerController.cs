@@ -1,7 +1,7 @@
 using Game;
 using UnityEngine;
 
-namespace Client
+namespace Game
 {
     /// <summary>
     /// Like the Unreal Engine version of player controller, it should take in input
