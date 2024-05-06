@@ -18,8 +18,8 @@ namespace Game
 
     public class GameModeState
     {
-        private Dictionary<int, IPlayerAttributes> m_pcToStatDictionary =
-            new Dictionary<int, IPlayerAttributes>();
+        private Dictionary<int, IPlayerState> m_pcToStatDictionary =
+            new Dictionary<int, IPlayerState>();
 
         public UnityEvent<int, int> EPlayerScored { get; private set; } =
             new UnityEvent<int, int>();
@@ -43,7 +43,7 @@ namespace Game
                 return false;
             }
 
-            IPlayerAttributes attrib = pc.GetComponent<PlayerState>();
+            IPlayerState attrib = pc.GetComponent<PlayerState>();
 
             attrib.SetHealth(GameModeBase.Instance.Settings.StartingHealth);
 
@@ -55,7 +55,7 @@ namespace Game
 
         public void UpdatePlayerScore(int pcIndex, int newScore)
         {
-            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerAttributes stat))
+            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerState stat))
             {
                 stat.SetScore(newScore);
             }
@@ -63,7 +63,7 @@ namespace Game
 
         public int GetPlayerScore(int pcIndex)
         {
-            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerAttributes stat))
+            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerState stat))
             {
                 return stat.Score;
             }
@@ -73,7 +73,7 @@ namespace Game
 
         public void UpdatePlayerHealth(int pcIndex, int newHealth)
         {
-            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerAttributes stat))
+            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerState stat))
             {
                 stat.SetHealth(newHealth);
             }
@@ -81,7 +81,7 @@ namespace Game
 
         public int GetPlayerHealth(int pcIndex)
         {
-            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerAttributes stat))
+            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerState stat))
             {
                 return stat.Health;
             }
@@ -89,14 +89,14 @@ namespace Game
             return int.MinValue;
         }
 
-        public IPlayerAttributes GetStats(int pcIndex)
+        public IPlayerState GetStats(int pcIndex)
         {
-            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerAttributes stat))
+            if (m_pcToStatDictionary.TryGetValue(pcIndex, out IPlayerState stat))
             {
                 return stat;
             }
 
-            return default(IPlayerAttributes);
+            return default(IPlayerState);
         }
 
         public void SetState(GameplayState newState)

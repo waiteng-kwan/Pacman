@@ -1,10 +1,11 @@
+using Game;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerState : MonoBehaviour, IPlayerAttributes
+public class PlayerState : MonoBehaviour, IPlayerState
 {
     //health
     [SerializeField, ReadOnly]
@@ -15,6 +16,8 @@ public class PlayerState : MonoBehaviour, IPlayerAttributes
     [SerializeField, ReadOnly]
     private int m_score = 0;
     public int Score => m_score;
+
+    public PlayerController Owner => null;
 
     public void SetHealth(int value)
     {

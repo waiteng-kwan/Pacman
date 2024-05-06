@@ -1,7 +1,11 @@
+using System.Runtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
+using System;
+using UnityEngine.InputSystem.XR;
 
 namespace Game
 {
@@ -13,6 +17,7 @@ namespace Game
     public class PlayerInputManagerProxy : MonoBehaviour
     {
         private PlayerInputManager m_mgrCmp;
+        private PlayerManager m_pMgrRef;
 
         [Header("Character Prefab")]
         [SerializeField]
@@ -21,6 +26,10 @@ namespace Game
         //temp
         private static int pCount = 0;
 
+        //events
+        public Action<PlayerController> EOnPlayerJoinedAndSetUp;
+        public Action<PlayerController> EOnPlayerRemoved;
+
         private void OnValidate()
         {
             m_mgrCmp = GetComponent<PlayerInputManager>();
@@ -28,24 +37,19 @@ namespace Game
 
         private void Awake()
         {
-            //if doing local testing with controllers etc
-            m_mgrCmp = GetComponent<PlayerInputManager>();
-
-            if (m_mgrCmp)
-            {
-                m_mgrCmp.onPlayerJoined += OnPlayerJoined;
-                m_mgrCmp.onPlayerLeft += OnPlayerLeft;
-            }
+            //event listeners
+            m_mgrCmp.onPlayerJoined += OnPlayerJoined;
+            m_mgrCmp.onPlayerLeft += OnPlayerLeft;
         }
 
         private void OnDestroy()
         {
-            //handle local testing
-            if (m_mgrCmp)
-            {
-                m_mgrCmp.onPlayerJoined -= OnPlayerJoined;
-                m_mgrCmp.onPlayerLeft -= OnPlayerLeft;
-            }
+            //event listeners
+            m_mgrCmp.onPlayerJoined -= OnPlayerJoined;
+            m_mgrCmp.onPlayerLeft -= OnPlayerLeft;
+
+            SystemActionUtils.ClearEvent(EOnPlayerJoinedAndSetUp);
+            SystemActionUtils.ClearEvent(EOnPlayerRemoved);
         }
 
         private void OnPlayerJoined(PlayerInput obj)
@@ -53,18 +57,27 @@ namespace Game
             Debug.Log("Player has joined!");
 
             var pc = obj.GetComponent<PlayerController>();
-
             SetUpPlayer(pc);
+
+            EOnPlayerJoinedAndSetUp?.Invoke(pc);
         }
 
         private void OnPlayerLeft(PlayerInput obj)
         {
             print("Player left");
+
+            PlayerController controller = obj.GetComponent<PlayerController>();
+
+            EOnPlayerRemoved?.Invoke(controller);
         }
 
         private void SetUpPlayer(PlayerController controller)
         {
             controller.SetIndex(pCount++);
+
+            string guid = Guid.NewGuid().ToString();
+            controller.SetPlayerHash(GameManager.Instance.IsLocalMode ? "local-" : "remote-" + guid);
+
             //PlayerBehaviour character = SpawnAndSetCharacter(ref controller);
 
             //do other stuff here
@@ -76,6 +89,11 @@ namespace Game
 
             pc.PossessCharacter(ch);
             return ch;
+        }
+
+        public void SetPlayerManagerReference(PlayerManager mgrRef)
+        {
+            m_pMgrRef = mgrRef;
         }
     }
 }

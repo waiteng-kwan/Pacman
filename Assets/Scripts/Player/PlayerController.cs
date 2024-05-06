@@ -10,6 +10,9 @@ namespace Game
     /// </summary>
     public class PlayerController : Game.CharacterController
     {
+        [field: SerializeField]
+        public string PlayerHash { get; private set; } = string.Empty;
+
         [Header("Characters")]
         [SerializeField]
         private PlayerBehaviour m_playerCharacter;
@@ -64,6 +67,11 @@ namespace Game
             character.SetOwner(this);
 
             m_playerCharacter = character;
+        }
+
+        public void SetPlayerHash(string hash)
+        {
+            PlayerHash = hash;
         }
     }
 }

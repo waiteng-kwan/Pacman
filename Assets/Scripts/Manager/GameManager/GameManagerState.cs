@@ -41,6 +41,9 @@ namespace Game
 
         public Service.Services Services;
 
+        //local or connect
+        public bool IsLocalMode = false;
+
         public void Initialize()
         {
             PreviousState = CurrentState = NextState =

@@ -14,6 +14,8 @@ namespace Game
         [Header("Debug purposes")]
         [SerializeField]
         private GameInstanceStates m_startStateDEBUG = GameInstanceStates.Menu;
+        public bool IsLocalMode;
+
         public GameInstanceStates CurrentState => m_data.CurrentState;
         public GameInstanceStates PrevState => m_data.PreviousState;
         public GameInstanceStates NextState => m_data.NextState;
@@ -82,6 +84,7 @@ namespace Game
             mgrs.Add(ManagerType.Data, DataManager.CreateInstance(Instance.gameObject));
             mgrs.Add(ManagerType.Scene, SceneManager.CreateInstance());
             mgrs.Add(ManagerType.Audio, AudioManager.CreateInstance());
+            mgrs.Add(ManagerType.Player, PlayerManager.CreateInstance());
 
             //register subsystems
             foreach(var elem in mgrs.Values)
@@ -89,9 +92,7 @@ namespace Game
                 IManager m = elem as IManager;
 
                 if(m != null)
-                {
                     m.RegisterManager(Instance);
-                }
             }
 
             //switch out state
@@ -178,9 +179,7 @@ namespace Game
                 IManager m = elem as IManager;
 
                 if (m != null)
-                {
                     m.ShutdownManager(Instance);
-                }
             }
         }
 
