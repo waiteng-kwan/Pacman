@@ -35,7 +35,9 @@ namespace Client.UI
         {
             Button = GetComponent<Button>();
             TMProLabelObj = GetComponentInChildren<TextMeshProUGUI>();
-            TMProLabelObj.text = TextLabel;
+
+            if(TMProLabelObj)
+                TMProLabelObj.text = TextLabel;
 
             if (m_iconImg)
                 m_iconImg.gameObject.SetActive(IsLocked);
@@ -46,7 +48,8 @@ namespace Client.UI
             Button = GetComponent<Button>();
             TMProLabelObj = GetComponentInChildren<TextMeshProUGUI>();
 
-            TMProLabelObj.text = TextLabel;
+            if (TMProLabelObj)
+                TMProLabelObj.text = TextLabel;
 
             Animator a = Button.GetComponent<Animator>();
 

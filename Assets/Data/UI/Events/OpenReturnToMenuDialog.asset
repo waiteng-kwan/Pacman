@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa43b5112ea65742a8f3b16741d7714, type: 3}
+  m_Name: OpenReturnToMenuDialog
+  m_EditorClassIdentifier: 
+  m_showHeader: 1
+  m_header: To Main Menu
+  m_bodyText: Are you sure you want to return to the main menu?
+  m_dialogSize: 0
+  m_whatButtonsToShow: 6
+  m_cancelBtnCmd:
+    CommandList:
+    - Type: 2
+      EventList:
+      - {fileID: 0}
+  m_okBtnCmd:
+    CommandList:
+    - Type: 3
+      EventList:
+      - {fileID: 11400000, guid: e175ca03024527b4787539b623d2b43b, type: 2}
+  testing: {fileID: 497483324471325867, guid: 780ceb9b9c2983249be0494def39ca4c, type: 3}
