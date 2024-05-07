@@ -15,7 +15,7 @@ public interface IGameMode
     void PlayerUpdateHealth(int index, int addHpBy = -1);
     void PlayerDied(PlayerController pc);
     void StartPlayerRespawn(PlayerController pc);
-    void PlayerCollidedWithGhost(GhostBehaviourBase ghost, PlayerBehaviour pChar);
+    void PlayerCollidedWithGhost(GhostBehaviourBase ghost, PacmanBehaviour pChar);
     
     GhostBehaviourBase SpawnGhost(int ind = 0);
     void GhostDied(GhostBehaviourBase ghost);

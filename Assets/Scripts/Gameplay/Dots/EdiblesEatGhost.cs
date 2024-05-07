@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class EdiblesEatGhost : EdiblesBase
+namespace Game
 {
-    protected override void ResolveCollideWithPlayer(PlayerBehaviour player)
+    public class EdiblesEatGhost : EdiblesBase
     {
-        player.SetPlayerEatGhostState(true);
+        protected override void ResolveCollideWithPlayer(PacmanBehaviour player)
+        {
+            player.SetPlayerEatGhostState(true);
+        }
     }
 }

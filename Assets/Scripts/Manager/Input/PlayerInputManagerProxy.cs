@@ -19,12 +19,10 @@ namespace Game
         private PlayerInputManager m_mgrCmp;
         private PlayerManager m_pMgrRef;
 
-        [Header("Character Prefab")]
-        [SerializeField]
-        private PlayerBehaviour m_charPrefab;
-
         //temp
         private static int pCount = 0;
+        //custom because the one in PlayerInputManager is not writable
+        private int m_maxPlayerCount = 1;
 
         //events
         public Action<PlayerController> EOnPlayerJoinedAndSetUp;
@@ -60,6 +58,12 @@ namespace Game
             SetUpPlayer(pc);
 
             EOnPlayerJoinedAndSetUp?.Invoke(pc);
+
+            /*if(pCount >= m_maxPlayerCount)
+            {
+                print("no");
+                m_mgrCmp.DisableJoining();
+            }*/
         }
 
         private void OnPlayerLeft(PlayerInput obj)
@@ -67,6 +71,13 @@ namespace Game
             print("Player left");
 
             PlayerController controller = obj.GetComponent<PlayerController>();
+
+            //enable joining again
+            /*if (--pCount < m_maxPlayerCount)
+            {
+                print("can join again :)");
+                m_mgrCmp.EnableJoining();
+            }*/
 
             EOnPlayerRemoved?.Invoke(controller);
         }
@@ -77,18 +88,7 @@ namespace Game
 
             string guid = Guid.NewGuid().ToString();
             controller.SetPlayerHash(GameManager.Instance.IsLocalMode ? "local-" : "remote-" + guid);
-
-            //PlayerBehaviour character = SpawnAndSetCharacter(ref controller);
-
             //do other stuff here
-        }
-
-        private PlayerBehaviour SpawnAndSetCharacter(ref PlayerController pc)
-        {
-            PlayerBehaviour ch = Instantiate(m_charPrefab, Vector3.right, Quaternion.identity);
-
-            pc.PossessCharacter(ch);
-            return ch;
         }
 
         public void SetPlayerManagerReference(PlayerManager mgrRef)

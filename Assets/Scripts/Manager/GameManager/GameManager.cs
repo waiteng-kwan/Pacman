@@ -84,7 +84,7 @@ namespace Game
             mgrs.Add(ManagerType.Data, DataManager.CreateInstance(Instance.gameObject));
             mgrs.Add(ManagerType.Scene, SceneManager.CreateInstance());
             mgrs.Add(ManagerType.Audio, AudioManager.CreateInstance());
-            mgrs.Add(ManagerType.Player, PlayerManager.CreateInstance());
+            mgrs.Add(ManagerType.Player, PlayerManager.CreateInstance(Instance.gameObject));
 
             //register subsystems
             foreach(var elem in mgrs.Values)

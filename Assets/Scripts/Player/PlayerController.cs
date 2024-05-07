@@ -8,26 +8,26 @@ namespace Game
     /// Like the Unreal Engine version of player controller, it should take in input
     /// Should not directly control the pawn but rather pass info along to it
     /// </summary>
-    public class PlayerController : Game.CharacterController
+    public class PlayerController : Game.Controller
     {
         [field: SerializeField]
         public string PlayerHash { get; private set; } = string.Empty;
 
         [Header("Characters")]
         [SerializeField]
-        private PlayerBehaviour m_playerCharacter;
-        public PlayerBehaviour PlayerCharacter => m_playerCharacter;
+        private PacmanBehaviour m_playerCharacter;
+        public PacmanBehaviour PlayerCharacter => m_playerCharacter;
 
         [Header("Input")]
         [SerializeField, ReadOnly]
         private PlayerInput m_pInput;
 
-        private void OnValidate()
+        protected override void OnValidate()
         {
             m_pInput = GetComponentInChildren<PlayerInput>();
         }
 
-        private void Awake()
+        protected override void Awake()
         {
             if(!m_pInput)
                 m_pInput = GetComponentInChildren<PlayerInput>();
@@ -62,7 +62,7 @@ namespace Game
             }
         }
 
-        public void PossessCharacter(PlayerBehaviour character)
+        public void PossessCharacter(PacmanBehaviour character)
         {
             character.SetOwner(this);
 

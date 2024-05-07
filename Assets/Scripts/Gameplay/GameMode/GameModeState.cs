@@ -1,6 +1,3 @@
-using Client;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,7 +16,7 @@ namespace Game
     public class GameModeState
     {
         private Dictionary<int, IPlayerState> m_pcToStatDictionary =
-            new Dictionary<int, IPlayerState>();
+            new();
 
         public UnityEvent<int, int> EPlayerScored { get; private set; } =
             new UnityEvent<int, int>();
@@ -43,11 +40,12 @@ namespace Game
                 return false;
             }
 
-            IPlayerState attrib = pc.GetComponent<PlayerState>();
+            stat = pc.GetComponent<IPlayerState>();
 
-            attrib.SetHealth(GameModeBase.Instance.Settings.StartingHealth);
+            stat.SetHealth(GameModeBase.Instance.Settings ? 0 :
+                GameModeBase.Instance.Settings.StartingHealth);
 
-            m_pcToStatDictionary.Add(pc.Index, attrib);
+            m_pcToStatDictionary.Add(pc.Index, stat);
 
             pc.SetIndex(index);
             return true;

@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4492581343262713830}
   - component: {fileID: 9145811570065315306}
   - component: {fileID: 5255900092987654826}
-  - component: {fileID: 7857259387076297088}
   - component: {fileID: 3150581740704690633}
+  - component: {fileID: 4134737657571675958}
   m_Layer: 6
-  m_Name: PlayerCharacter
+  m_Name: PacmanCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114107240167525483}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.55, z: 1.987}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &9145811570065315306
 Rigidbody:
@@ -83,22 +83,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7857259387076297088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114107240167525483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52eb61c2e050aeb4a8a8447e3f694d7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_data: {fileID: 11400000, guid: ff0c2aefc83e46b4e99547ebbb4a8cd7, type: 2}
-  m_model: {fileID: 0}
-  m_rb: {fileID: 9145811570065315306}
-  m_belongsTo: {fileID: 0}
 --- !u!114 &3150581740704690633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,3 +95,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 140bf3242ed491148a5ccc1be0956995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4134737657571675958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114107240167525483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b24957d81bdf7de40b35c91ecbf02e52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <PawnIndex>k__BackingField: -1
+  <Owner>k__BackingField: {fileID: 0}
+  <SkinIndex>k__BackingField: -1
+  m_model: {fileID: 0}
+  Rigidbody: {fileID: 9145811570065315306}
+  Collider: {fileID: 5255900092987654826}
+  m_data: {fileID: 11400000, guid: ff0c2aefc83e46b4e99547ebbb4a8cd7, type: 2}

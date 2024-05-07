@@ -1,4 +1,5 @@
-using Client;
+using Game;
+using Game.Ghost;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class MasterDataList : ScriptableObject
     public MasterSceneList SceneData;
 
     [Header("Characters")]
-    public PlayerBehaviour PlayerCharacterPrefab;
+    public PacmanBehaviour PlayerCharacterPrefab;
     public List<PacmanBaseData> m_charModelDataList = new List<PacmanBaseData>();
 
     [Header("Ghosts")]

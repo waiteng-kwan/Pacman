@@ -154,7 +154,7 @@ namespace Game
                 Vector3 spawnPos = Board.GetPlayerSpawnPoint();
 
                 //spawn character
-                PlayerBehaviour character = Instantiate(masterList.PlayerCharacterPrefab, spawnPos, Quaternion.identity);
+                PacmanBehaviour character = Instantiate(masterList.PlayerCharacterPrefab, spawnPos, Quaternion.identity);
                 character.SetData(masterList.m_charModelDataList[0]);
 
                 pc.PossessCharacter(character);
@@ -270,19 +270,19 @@ namespace Game
         }
 
         public void PlayerCollidedWithGhost(GhostBehaviourBase ghost,
-            PlayerBehaviour pChar)
+            PacmanBehaviour pChar)
         {
             //check current state
             if (pChar.Attributes.CanEatGhosts)
             {
-                PlayerScored(pChar.BelongToPlayerIndex, 5);
+                PlayerScored(pChar.OwnerIndex, 5);
                 GhostDied(ghost);
             }
             else
             {
                 //get eaten
-                PlayerDecHealth(pChar.BelongToPlayerIndex);
-                PlayerDied(pChar.Owner);
+                PlayerDecHealth(pChar.OwnerIndex);
+                PlayerDied(pChar.Owner as PlayerController);
             }
         }
         #endregion

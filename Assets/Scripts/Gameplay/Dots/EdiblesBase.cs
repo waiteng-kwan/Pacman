@@ -23,9 +23,9 @@ public class EdiblesBase : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (other.GetComponent<PlayerBehaviour>())
+            if (other.GetComponent<PacmanBehaviour>())
             {
-                ResolveCollideWithPlayer(other.GetComponent<PlayerBehaviour>());
+                ResolveCollideWithPlayer(other.GetComponent<PacmanBehaviour>());
                 ResolveEatenBehaviour();
             }
         }
@@ -37,10 +37,10 @@ public class EdiblesBase : MonoBehaviour
         EOnDestroy.RemoveAllListeners();
     }
 
-    protected virtual void ResolveCollideWithPlayer(PlayerBehaviour player)
+    protected virtual void ResolveCollideWithPlayer(PacmanBehaviour player)
     {
         //! TODO: remove direct reference
-        GameModeBase.Instance.PlayerScored(player.BelongToPlayerIndex, m_data.CalculateScoreToAdd());
+        GameModeBase.Instance.PlayerScored(player.OwnerIndex, m_data.CalculateScoreToAdd());
     }
 
     protected void ResolveEatenBehaviour()

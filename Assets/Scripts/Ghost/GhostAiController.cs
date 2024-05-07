@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
-using GhostState = GhostBehaviourBase.GhostState;
+using GhostState = Game.GhostBehaviourBase.GhostState;
 
 namespace Game.Ghost
 {
-    public class GhostAiController : CharacterController, IGhostAi
+    public class GhostAiController : Controller, IGhostAi
     {
         [Header("Debug View")]
         [NaughtyAttributes.ReadOnly, SerializeField]
@@ -32,7 +32,7 @@ namespace Game.Ghost
 
         //navigation
         private Vector3 m_destination = Vector3.zero;
-        private PlayerBehaviour m_playerTarget = null;
+        private PacmanBehaviour m_playerTarget = null;
         private GhostAiNavigationData m_navData = new GhostAiNavigationData();
 
         //arbiturary cycle time
@@ -185,7 +185,7 @@ namespace Game.Ghost
                     //next time get closest player or something
 
                     //temp!!
-                    m_playerTarget = FindFirstObjectByType<PlayerBehaviour>();
+                    m_playerTarget = FindFirstObjectByType<PacmanBehaviour>();
                     break;
                 case GhostAiState.Returning:
                     m_agent.autoBraking = false;
