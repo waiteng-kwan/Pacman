@@ -14,18 +14,28 @@ namespace Game
         [property: SerializeField]
         public int OwnerIndex { get => Owner.Index; }
 
+        [Header("Settings")]
+        [SerializeField/*, ReadOnly*/, Expandable]
+        protected PawnDataBase m_settings;
+        public virtual PawnDataBase Settings 
+        { 
+            get => m_settings; 
+            protected set => m_settings = value;
+        }
+
         [Header("Character")]
+        [SerializeField, ReadOnly]
+        protected GameObject m_visualModelRoot;
+        public GameObject Model => m_visualModelRoot;
         [field: SerializeField]
         public int SkinIndex { get; protected set; } = -1;
-        [SerializeField, ReadOnly]
-        protected GameObject m_model;
-        public GameObject Model => m_model;
 
         [Header("Physics")]
         [SerializeField, ReadOnly]
         protected Rigidbody Rigidbody;
         [SerializeField, ReadOnly]
         protected Collider Collider;
+        protected Vector3 m_moveVecDir;
 
         protected virtual void OnValidate()
         {
@@ -46,13 +56,39 @@ namespace Game
             Owner = newOwner;
         }
 
-        public virtual void ChangeModel()
+        public void ChangeModel(GameObject newModel)
         {
-            if (m_model)
+            if (m_visualModelRoot)
             {
                 //destroy current model and spawn new one
-                Destroy(m_model);
+                Destroy(m_visualModelRoot);
             }
+
+            m_visualModelRoot = Instantiate(newModel, transform);
         }
+
+        public void SetSettingsData(PawnDataBase data)
+        {
+            m_settings = data;
+
+            InternalSetSettingsData(data);
+        }
+
+        protected virtual void InternalSetSettingsData(PawnDataBase data)
+        { }
+
+        #region Movement
+        public virtual void SetMoveDir(Vector2 moveDir)
+        {
+            //x = left, right, y = up, down (in 3d space its z)
+            m_moveVecDir.x = moveDir.x;
+            m_moveVecDir.z = moveDir.y;
+        }
+
+        public virtual void ResetMovement()
+        {
+            m_moveVecDir = Vector3.zero;
+        }
+        #endregion
     }
 }

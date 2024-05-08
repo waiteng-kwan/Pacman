@@ -155,9 +155,9 @@ namespace Game
 
                 //spawn character
                 PacmanBehaviour character = Instantiate(masterList.PlayerCharacterPrefab, spawnPos, Quaternion.identity);
-                character.SetData(masterList.m_charModelDataList[0]);
+                character.SetSettingsData(masterList.m_charModelDataList[0]);
 
-                pc.PossessCharacter(character);
+                pc.PossessPawn(character);
 
                 return pc;
             }
@@ -184,7 +184,7 @@ namespace Game
                 GhostBehaviourBase g = Instantiate(masterList.GhostPrefab, Vector3.zero, Quaternion.identity);
 
                 //spawn character
-                g.SetData(masterList.m_ghostModelDataList[0]);
+                g.SetSettingsData(masterList.m_ghostModelDataList[0]);
 
                 //set position
                 (Vector3 pos, Collider c) = Board.GetRandomPointAndGhostSpawnZone();
@@ -258,15 +258,15 @@ namespace Game
 
         public void PlayerDied(PlayerController pc)
         {
-            pc.PlayerCharacter.Attributes.SetState(PlayerCharacterStates.Dead);
+            //pc.PlayerCharacter.Attributes.SetState(PacmanStates.Dead);
 
             StartPlayerRespawn(pc);
         }
 
         public void StartPlayerRespawn(PlayerController pc)
         {
-            pc.PlayerCharacter.gameObject.SetActive(false);
-            pc.PlayerCharacter.Attributes.SetState(PlayerCharacterStates.Respawning);
+            pc.Pawn.gameObject.SetActive(false);
+            //pc.PlayerCharacter.Attributes.SetState(PacmanStates.Respawning);
         }
 
         public void PlayerCollidedWithGhost(GhostBehaviourBase ghost,

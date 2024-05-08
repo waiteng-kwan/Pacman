@@ -111,7 +111,7 @@ namespace Game
         {
             PacmanBehaviour ch = GameObject.Instantiate(m_charPrefab, Vector3.right, Quaternion.identity);
 
-            pc.PossessCharacter(ch);
+            pc.PossessPawn(ch);
             return ch;
         }
     }

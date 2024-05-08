@@ -13,11 +13,6 @@ namespace Game
         [field: SerializeField]
         public string PlayerHash { get; private set; } = string.Empty;
 
-        [Header("Characters")]
-        [SerializeField]
-        private PacmanBehaviour m_playerCharacter;
-        public PacmanBehaviour PlayerCharacter => m_playerCharacter;
-
         [Header("Input")]
         [SerializeField, ReadOnly]
         private PlayerInput m_pInput;
@@ -42,31 +37,24 @@ namespace Game
             //temp test code
             if(Input.GetKeyDown(KeyCode.W))
             {
-                m_playerCharacter.SetMoveDir(Vector2.up);
+                Pawn.SetMoveDir(Vector2.up);
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
-                m_playerCharacter.SetMoveDir(Vector2.left);
+                Pawn.SetMoveDir(Vector2.left);
             }
             else if (Input.GetKeyDown(KeyCode.S))
             {
-                m_playerCharacter.SetMoveDir(Vector2.down);
+                Pawn.SetMoveDir(Vector2.down);
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
-                m_playerCharacter.SetMoveDir(Vector2.right);
+                Pawn.SetMoveDir(Vector2.right);
             }
             else if(Input.GetKeyDown(KeyCode.Escape))
             {
-                m_playerCharacter.ResetMovement();
+                Pawn.ResetMovement();
             }
-        }
-
-        public void PossessCharacter(PacmanBehaviour character)
-        {
-            character.SetOwner(this);
-
-            m_playerCharacter = character;
         }
 
         public void SetPlayerHash(string hash)

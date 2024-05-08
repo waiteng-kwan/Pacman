@@ -4,23 +4,23 @@ using UnityEngine;
 
 namespace Game
 {
-    public enum PlayerCharacterStates
+    public enum PacmanStates
     {
         Alive,
         Dead,
         Respawning
     }
 
-    public class PlayerBehaviourAttributes : MonoBehaviour
+    public class PacmanAttributes : MonoBehaviour
     {
         private bool m_canEatGhosts = false;
         public bool CanEatGhosts => m_canEatGhosts;
 
-        private PlayerCharacterStates m_currState;
-        public PlayerCharacterStates CurrentState => m_currState;
+        private PacmanStates m_currState;
+        public PacmanStates CurrentState => m_currState;
         private bool m_isInvul;
 
-        public void SetState(PlayerCharacterStates state)
+        public void SetState(PacmanStates state)
         {
             m_currState = state;
         }
@@ -40,7 +40,7 @@ namespace Game
         public bool IsPlayerInvul()
         {
             //only invul when dead or respawning
-            return m_currState != PlayerCharacterStates.Alive;
+            return m_currState != PacmanStates.Alive;
         }
 
         public void SetIsPlayerInvul(bool isInvul)

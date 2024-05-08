@@ -7,22 +7,12 @@ using UnityEngine.AI;
 namespace Game.Ghost
 {
     [CreateAssetMenu(fileName = "GhostDataBase",
-menuName = "Scriptable Objects/Ghost/Ghost Data", order = 0)]
-    public class GhostDataBase : ScriptableObject
+menuName = "Scriptable Objects/Pawn/Ghost Type Data", order = 0)]
+    public class GhostDataBase : PawnDataBase
     {
-        //base
-        [Header("Basic")]
-        public GhostBehaviourBase ParentGhostPrefab;
-
         //chara
         [Header("Character")]
         public GhostType GhostCharType;
-        public MeshRenderer GhostCharModel;
-        public string GhostDisplayName;        //prolly not needed
-
-        [Header("Movement")]
-        public float Speed = 5f;
-        public bool HasAccelDeccel = false;
 
         [Header("AI")]
         public bool UseNavMesh = false;          //replace with AI Tree next time

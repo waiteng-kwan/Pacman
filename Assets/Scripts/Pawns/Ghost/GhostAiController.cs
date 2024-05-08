@@ -297,7 +297,7 @@ namespace Game.Ghost
                 SetNextState(GhostAiState.Patrol);
             }
 
-            if (m_playerTarget.Attributes.CurrentState != PlayerCharacterStates.Alive)
+            if (m_playerTarget.Attributes.CurrentState != PacmanStates.Alive)
             {
                 //stop movement
                 m_agent.isStopped = true;

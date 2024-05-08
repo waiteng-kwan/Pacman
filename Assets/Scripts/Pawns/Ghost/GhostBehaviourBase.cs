@@ -49,7 +49,7 @@ namespace Game
 
             if (m_data != null)
             {
-                ChangeModel();
+                ChangeModel(m_data.CharacterModel.gameObject);
             }
         }
 
@@ -65,22 +65,11 @@ namespace Game
             EOnStateChange.RemoveAllListeners();
         }
 
-        public override void ChangeModel()
+        protected override void InternalSetSettingsData(PawnDataBase data)
         {
-            if (m_model)
-            {
-                //destroy current model and spawn new one
-                Destroy(m_model);
-            }
+            m_data = data as GhostDataBase;
 
-            m_model = Instantiate(m_data.GhostCharModel.gameObject, transform);
-        }
-
-        public void SetData(GhostDataBase data)
-        {
-            m_data = data;
-
-            ChangeModel();
+            ChangeModel(m_data.CharacterModel.gameObject);
         }
 
         /// <summary>
@@ -114,7 +103,7 @@ namespace Game
 
             SwitchState(GhostState.Standby);
 
-            m_model.gameObject.SetActive(true);
+            m_visualModelRoot.gameObject.SetActive(true);
             Collider.enabled = true;
         }
 
@@ -141,15 +130,15 @@ namespace Game
 
             while (currTime <= 3f)
             {
-                m_model.gameObject.SetActive(false);
+                m_visualModelRoot.gameObject.SetActive(false);
                 yield return new WaitForSeconds(0.5f);
 
-                m_model.gameObject.SetActive(true);
+                m_visualModelRoot.gameObject.SetActive(true);
                 yield return new WaitForSeconds(0.5f);
                 currTime += 1f;
             }
 
-            m_model.gameObject.SetActive(false);
+            m_visualModelRoot.gameObject.SetActive(false);
 
             StartRespawnTimer(m_data.RespawnTime);
 

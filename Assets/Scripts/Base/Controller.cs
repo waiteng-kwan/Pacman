@@ -16,23 +16,26 @@ namespace Game
         #region Unity Fn
         protected virtual void OnValidate()
         {
-            
         }
 
         protected virtual void Awake()
         {
-            
         }
 
         protected virtual void OnDestroy()
         {
-            
         }
         #endregion
 
         public void SetIndex(int index)
         {
             Index = index;
+        }
+
+        public void PossessPawn(PawnBase pawn)
+        {
+            Pawn = pawn;
+            Pawn.SetOwner(this);
         }
     }
 } 

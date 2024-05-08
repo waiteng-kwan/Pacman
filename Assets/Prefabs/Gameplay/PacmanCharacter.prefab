@@ -109,8 +109,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <PawnIndex>k__BackingField: -1
   <Owner>k__BackingField: {fileID: 0}
+  m_settings: {fileID: 11400000, guid: ff0c2aefc83e46b4e99547ebbb4a8cd7, type: 2}
+  m_visualModelRoot: {fileID: 0}
   <SkinIndex>k__BackingField: -1
-  m_model: {fileID: 0}
   Rigidbody: {fileID: 9145811570065315306}
   Collider: {fileID: 5255900092987654826}
   m_data: {fileID: 11400000, guid: ff0c2aefc83e46b4e99547ebbb4a8cd7, type: 2}

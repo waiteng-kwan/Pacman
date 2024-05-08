@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PacmanBaseData",
-menuName = "Scriptable Objects/PacmanBaseData Data", order = 1)]
-public class PacmanBaseData : ScriptableObject
+menuName = "Scriptable Objects/Pawn/Pacman Type Data", order = 1)]
+public class PacmanBaseData : PawnDataBase
 {
     public enum PacmanType
     {
@@ -19,15 +19,7 @@ public class PacmanBaseData : ScriptableObject
     //chara
     [Header("Character")]
     public PacmanType PacmanCharType;
-    public MeshRenderer PacmanCharModel;
-    public string CharDisplayName;
-
-    [Header("Movement")]
-    public float Speed = 5f;
-    public bool HasAccelDeccel = false;
 
     [Header("SFX")]
     public AudioClip SfxEatNormal;
-    public AudioClip SfxWalkNormal;
-
 }
