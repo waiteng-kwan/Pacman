@@ -12,9 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c14efc3039cdd7140a6f0e2690de7865, type: 3}
   m_Name: Default
   m_EditorClassIdentifier: 
-  PacmanCharType: 0
-  PacmanCharModel: {fileID: 7207894026042748984, guid: bee2b0fe26bf9a14f800ead6a0ec23f0,
+  PawnPrefab: {fileID: 4134737657571675958, guid: 7fc36ae49248efb40862723defa131ac,
     type: 3}
-  CharDisplayName: Mr. Yellow
+  DisplayName: Pacman
+  CharacterModel: {fileID: 7207894026042748984, guid: bee2b0fe26bf9a14f800ead6a0ec23f0,
+    type: 3}
   Speed: 5
   HasAccelDeccel: 0
+  SfxDieNormal: {fileID: 0}
+  SfxSpawnNormal: {fileID: 0}
+  SfxWalkNormal: {fileID: 0}
+  PacmanCharType: 0
+  SfxEatNormal: {fileID: 0}

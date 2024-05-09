@@ -49,6 +49,16 @@ namespace Game
                 Rigidbody = GetComponent<Rigidbody>();
             if (!Collider)
                 Collider = GetComponent<Collider>();
+
+            InitializePawn();
+        }
+
+        /// <summary>
+        /// Called at the end of PawnBase.Awake()
+        /// Do child class stuff here
+        /// </summary>
+        protected virtual void InitializePawn()
+        {
         }
 
         public void SetOwner(Controller newOwner)

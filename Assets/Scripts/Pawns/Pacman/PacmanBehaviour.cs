@@ -4,6 +4,7 @@ namespace Game
 {
     public class PacmanBehaviour : PawnBase
     {
+        //mainly for easy reference
         private PacmanBaseData m_data
         {
             get => Settings as PacmanBaseData;
@@ -13,7 +14,7 @@ namespace Game
         //attributes
         public PacmanAttributes Attributes { get; private set; }
 
-        #region Unity Fn
+        #region PawnBase Stuff
         protected override void OnValidate()
         {
             base.OnValidate();
@@ -26,19 +27,29 @@ namespace Game
 
         protected override void Awake()
         {
-            base.Awake();
             Attributes = GetComponent<PacmanAttributes>();
 
-            if (m_data != null)
-            {
+            base.Awake();
+        }
+
+        protected override void InitializePawn()
+        {
+            if(m_data)
                 ChangeModel(m_data.CharacterModel.gameObject);
-            }
         }
 
         private void FixedUpdate()
         {
             Rigidbody.velocity = m_moveVecDir * m_data.Speed;
         }
+
+        protected override void InternalSetSettingsData(PawnDataBase data)
+        {
+            m_data = data as PacmanBaseData;
+
+            ChangeModel(m_data.CharacterModel.gameObject);
+        }
+        #endregion
 
         private void OnTriggerEnter(Collider other)
         {
@@ -51,14 +62,7 @@ namespace Game
                 GameModeBase.Instance.PlayerCollidedWithGhost(ghostBehaviour, this);
             }
         }
-        #endregion
 
-        protected override void InternalSetSettingsData(PawnDataBase data)
-        {
-            m_data = data as PacmanBaseData;
-
-            ChangeModel(m_data.CharacterModel.gameObject);
-        }
 
         public void SetPlayerEatGhostState(bool canEat)
         {

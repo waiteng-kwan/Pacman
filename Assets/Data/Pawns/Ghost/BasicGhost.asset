@@ -12,17 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e509f49f7908f584a8e617c4968c85d0, type: 3}
   m_Name: BasicGhost
   m_EditorClassIdentifier: 
-  ParentGhostPrefab: {fileID: 3780353164371426870, guid: d27318160e7267943a18baee04bcea53,
+  PawnPrefab: {fileID: 3780353164371426870, guid: d27318160e7267943a18baee04bcea53,
     type: 3}
-  GhostCharType: 1
-  GhostCharModel: {fileID: 8924747379100004696, guid: 9b4f2a7b26da5dd498809c2d9708ea03,
+  DisplayName: Pinky
+  CharacterModel: {fileID: 8924747379100004696, guid: 9b4f2a7b26da5dd498809c2d9708ea03,
     type: 3}
-  GhostDisplayName: Pinky
   Speed: 5
   HasAccelDeccel: 0
+  SfxDieNormal: {fileID: 0}
+  SfxSpawnNormal: {fileID: 0}
+  SfxWalkNormal: {fileID: 0}
+  GhostCharType: 1
   UseNavMesh: 0
   ChangeStateDampingRange: {x: 0.5, y: 5}
   ChangeIdleWaitngRange: {x: 1, y: 4}
   DetectionRange: 8
+  DirectionWeight: {x: 0, y: 0, z: 0, w: 0}
   RespawnTime: 5
   GhostIdleTime: 3.5

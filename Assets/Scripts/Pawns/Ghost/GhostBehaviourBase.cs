@@ -46,11 +46,12 @@ namespace Game
         {
             Rigidbody = GetComponent<Rigidbody>();
             Collider = GetComponent<Collider>();
+        }
 
-            if (m_data != null)
-            {
+        protected override void InitializePawn()
+        {
+            if (m_data)
                 ChangeModel(m_data.CharacterModel.gameObject);
-            }
         }
 
         // Update is called once per frame
