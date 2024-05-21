@@ -37,6 +37,9 @@ namespace Game
         protected Collider Collider;
         protected Vector3 m_moveVecDir;
 
+        [Header("Others")]
+        public bool IsInvul = false;
+
         protected virtual void OnValidate()
         {
             Rigidbody = GetComponent<Rigidbody>();

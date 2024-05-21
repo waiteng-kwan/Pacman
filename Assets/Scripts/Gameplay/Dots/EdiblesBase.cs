@@ -8,8 +8,8 @@ public class EdiblesBase : MonoBehaviour
 {
     [Header("Data")]
     [SerializeField, NaughtyAttributes.Expandable]
-    public EdibleData m_data;
-    public EdibleData.EdibleType DotPelletType => m_data.EdibleDotType;
+    public EdibleData Data;
+    public EdibleData.EdibleType DotPelletType => Data.EdibleDotType;
 
     //destroy event
     public UnityEvent<EdibleData.EdibleType> EOnDestroy { get; private set; }
@@ -40,15 +40,15 @@ public class EdiblesBase : MonoBehaviour
     protected virtual void ResolveCollideWithPlayer(PacmanBehaviour player)
     {
         //! TODO: remove direct reference
-        GameModeBase.Instance.PlayerScored(player.OwnerIndex, m_data.CalculateScoreToAdd());
+        GameModeBase.Instance.PlayerScored(player.OwnerIndex, Data.CalculateScoreToAdd());
     }
 
     protected void ResolveEatenBehaviour()
     {
-        if(m_data.WillRespawn)
+        if(Data.WillRespawn)
         {
             gameObject.SetActive(false);
-            Invoke("Respawn", m_data.TimeToRespawn);
+            Invoke("Respawn", Data.TimeToRespawn);
         }
         else
         {

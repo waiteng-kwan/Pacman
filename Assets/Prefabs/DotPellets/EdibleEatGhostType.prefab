@@ -81,11 +81,11 @@ PrefabInstance:
     - target: {fileID: 1388517839937036399, guid: ca8f9d5c646ecdf4d911b22f59beb011,
         type: 3}
       propertyPath: m_Name
-      value: EatGhostDotPellet
+      value: EdibleEatGhostType
       objectReference: {fileID: 0}
     - target: {fileID: 5718273328574727131, guid: ca8f9d5c646ecdf4d911b22f59beb011,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: e966154c6e6f175428bfcc67ffd3291e, type: 2}
     - target: {fileID: 7871705771013724163, guid: ca8f9d5c646ecdf4d911b22f59beb011,
@@ -126,4 +126,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab616e490cf9ff349a4c601d2e65f8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_data: {fileID: 11400000, guid: a3f912cf50dc08c44b06af046e0fa778, type: 2}
+  Data: {fileID: 11400000, guid: a3f912cf50dc08c44b06af046e0fa778, type: 2}

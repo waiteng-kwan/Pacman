@@ -4,7 +4,7 @@ namespace Game
     {
         protected override void ResolveCollideWithPlayer(PacmanBehaviour player)
         {
-            player.SetPlayerEatGhostState(true);
+            player.SetPacmanEatGhostState(true, Data.Duration);
         }
     }
 }

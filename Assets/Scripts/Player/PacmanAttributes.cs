@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Game
 {
@@ -13,34 +14,29 @@ namespace Game
 
     public class PacmanAttributes : MonoBehaviour
     {
-        private bool m_canEatGhosts = false;
-        public bool CanEatGhosts => m_canEatGhosts;
+        public bool CanEatGhosts { get; private set; } = false;
+        public PacmanStates CurrentState { get; private set; }
+         = PacmanStates.Alive;
 
-        private PacmanStates m_currState;
-        public PacmanStates CurrentState => m_currState;
         private bool m_isInvul;
+
+        //ghost eating
+        private float m_ghostEatingDurationLeft = 0f;
 
         public void SetState(PacmanStates state)
         {
-            m_currState = state;
+            CurrentState = state;
         }
 
         public void SetCanEatGhostState(bool canEatGhost)
         {
-            m_canEatGhosts = canEatGhost;
-
-            Invoke("SetEatGhostStateInactive", 5f);
+            CanEatGhosts = canEatGhost;
         }
 
-        public void SetEatGhostStateInactive()
-        {
-            m_canEatGhosts = false;
-        }
-
-        public bool IsPlayerInvul()
+        public bool IsPacmanInvul()
         {
             //only invul when dead or respawning
-            return m_currState != PacmanStates.Alive;
+            return CurrentState != PacmanStates.Alive;
         }
 
         public void SetIsPlayerInvul(bool isInvul)
