@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.AI.Navigation;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using GhostState = Game.GhostBehaviourBase.GhostState;
@@ -24,11 +25,12 @@ namespace Game.Ghost
 
         [Header("Behaviour Tree")]
         [SerializeField]
-        private GhostBehaviourDataBase m_behaviourTree;
+        private GhostAIBehaviourDataBase m_behaviourTree;
+        private GhostAIBehaviour m_gBehaviour = null;
         private NavMeshAgent m_agent;
 
         //functions
-        Dictionary<GhostAiState, System.Action> m_stateToFuncDict = new Dictionary<GhostAiState, System.Action>();
+        Dictionary<GhostAiState, System.Action> m_stateToFuncDict = new();
 
         //navigation
         private Vector3 m_destination = Vector3.zero;
@@ -39,13 +41,23 @@ namespace Game.Ghost
         private float m_currCycleCounter = 0f;
         private float m_maxCycleCounter = 5f;
 
-        public static GhostAiController CreateInstance()
+        protected override void OnValidate()
         {
-            return new GhostAiController();
+            //this is for hot swapping behavior trees
+            if(m_gBehaviour != null && Application.isPlaying)
+            {
+                if(m_gBehaviour.AiSettings != m_behaviourTree)
+                    m_gBehaviour = new GhostAIBehaviour(m_behaviourTree);
+                print("aaaAAAAaaAAa");
+            }
         }
 
-        private void Awake()
+        protected override void Awake()
         {
+            //! testing
+            m_behaviourTree = Resources.Load("Data/GhostBehaviourDataBase", typeof(GhostAIBehaviourDataBase)) as GhostAIBehaviourDataBase;
+            m_gBehaviour = new GhostAIBehaviour(m_behaviourTree);
+
             //set up function dictionary
             m_stateToFuncDict.Add(GhostAiState.Idle, Idle);
             m_stateToFuncDict.Add(GhostAiState.Patrol, Patrol);
@@ -219,7 +231,7 @@ namespace Game.Ghost
         public void PossessPawn(GhostBehaviourBase pawn)
         {
             m_ghost = pawn;
-            m_settings = pawn.Data;
+            m_settings = pawn.Settings as GhostDataBase;
 
             pawn.EOnStateChange.AddListener(OnPawnStateChange);
         }

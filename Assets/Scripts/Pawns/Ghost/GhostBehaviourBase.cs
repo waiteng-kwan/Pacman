@@ -1,4 +1,5 @@
 using Game.Ghost;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,11 +19,11 @@ namespace Game
             Respawning     //loops back to standby
         }
         public bool IsDead { get; private set; } = false;
-
-        [Header("Data")]
-        [SerializeField, NaughtyAttributes.Expandable]
-        private GhostDataBase m_data;
-        public GhostDataBase Data => m_data;
+        private GhostDataBase m_data
+        {
+            get => Settings as GhostDataBase;
+            set => Settings = value;
+        }
 
         [Header("(Read Only) for Debug")]
         public Collider GhostRespawnZone { get; private set; } = null;
@@ -38,8 +39,6 @@ namespace Game
 
         protected override void OnValidate()
         {
-            if (m_data == null)
-                Debug.LogError("Ghost data is missing on " + gameObject.name);
         }
 
         protected override void Awake()

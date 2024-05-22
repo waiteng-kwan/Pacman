@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 [CreateAssetMenu(fileName = "GhostBehaviourDataBase",
 menuName = "Scriptable Objects/Ghost/GhostBehaviour Data", order = 1)]
-public class GhostBehaviourDataBase : ScriptableObject
+public class GhostAIBehaviourDataBase : ScriptableObject
 {
     [Header("Damping Data")]
     [InfoBox("X = min, Y = max")]

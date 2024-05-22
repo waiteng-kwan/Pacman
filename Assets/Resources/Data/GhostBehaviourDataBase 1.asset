@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616cfa162c9118a41b2969da62b88a41, type: 3}
+  m_Name: GhostBehaviourDataBase 1
+  m_EditorClassIdentifier: 
+  TargetType: {fileID: 11400000, guid: e3d2ac1271d057749a7498da1e505e27, type: 2}
+  BlockBackwardMovementNormally: 1
+  AllowChaseBackwardMovement: 1
+  UseClosestLinearDistance: 1
+  m_upWeight: 0
+  m_downWeight: 0
+  m_leftWeight: 0
+  m_rightWeight: 0
+  <PreviousAiState>k__BackingField: 0
+  <CurrentAiState>k__BackingField: 0
+  <NextAiState>k__BackingField: 0
+  m_cycleTime: 0
+  <Destination>k__BackingField: {x: 0, y: 0, z: 0}
