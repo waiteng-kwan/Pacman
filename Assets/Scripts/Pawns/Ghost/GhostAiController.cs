@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using Unity.AI.Navigation;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using GhostState = Game.GhostBehaviourBase.GhostState;
@@ -8,7 +5,8 @@ using GhostState = Game.GhostBehaviourBase.GhostState;
 namespace Game.Ghost
 {
     /// <summary>
-    /// This class is a subset of the Controller class
+    /// This class is a child of the GhostController class which is child of Controller class
+    /// (Ancestor) Controller -> (Parent) GhostController -> (Child) GhostAiController
     /// It DOES NOT contain the actual behaviour, it acts as the controller for the pawn
     /// So that in the future we can just swap out the behaviour if needed, eg player controls ghost
     /// </summary>
@@ -19,10 +17,6 @@ namespace Game.Ghost
         private GhostBehaviourBase m_ghost;
         private GhostDataBase m_settings;
 
-        [Header("State")]
-        [NaughtyAttributes.ReadOnly, SerializeField]
-        private GhostAiState m_currState;
-
         [Header("Behaviour Tree")]
         [SerializeField]
         private GhostAIBehaviourDataBase m_behaviourTree;
@@ -31,7 +25,6 @@ namespace Game.Ghost
 
         //navigation
         private PacmanBehaviour m_playerTarget = null;
-        private GhostAiNavigationData m_navData = new GhostAiNavigationData();
 
         protected override void OnValidate()
         {
@@ -50,48 +43,31 @@ namespace Game.Ghost
             m_behaviourTree = Resources.Load("Data/GhostBehaviourDataBase", typeof(GhostAIBehaviourDataBase)) as GhostAIBehaviourDataBase;
             m_gBehaviour = new GhostAIBehaviour(m_behaviourTree, transform);
 
-            //set up navmesh agent
-            m_agent = gameObject.AddComponent<NavMeshAgent>();
-            m_agent.agentTypeID = GameObject.FindGameObjectWithTag("Floor").GetComponent<NavMeshSurface>().agentTypeID;
-            m_agent.baseOffset = 0.5f;
-            m_agent.stoppingDistance = 0.5f;
-            m_agent.angularSpeed = 270f;
-
-            m_gBehaviour.Agent = m_agent;
-
             Invoke("Test", 1f);
         }
 
         private void OnDisable()
         {
-            if (m_agent != null)
-                m_agent.enabled = false;
-
-            m_playerTarget = null;
+            if(m_gBehaviour != null)
+                m_gBehaviour.Pause(true);
         }
 
         private void OnEnable()
         {
-            if (m_agent != null)
-                m_agent.enabled = true;
-
-            m_playerTarget = null;
+            if (m_gBehaviour != null)
+                m_gBehaviour.Pause(false);
         }
 
         void Test()
         {
-            m_gBehaviour.SwitchState(GhostAiState.Idle);
-
             m_playerTarget = FindFirstObjectByType<PacmanBehaviour>();
-            m_gBehaviour.FollowPlayerTarget(m_playerTarget);
+            m_gBehaviour.FollowPlayerTargetReference(m_playerTarget);
+            m_gBehaviour.SwitchState(GhostAiState.Idle);
         }
 
         private void Update()
         {
-            if (m_agent == null)
-                return;
-
-            //exec
+            //in future check if is AI or not
             if(m_gBehaviour != null)
                 m_gBehaviour.Update();
         }
@@ -169,11 +145,7 @@ namespace Game.Ghost
 
             Vector3 modelSize = m_ghost.GetComponent<Collider>().bounds.size;
 
-            //get random point on extent
-            float randX = Random.Range(col.bounds.min.x + modelSize.x, col.bounds.max.x - modelSize.x);
-            float randZ = Random.Range(col.bounds.min.z + modelSize.z, col.bounds.max.z - modelSize.z);
-
-            return new Vector3(randX, col.transform.position.y, randZ);
+            return m_gBehaviour.GetRandomSpawnPointInZone(col.bounds, modelSize, col.transform.position.y);
         }
     }
 }

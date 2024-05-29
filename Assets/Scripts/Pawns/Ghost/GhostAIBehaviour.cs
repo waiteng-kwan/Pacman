@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -27,6 +28,7 @@ namespace Game.Ghost
 
         //target
         private PacmanBehaviour m_playerTarget = null;
+        private Transform m_targetTransform = null;
         private Vector3 m_destination;
         private Transform m_myTransform;
 
@@ -58,6 +60,17 @@ namespace Game.Ghost
             m_updateQueue.Add(data.ChangeStateDampingRange != Vector2.zero ? UpdateRandomChangeState : UpdateNormalChangeState);
 
             m_updateQueue.Add(UpdateState);
+
+            //set up navmesh agent
+            Agent = myTransform.AddComponent<NavMeshAgent>();
+
+            //this agent id is actualy an addressable asset, can get from game mode set up file maybe?
+            Agent.agentTypeID = GameObject.FindGameObjectWithTag("Floor").GetComponent<NavMeshSurface>().agentTypeID;
+
+            //temporary settings shit
+            Agent.baseOffset = 0.5f;
+            Agent.stoppingDistance = 0.5f;
+            Agent.angularSpeed = 270f;
         }
 
         ~GhostAIBehaviour()
@@ -69,6 +82,13 @@ namespace Game.Ghost
         #endregion
 
         #region AI State Function Library
+        public void Pause(bool isPauseAI = false)
+        {
+            if (isPauseAI)
+                NextState = GhostAiState.StandBy;
+            else
+                NextState = PreviousState;
+        }
         /// <summary>
         /// Spawned but game not ready
         /// </summary>
@@ -89,7 +109,7 @@ namespace Game.Ghost
             if (distance <= m_distanceCheckThreshold)
             {
                 m_destination = m_navData.NextPointOnIdlePath();
-                SetTarget(m_destination);
+                SetTargetPosition(m_destination);
 
                 SwitchState(GhostAiState.Chasing);
             }
@@ -117,11 +137,12 @@ namespace Game.Ghost
         {
             //set object of interest to player
             m_destination = m_playerTarget.transform.position;
-            SetTarget(m_destination);
+            SetTargetPosition(m_destination);
+            Agent.SetDestination(m_destination);
 
             //the cycle is how traditional pacman is implemented where
             //there are cycles of patrol -> chase -> patrol -> chase
-            if (m_currCycleCounter >= m_maxCycleCounter)
+            /*if (m_currCycleCounter >= m_maxCycleCounter)
             {
                 m_currCycleCounter = 0f;
                 //stop movement
@@ -142,7 +163,7 @@ namespace Game.Ghost
                 NextState = (GhostAiState.Returning);
             }
 
-            m_currCycleCounter += Time.deltaTime;
+            m_currCycleCounter += Time.deltaTime;*/
         }
 
         /// <summary>
@@ -317,27 +338,32 @@ namespace Game.Ghost
         #endregion
 
         #region Targeting
-        public void SetTarget(Vector3 pos)
+        public void SetTargetPosition(Vector3 pos)
         {
 
         }
 
-        public void SetTarget(Transform pos)
+        public void SetTargetReference(Transform pos)
         {
-            if (pos)
-                SetTarget(pos.position);
+            m_targetTransform = pos;
         }
 
-        public void FollowTarget(GameObject pos)
-        {
-        }
-        public void FollowPlayerTarget(PacmanBehaviour pos)
+        public void FollowPlayerTargetReference(PacmanBehaviour pos)
         {
             m_playerTarget = pos;
+            m_targetTransform = pos.transform;
         }
         #endregion
 
         #region Move
+        public Vector3 GetRandomSpawnPointInZone(Bounds bounds, Vector3 allowance, float vertPos)
+        {
+            //get random point on extent
+            float randX = Random.Range(bounds.min.x + allowance.x, bounds.max.x - allowance.x);
+            float randZ = Random.Range(bounds.min.z + allowance.z, bounds.max.z - allowance.z);
+
+            return new Vector3(randX, vertPos, randZ);
+        }
         #endregion
     }
 }

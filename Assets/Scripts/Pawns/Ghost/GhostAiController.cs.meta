@@ -1,14 +1,2 @@
 fileFormatVersion: 2
 guid: cda64df011f88454f9e13f509951acbb
-MonoImporter:
-  externalObjects: {}
-  serializedVersion: 2
-  defaultReferences:
-  - <Pawn>k__BackingField: {instanceID: 0}
-  - m_ghost: {instanceID: 0}
-  - m_behaviourTree: {fileID: 11400000, guid: 13df4692fa0fd824a80dc2442e639c5a, type: 2}
-  executionOrder: 0
-  icon: {instanceID: 0}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
