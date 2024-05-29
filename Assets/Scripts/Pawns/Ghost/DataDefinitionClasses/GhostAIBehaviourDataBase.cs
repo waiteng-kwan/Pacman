@@ -13,9 +13,9 @@ menuName = "Scriptable Objects/Ghost/GhostBehaviour Data", order = 1)]
 public class GhostAIBehaviourDataBase : ScriptableObject
 {
     [Header("Damping Data")]
-    [InfoBox("X = min, Y = max")]
+    [InfoBox("X = min, Y = max, set (0f, 0f) to disable")]
     public Vector2 ChangeStateDampingRange = Vector2.one;
-    [InfoBox("X = min, Y = max")]
+    [InfoBox("X = min, Y = max, set (0f, 0f) to disable")]
     public Vector2 ChangeIdleWaitngRange = Vector2.one;
     public float DetectionRange = 8f;
     [Header("Target Type")]

@@ -32,10 +32,15 @@ namespace Game
             Index = index;
         }
 
-        public void PossessPawn(PawnBase pawn)
+        public virtual void PossessPawn(PawnBase pawn)
         {
             Pawn = pawn;
             Pawn.SetOwner(this);
+        }
+        public virtual void UnposessPawn()
+        {
+            Pawn.SetOwner(null);
+            Pawn = null;
         }
     }
 } 
