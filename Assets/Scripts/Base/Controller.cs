@@ -13,6 +13,10 @@ namespace Game
         [field: SerializeField, ReadOnly]
         public PawnBase Pawn { get; protected set; }
 
+        //ai
+        public bool IsAIMode { get; protected set; }
+        public bool UpdateAI { get; protected set; }
+
         #region Unity Fn
         protected virtual void OnValidate()
         {
@@ -41,6 +45,16 @@ namespace Game
         {
             Pawn.SetOwner(null);
             Pawn = null;
+        }
+
+        public virtual void SetAIMode(bool isAi)
+        {
+            IsAIMode = isAi;
+        }
+
+        public virtual void ToggleActiveAI(bool isActive)
+        {
+            UpdateAI = isActive;
         }
     }
 } 

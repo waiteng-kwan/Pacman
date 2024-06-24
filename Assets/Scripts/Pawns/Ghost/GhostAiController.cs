@@ -33,7 +33,6 @@ namespace Game.Ghost
             {
                 if(m_gBehaviour.AiSettings != m_behaviourTree)
                     m_gBehaviour = new GhostAIBehaviour(m_behaviourTree, transform);
-                print("aaaAAAAaaAAa");
             }
         }
 
@@ -68,7 +67,7 @@ namespace Game.Ghost
         private void Update()
         {
             //in future check if is AI or not
-            if(m_gBehaviour != null)
+            if(m_gBehaviour != null && UpdateAI)
                 m_gBehaviour.Update();
         }
 
@@ -101,6 +100,16 @@ namespace Game.Ghost
             base.UnposessPawn();
         }
         #endregion
+
+        public void HotSwapAI(GhostAIBehaviourDataBase data)
+        {
+            //this is for hot swapping behavior trees
+            if (m_gBehaviour != null && Application.isPlaying)
+            {
+                if (m_gBehaviour.AiSettings != m_behaviourTree)
+                    m_gBehaviour = new GhostAIBehaviour(m_behaviourTree, transform);
+            }
+        }
 
         void OnPawnStateChange(GhostState oldState, GhostState newState)
         {

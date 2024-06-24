@@ -72,56 +72,11 @@ public class GhostAIBehaviourDataBase : ScriptableObject
     {
         m_movementWeight = new(m_upWeight, m_downWeight,
                              m_leftWeight, m_rightWeight);
-
-        m_stateToFuncDict = new()
-        {
-            //set up function dictionary
-            { GhostAiState.Idle, Idle },
-            { GhostAiState.Patrol, Patrol },
-            { GhostAiState.Chasing, ChasePlayer },
-            { GhostAiState.Returning, Returning },
-            { GhostAiState.RunAway, RunAway },
-            { GhostAiState.StandBy, null }
-        };
     }
 
     public virtual void Update()
     {
-        if (!m_update)
-            return;
-
-        if (CurrentAiState != NextAiState)
-        {
-            //this is to get a random point before changing state
-            if (!m_enqueueChangingState)
-            {
-                m_enqueueChangingState = true;
-
-                m_maxChangeStateTime = GetRandomStateChangeDampingPoint();
-                m_currChangeStateTime = m_maxChangeStateTime;
-            }
-
-            //countdown to change state time
-            m_currChangeStateTime -= Time.deltaTime;
-
-            //finally change state
-            if (m_currChangeStateTime <= 0)
-            {
-                StartSwitchState();
-
-                //reset flag
-                m_enqueueChangingState = false;
-            }
-        }
-
-        //exec
-        if (m_stateToFuncDict[CurrentAiState] != null)
-            m_stateToFuncDict[CurrentAiState]();
-    }
-
-    public virtual void CleanUp()
-    {
-        m_stateToFuncDict?.Clear();
+        
     }
 
     /// <summary>
