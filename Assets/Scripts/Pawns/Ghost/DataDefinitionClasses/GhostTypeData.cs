@@ -1,7 +1,7 @@
 using UnityEngine;
 
 ///This file is used to hold all the enums and other data for ghost
-namespace Game.Ghost
+namespace Core.Ghost
 { 
     public enum GhostType
     {

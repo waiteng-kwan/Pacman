@@ -1,8 +1,5 @@
-using Game;
+using Core;
 using NaughtyAttributes;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerState : MonoBehaviour, IPlayerState

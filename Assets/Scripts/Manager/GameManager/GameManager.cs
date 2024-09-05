@@ -2,14 +2,15 @@ using Client;
 using Service;
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Game
+namespace Core
 {
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
-        private GameManagerState m_data = new GameManagerState();
+        private GameManagerState m_data = new();
 
         [Header("Debug purposes")]
         [SerializeField]
@@ -171,15 +172,13 @@ namespace Game
 
         private void OnApplicationQuit()
         {
-            if(Services.Instance != null)
-                Services.Instance.Shutdown();
+            Services.Instance?.Shutdown();
 
             foreach (var elem in m_data.MgrList.Values)
             {
                 IManager m = elem as IManager;
 
-                if (m != null)
-                    m.ShutdownManager(Instance);
+                m?.ShutdownManager(Instance);
             }
         }
 

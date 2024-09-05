@@ -1,5 +1,5 @@
-using Game;
-using Game.Ghost;
+using Core;
+using Core.Ghost;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,5 +23,5 @@ public class MasterDataList : ScriptableObject
     public List<EdibleData> m_dotDataList = new List<EdibleData>();
 
     [Header("Player Controller")]
-    public Game.PlayerController PlayerControllerPrefab;
+    public Core.PlayerController PlayerControllerPrefab;
 }

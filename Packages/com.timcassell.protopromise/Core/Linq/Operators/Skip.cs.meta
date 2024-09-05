@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: da30d8e1033b1be469e8e49e2da29561
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Core/Linq/Operators/Skip.cs
+  uploadId: 685528

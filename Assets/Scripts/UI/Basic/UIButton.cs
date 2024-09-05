@@ -6,6 +6,12 @@ using TMPro;
 
 namespace Client.UI
 {
+    public enum EButtonType
+    {
+        Button = 0,
+        Toggle,
+    }
+
     public class UIButton : MonoBehaviour
     {
         public Button Button { get; private set; }

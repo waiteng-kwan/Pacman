@@ -1,4 +1,4 @@
-using Game.Ghost;
+using Core.Ghost;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;

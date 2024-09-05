@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 4955723c975cace4dabfa68b6c2031de
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/UnityHelpers/2018.3/Internal/PromiseYielderInternal.cs
+  uploadId: 685528

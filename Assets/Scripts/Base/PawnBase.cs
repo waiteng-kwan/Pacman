@@ -1,7 +1,7 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Game
+namespace Core
 {
     public class PawnBase : MonoBehaviour
     {

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 63d5d3a7363560a4f83352c968ac2217
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Core/InternalShared/EnumeratorsInternal.cs
+  uploadId: 685528

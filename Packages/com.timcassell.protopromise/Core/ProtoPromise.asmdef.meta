@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e88d90774f8064100a58914dd99127e3
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Core/ProtoPromise.asmdef
+  uploadId: 685528

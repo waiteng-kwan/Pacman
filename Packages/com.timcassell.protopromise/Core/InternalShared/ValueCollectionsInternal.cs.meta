@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 11f8f4bc75839534796f7481549d02e7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Core/InternalShared/ValueCollectionsInternal.cs
+  uploadId: 685528

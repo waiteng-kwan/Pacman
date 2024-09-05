@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 21ab3dccd3749b04aad7567f933686b7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Tests/CoreTests/APIs/Linq/Operators/SkipWhileTests.cs
+  uploadId: 685528

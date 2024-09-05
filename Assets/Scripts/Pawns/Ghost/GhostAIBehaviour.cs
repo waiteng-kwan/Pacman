@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-namespace Game.Ghost
+namespace Core.Ghost
 {
     public class GhostAIBehaviour
     {

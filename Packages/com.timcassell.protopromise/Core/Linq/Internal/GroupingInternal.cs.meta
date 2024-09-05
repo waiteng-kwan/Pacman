@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1560f53bb49fabd448db1da39f0cb597
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Core/Linq/Internal/GroupingInternal.cs
+  uploadId: 685528

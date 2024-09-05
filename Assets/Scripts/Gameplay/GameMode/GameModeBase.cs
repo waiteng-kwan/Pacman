@@ -1,5 +1,5 @@
 using Client;
-using Game.Ghost;
+using Core.Ghost;
 using NaughtyAttributes;
 using System;
 using System.Collections;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Game
+namespace Core
 {
     public class GameModeBase : MonoBehaviour, IGameMode
     {

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 6ffc86ba95d02e1428495f55443eb9a1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Tests/CoreTests/Concurrency/Threading/AsyncCountdownEventConcurrencyTests.cs
+  uploadId: 685528

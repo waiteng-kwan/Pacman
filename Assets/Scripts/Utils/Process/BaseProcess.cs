@@ -1,27 +1,36 @@
 using System;
 using System.Collections;
+using UnityAtoms.BaseAtoms;
 using UnityEngine;
 
 namespace Utils
 {
-    public class BaseProcess : MonoBehaviour
+    public class BaseProcess
     {
-        public Action OnDone = null;
+        private Action EOnDone = null;
+        public string CommandIdentifier { get; private set; }
+        public int CommandIndex { get; private set; }
 
         public BaseProcess(Action onDone = null)
         {
-            OnDone = onDone;
+            EOnDone = onDone;
         }
 
-        protected void Execute()
+        protected virtual void Execute()
         {
-            StartCoroutine(Process());
+            //content here
+            //the overarching manager will call Execute
         }
 
-        protected virtual IEnumerator Process()
+        protected virtual void NotifyProcessCompleted()
         {
-            OnDone?.Invoke();
-            yield return null;
+            EOnDone?.Invoke();
+        }
+
+        protected virtual void Register(string identifier, Action onDone = null)
+        {
+            identifier = CommandIdentifier;
+            EOnDone = onDone;
         }
     }
 }

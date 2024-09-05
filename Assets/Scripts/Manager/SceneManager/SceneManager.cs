@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using USceneMgr = UnityEngine.SceneManagement.SceneManager;
 
-namespace Game
+namespace Core
 {
     public class SceneManager : IManager
     {

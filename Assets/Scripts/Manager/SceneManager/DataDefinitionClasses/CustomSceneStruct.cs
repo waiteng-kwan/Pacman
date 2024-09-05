@@ -1,5 +1,5 @@
 using Eflatun.SceneReference;
-using Game;
+using Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

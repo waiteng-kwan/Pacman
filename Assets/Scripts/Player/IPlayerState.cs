@@ -5,5 +5,5 @@ public interface IPlayerState
     void SetHealth(int value);
     void SetScore(int value);
     
-    Game.PlayerController Owner { get; }
+    Core.PlayerController Owner { get; }
 }

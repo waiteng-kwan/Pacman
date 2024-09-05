@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 
-namespace Game
+namespace Core
 {
     public class GhostAiNavigationNode
     {

@@ -7,7 +7,7 @@ using Utils;
 using System;
 using UnityEngine.InputSystem.XR;
 
-namespace Game
+namespace Core
 {
     /// <summary>
     /// This script handles business logic with the unity component 

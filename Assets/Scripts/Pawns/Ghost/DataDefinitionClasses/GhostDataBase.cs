@@ -1,10 +1,10 @@
-using Game.Ghost;
+using Core.Ghost;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Game.Ghost
+namespace Core.Ghost
 {
     [CreateAssetMenu(fileName = "GhostDataBase",
 menuName = "Scriptable Objects/Pawn/Ghost Type Data", order = 0)]

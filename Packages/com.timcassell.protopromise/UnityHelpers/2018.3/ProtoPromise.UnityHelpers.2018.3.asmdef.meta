@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5aa80380c7d32394bb76a6ad338b52bc
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/UnityHelpers/2018.3/ProtoPromise.UnityHelpers.2018.3.asmdef
+  uploadId: 685528

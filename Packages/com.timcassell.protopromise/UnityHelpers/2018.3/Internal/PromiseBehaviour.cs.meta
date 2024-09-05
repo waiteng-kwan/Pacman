@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ef29dbad67e57504b9d4ada938d85731
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/UnityHelpers/2018.3/Internal/PromiseBehaviour.cs
+  uploadId: 685528

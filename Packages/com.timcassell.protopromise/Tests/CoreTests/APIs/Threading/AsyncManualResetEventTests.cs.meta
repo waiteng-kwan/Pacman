@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3f5d73907fa6b854db690b39f7143172
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Tests/CoreTests/APIs/Threading/AsyncManualResetEventTests.cs
+  uploadId: 685528

@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
-using GhostState = Game.GhostBehaviourBase.GhostState;
+using GhostState = Core.GhostBehaviourBase.GhostState;
 
-namespace Game.Ghost
+namespace Core.Ghost
 {
     /// <summary>
     /// This class is a child of the GhostController class which is child of Controller class
@@ -47,14 +47,12 @@ namespace Game.Ghost
 
         private void OnDisable()
         {
-            if(m_gBehaviour != null)
-                m_gBehaviour.Pause(true);
+            m_gBehaviour?.Pause(true);
         }
 
         private void OnEnable()
         {
-            if (m_gBehaviour != null)
-                m_gBehaviour.Pause(false);
+            m_gBehaviour?.Pause(false);
         }
 
         void Test()

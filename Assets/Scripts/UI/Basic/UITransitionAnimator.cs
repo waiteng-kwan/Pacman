@@ -6,11 +6,8 @@ namespace Client.UI
 {
     public class UITransitionAnimator : UITransition
     {
-        [Header("Animation")]
-        [AnimatorParam("m_animator")]
-        public string TransitionInAnimationType;
-        [AnimatorParam("m_animator")]
-        public string TransitionOutAnimationType;
+        private const string m_animationEntryName = "Entry";
+        private const string m_animationExitName = "Exit";
 
         [SerializeField, ReadOnly]
         private string m_animationName;
@@ -35,11 +32,7 @@ namespace Client.UI
         {
             base.DoTransition();
 
-            //if its none then dont play
-            if (string.IsNullOrEmpty(TransitionInAnimationType))
-                return;
-
-            m_animationName = IsTransitOut ? TransitionOutAnimationType : TransitionInAnimationType;
+            m_animationName = IsTransitOut ? m_animationExitName : m_animationEntryName;
 
             //fail safe
             if (!m_animator)

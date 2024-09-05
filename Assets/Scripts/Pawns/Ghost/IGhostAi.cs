@@ -1,7 +1,7 @@
-using Game.Ghost;
+using Core.Ghost;
 using UnityEngine;
 
-namespace Game.Ghost
+namespace Core.Ghost
 {
     public interface IGhostAi
     {

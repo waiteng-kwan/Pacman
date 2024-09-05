@@ -1,4 +1,4 @@
-using Game;
+using Core;
 using NaughtyAttributes;
 using System;
 using System.Collections;

@@ -747,12 +747,12 @@ PrefabInstance:
     - target: {fileID: 7091577832438668947, guid: d628ed03f99d9994e8211776852aa2b7,
         type: 3}
       propertyPath: TransitionInAnimationType
-      value: ExpandIn
+      value: Entry
       objectReference: {fileID: 0}
     - target: {fileID: 7091577832438668947, guid: d628ed03f99d9994e8211776852aa2b7,
         type: 3}
       propertyPath: TransitionOutAnimationType
-      value: ExpandOut
+      value: Exit
       objectReference: {fileID: 0}
     - target: {fileID: 8382233889101525916, guid: d628ed03f99d9994e8211776852aa2b7,
         type: 3}

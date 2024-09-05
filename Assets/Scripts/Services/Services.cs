@@ -19,18 +19,17 @@ namespace Service
 
     public class Services : IService
     {
-
-        private static Services instance;
-        public static Services Instance;
+        private static Services m_instance;
+        public static Services Instance => m_instance;
 
         private Dictionary<ServiceType, IService> m_typeToServiceDict = new Dictionary<ServiceType, IService>();
 
         public void Initialize()
         {
-            if (instance != null)
+            if (m_instance != null)
                 return;
 
-            instance = this;
+            m_instance = this;
         }
 
         public void Shutdown()
@@ -53,7 +52,7 @@ namespace Service
 
         public static IService GetService(ServiceType serviceType)
         {
-            if (instance.m_typeToServiceDict.TryGetValue(serviceType, out IService svc))
+            if (m_instance.m_typeToServiceDict.TryGetValue(serviceType, out IService svc))
             {
                 return svc;
             }

@@ -2,13 +2,13 @@ using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Game
+namespace Core
 {
     /// <summary>
     /// Like the Unreal Engine version of player controller, it should take in input
     /// Should not directly control the pawn but rather pass info along to it
     /// </summary>
-    public class PlayerController : Game.Controller
+    public class PlayerController : Core.Controller
     {
         [field: SerializeField]
         public string PlayerHash { get; private set; } = string.Empty;

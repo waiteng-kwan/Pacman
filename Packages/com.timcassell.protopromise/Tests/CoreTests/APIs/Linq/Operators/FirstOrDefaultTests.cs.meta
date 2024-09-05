@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 783a756efec0b2b48a684825688315ab
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Tests/CoreTests/APIs/Linq/Operators/FirstOrDefaultTests.cs
+  uploadId: 685528

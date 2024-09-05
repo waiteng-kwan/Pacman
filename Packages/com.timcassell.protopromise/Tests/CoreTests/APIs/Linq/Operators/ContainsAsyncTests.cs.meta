@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 02643c8d8a0c4eb4b8a1de9b1c36adf7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Tests/CoreTests/APIs/Linq/Operators/ContainsAsyncTests.cs
+  uploadId: 685528

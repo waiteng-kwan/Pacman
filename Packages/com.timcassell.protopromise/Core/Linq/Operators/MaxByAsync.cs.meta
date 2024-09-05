@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 0db6386983d0d5f4bbca4f35012a5856
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Core/Linq/Operators/MaxByAsync.cs
+  uploadId: 685528

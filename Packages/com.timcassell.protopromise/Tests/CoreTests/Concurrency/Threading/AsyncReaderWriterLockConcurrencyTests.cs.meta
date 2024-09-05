@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 59207800c1e6afa4096f39f8a7b8bfac
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Tests/CoreTests/Concurrency/Threading/AsyncReaderWriterLockConcurrencyTests.cs
+  uploadId: 685528

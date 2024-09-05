@@ -2,9 +2,10 @@
   "dependencies": {
     "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
     "com.eflatun.scenereference": "https://github.com/starikcetin/Eflatun.SceneReference.git#3.2.0",
+    "com.unity-atoms.unity-atoms": "https://github.com/unity-atoms/unity-atoms.git#master",
     "com.unity.2d.sprite": "1.0.0",
-    "com.unity.2d.spriteshape": "10.0.4",
-    "com.unity.addressables": "1.21.20",
+    "com.unity.2d.spriteshape": "10.0.6",
+    "com.unity.addressables": "1.21.21",
     "com.unity.ai.navigation": "2.0.0",
     "com.unity.cinemachine": "2.9.7",
     "com.unity.collab-proxy": "2.3.1",

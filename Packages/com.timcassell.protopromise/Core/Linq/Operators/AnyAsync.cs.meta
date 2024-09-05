@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e79880fb03b6a8e4e8d7081974218e9a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Core/Linq/Operators/AnyAsync.cs
+  uploadId: 685528

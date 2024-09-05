@@ -1,4 +1,4 @@
-using Game.Ghost;
+using Core.Ghost;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GhostTargetType",

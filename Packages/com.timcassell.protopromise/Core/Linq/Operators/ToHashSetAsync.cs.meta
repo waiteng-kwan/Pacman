@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9dec7b3cabbe15e4c81d28c0f97bdf32
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Core/Linq/Operators/ToHashSetAsync.cs
+  uploadId: 685528

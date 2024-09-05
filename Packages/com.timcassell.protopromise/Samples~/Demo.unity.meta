@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5c627422c6d261241b596eecfb01db3c
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Samples~/Demo.unity
+  uploadId: 685528

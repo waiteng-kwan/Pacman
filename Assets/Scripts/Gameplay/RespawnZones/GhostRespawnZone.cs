@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.Ghost
+namespace Core.Ghost
 {
     public class GhostRespawnZone : MonoBehaviour
     {

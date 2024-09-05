@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: bb7e6183071e31345a8b2cb9383e1fb6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181997
+  packageName: ProtoPromise
+  packageVersion: 3.1.1
+  assetPath: Packages/com.timcassell.protopromise/Tests/CoreTests/Concurrency/PromiseGroups/PromiseMergeGroupConcurrencyTests.cs
+  uploadId: 685528
