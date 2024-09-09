@@ -97,10 +97,10 @@ namespace Core
 
             //wait until game manager isnt null
             yield return GameManager.Instance != null;
-            yield return GameManager.Instance.GetManager<DataManager>(ManagerType.Data) != null;
+            yield return GameManager.GetManager<DataManager>() != null;
 
             //get data manager
-            var dMgr = GameManager.Instance.GetManager<DataManager>(ManagerType.Data);
+            var dMgr = GameManager.GetManager<DataManager>();
 
             if (dMgr != null)
             {
@@ -139,7 +139,7 @@ namespace Core
 
         private PlayerController InstantiatePlayer(int ind = 0)
         {
-            var dMgr = GameManager.Instance.GetManager<DataManager>(ManagerType.Data);
+            var dMgr = GameManager.GetManager<DataManager>();
 
             if (dMgr != null)
             {
@@ -155,7 +155,7 @@ namespace Core
 
                 //spawn character
                 PacmanBehaviour character = Instantiate(masterList.PlayerCharacterPrefab, spawnPos, Quaternion.identity);
-                character.SetSettingsData(masterList.m_charModelDataList[0]);
+                character.SetSettingsData(masterList.CharModelDataList[0]);
 
                 pc.PossessPawn(character);
 
@@ -175,7 +175,7 @@ namespace Core
 
         private GhostBehaviourBase InstantiateGhost(int ind = 0)
         {
-            var dMgr = GameManager.Instance.GetManager<DataManager>(ManagerType.Data);
+            var dMgr = GameManager.GetManager<DataManager>();
 
             if (dMgr != null)
             {
@@ -184,7 +184,7 @@ namespace Core
                 GhostBehaviourBase g = Instantiate(masterList.GhostPrefab, Vector3.zero, Quaternion.identity);
 
                 //spawn character
-                g.SetSettingsData(masterList.m_ghostModelDataList[0]);
+                g.SetSettingsData(masterList.GhostModelDataList[0]);
 
                 //set position
                 (Vector3 pos, Collider c) = Board.GetRandomPointAndGhostSpawnZone();

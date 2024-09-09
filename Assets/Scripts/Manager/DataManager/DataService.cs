@@ -9,7 +9,7 @@ public class DataService : IDataService
 
     public MasterDataList GetMasterDataList()
     {
-        m_dataManager = GameManager.Instance.GetManager<DataManager>(ManagerType.Data);
+        m_dataManager = GameManager.GetManager<DataManager>();
 
         return m_dataManager.MasterDataList;
     }

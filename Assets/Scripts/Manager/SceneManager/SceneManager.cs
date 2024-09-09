@@ -85,7 +85,7 @@ namespace Core
 
         public void RegisterManager(GameManager mgr)
         {
-            var dataMgr = mgr.GetManager<DataManager>(ManagerType.Data);
+            var dataMgr = GameManager.GetManager<DataManager>();
 
             m_state.SetSceneListRef(dataMgr.MasterDataList.SceneData);
 

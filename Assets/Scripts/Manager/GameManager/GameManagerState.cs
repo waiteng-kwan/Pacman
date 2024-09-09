@@ -38,6 +38,7 @@ namespace Core
         //managers
         private Dictionary<ManagerType, IManager> m_managers;
         public Dictionary<ManagerType, IManager> MgrList => m_managers;
+        public Dictionary<System.Type, IManager> Managers { get; private set; } = new();
 
         public Service.Services Services;
 
@@ -50,6 +51,7 @@ namespace Core
                 GameInstanceStates.None;
 
             m_managers = new Dictionary<ManagerType, IManager>();
+            Managers = new Dictionary<System.Type, IManager>();
         }
 
         public void Shutdown()
@@ -63,14 +65,12 @@ namespace Core
             m_stateChangeCallback += callback;
         }
 
-        public T GetManager<T>(ManagerType managerType)
+        public T GetManager<T>()
         {
-            if(m_managers.TryGetValue(managerType, out var manager))
-            {
+            if (Managers.TryGetValue(typeof(T), out var manager))
                 return (T)manager;
-            }
 
-            return default;
+            return default(T);
         }
 
         public void ChangeState(GameInstanceStates newState)

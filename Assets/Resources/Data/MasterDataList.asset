@@ -15,13 +15,14 @@ MonoBehaviour:
   SceneData: {fileID: 11400000, guid: ec260f475d1608d4387b88ac6ffb6553, type: 2}
   PlayerCharacterPrefab: {fileID: 4134737657571675958, guid: 7fc36ae49248efb40862723defa131ac,
     type: 3}
-  m_charModelDataList:
+  CharModelDataList:
   - {fileID: 11400000, guid: ff0c2aefc83e46b4e99547ebbb4a8cd7, type: 2}
+  PacManColorList: {fileID: 11400000, guid: b5ce9118e3d3e1546969e6d9249b02ea, type: 2}
   GhostPrefab: {fileID: 3780353164371426870, guid: d27318160e7267943a18baee04bcea53,
     type: 3}
-  m_ghostModelDataList:
+  GhostModelDataList:
   - {fileID: 11400000, guid: 712e7c9db09e4a94295443cb313af8a6, type: 2}
-  m_dotDataList:
+  DotDataList:
   - {fileID: 11400000, guid: 0cee3922187e04e459356cd69d80bf08, type: 2}
   - {fileID: 11400000, guid: a3f912cf50dc08c44b06af046e0fa778, type: 2}
   PlayerControllerPrefab: {fileID: 8379648845652869894, guid: f47204fad3051e64398a698756fa8c62,

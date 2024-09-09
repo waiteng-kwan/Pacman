@@ -29,6 +29,7 @@ namespace Core
         public GameObject Model => m_visualModelRoot;
         [field: SerializeField]
         public int SkinIndex { get; protected set; } = -1;
+        protected MeshRenderer m_renderer;
 
         [Header("Physics")]
         [SerializeField, ReadOnly]
@@ -42,16 +43,14 @@ namespace Core
 
         protected virtual void OnValidate()
         {
-            Rigidbody = GetComponent<Rigidbody>();
-            Collider = GetComponent<Collider>();
+            Rigidbody ??= GetComponent<Rigidbody>();
+            Collider ??= GetComponent<Collider>();
         }
 
         protected virtual void Awake()
         {
-            if (!Rigidbody)
-                Rigidbody = GetComponent<Rigidbody>();
-            if (!Collider)
-                Collider = GetComponent<Collider>();
+            Rigidbody ??= GetComponent<Rigidbody>();
+            Collider ??= GetComponent<Collider>();
 
             InitializePawn();
         }

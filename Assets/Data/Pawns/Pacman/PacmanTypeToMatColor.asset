@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 083ca191633bade429672b43f586d4ee, type: 3}
+  m_Name: PacmanTypeToMatColor
+  m_EditorClassIdentifier: 
+  m_baseMat: {fileID: 2100000, guid: 86f001375433bde4d868d17558c4c43a, type: 2}
+  m_colors:
+    _serializedList:
+    - Key: 0
+      Value: {r: 1, g: 0.9843137, b: 0, a: 1}
+    - Key: 1
+      Value: {r: 1, g: 0.740566, b: 0.97462064, a: 1}
+    - Key: 2
+      Value: {r: 0.6200953, g: 0.34376115, b: 0.7075472, a: 1}
+    - Key: 3
+      Value: {r: 0.25792095, g: 0.6144471, b: 0.8679245, a: 1}
+    - Key: 4
+      Value: {r: 0.7735849, g: 0.18609823, b: 0.32278755, a: 1}
+    - Key: 5
+      Value: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 1}

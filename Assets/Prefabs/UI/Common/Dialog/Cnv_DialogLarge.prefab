@@ -780,6 +780,12 @@ PrefabInstance:
       propertyPath: TransitionOutAnimationType
       value: ExpandOut
       objectReference: {fileID: 0}
+    - target: {fileID: 7111940629905475474, guid: d628ed03f99d9994e8211776852aa2b7,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: a343f30081f0dbb4786b2c861cf2d0d5,
+        type: 2}
     - target: {fileID: 8382233889101525916, guid: d628ed03f99d9994e8211776852aa2b7,
         type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'

@@ -15,8 +15,8 @@ namespace Core
     public class PacmanAttributes : MonoBehaviour
     {
         public bool CanEatGhosts { get; private set; } = false;
-        public PacmanStates CurrentState { get; private set; }
-         = PacmanStates.Alive;
+        public PacmanStates CurrentState { get; private set; } = PacmanStates.Alive;
+        public PacmanStates PreviousState { get; private set; } = PacmanStates.Alive;
 
         private bool m_isInvul;
 
@@ -25,6 +25,7 @@ namespace Core
 
         public void SetState(PacmanStates state)
         {
+            PreviousState = CurrentState;
             CurrentState = state;
         }
 

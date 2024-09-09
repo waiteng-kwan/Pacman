@@ -19,13 +19,12 @@ namespace Core
 
         protected override void OnValidate()
         {
-            m_pInput = GetComponentInChildren<PlayerInput>();
+            m_pInput ??= GetComponentInChildren<PlayerInput>();
         }
 
         protected override void Awake()
         {
-            if(!m_pInput)
-                m_pInput = GetComponentInChildren<PlayerInput>();
+            m_pInput ??= GetComponentInChildren<PlayerInput>();
 
             if (GameModeBase.Instance && Index < 0)
                 GameModeBase.Instance.RegisterPlayer(this);
@@ -61,5 +60,17 @@ namespace Core
         {
             PlayerHash = hash;
         }
+
+        #region Input Messages
+        private void OnDeviceLost()
+        {
+
+        }
+
+        public void OnMove()
+        {
+
+        }
+        #endregion
     }
 }

@@ -25,12 +25,12 @@ namespace Core
             if (m_data == null)
                 Debug.LogError("Pacman data is missing on " + gameObject.name);
 
-            Attributes = GetComponent<PacmanAttributes>();
+            Attributes ??= GetComponent<PacmanAttributes>();
         }
 
         protected override void Awake()
         {
-            Attributes = GetComponent<PacmanAttributes>();
+            Attributes ??= GetComponent<PacmanAttributes>();
 
             base.Awake();
         }
@@ -51,6 +51,9 @@ namespace Core
             m_data = data as PacmanBaseData;
 
             ChangeModel(m_data.CharacterModel.gameObject);
+
+            m_visualModelRoot.GetComponentInChildren<MeshRenderer>().material =
+                GameManager.GetManager<DataManager>().MasterDataList.PacManColorList.GetColorInstance(m_data.PacmanCharType);
         }
         #endregion
 

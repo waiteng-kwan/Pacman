@@ -1,3 +1,4 @@
+using Core;
 using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
@@ -18,19 +19,20 @@ namespace Client.UI
 
         private void OnValidate()
         {
-            if (!m_animator)
-                m_animator = GetComponent<Animator>();
+            m_animator ??= GetComponent<Animator>();
         }
 
         private void Awake()
         {
-            if (!m_animator)
-                m_animator = GetComponent<Animator>();
+            m_animator ??= GetComponent<Animator>();
         }
 
         protected override void DoTransition()
         {
             base.DoTransition();
+
+            m_animator ??= GetComponent<Animator>();
+            //m_animator.runtimeAnimatorController = GameManager.GetManager<DataManager>().MasterDataList;
 
             m_animationName = IsTransitOut ? m_animationExitName : m_animationEntryName;
 

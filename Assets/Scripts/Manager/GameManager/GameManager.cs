@@ -87,6 +87,8 @@ namespace Core
             mgrs.Add(ManagerType.Audio, AudioManager.CreateInstance());
             mgrs.Add(ManagerType.Player, PlayerManager.CreateInstance(Instance.gameObject));
 
+            Instance.m_data.Managers.Add(typeof(DataManager), mgrs[ManagerType.Data]);
+
             //register subsystems
             foreach(var elem in mgrs.Values)
             {
@@ -127,7 +129,7 @@ namespace Core
 
             float elapsedTime = Time.time;
 
-            float waitTime = GetManager<DataManager>(ManagerType.Data).MasterDataList.SceneData.GlobalCommonMinLoadTime;
+            float waitTime = GetManager<DataManager>().MasterDataList.SceneData.GlobalCommonMinLoadTime;
 
             if (elapsedTime - startTime < waitTime)
             {
@@ -165,9 +167,9 @@ namespace Core
 
         }
 
-        public T GetManager<T>(ManagerType type)
+        public static T GetManager<T>()
         {
-            return m_data.GetManager<T>(type);
+            return Instance.m_data.GetManager<T>();
         }
 
         private void OnApplicationQuit()
