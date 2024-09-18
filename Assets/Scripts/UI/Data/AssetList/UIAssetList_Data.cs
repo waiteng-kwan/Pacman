@@ -18,5 +18,8 @@ namespace Client.UI
         public UIButton m_normalBtn;
         public UIButton m_GreenBtn;
         public UIButton m_redBtn;
+
+        [Header("General Dropdown")]
+        public UIDropdown m_dropdown1;
     }
 }

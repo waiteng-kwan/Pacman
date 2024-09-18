@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_smallDialogBox: {fileID: -4286043568838542286, guid: 780ceb9b9c2983249be0494def39ca4c,
     type: 3}
-  m_mediumDialogBox: {fileID: 0}
+  m_mediumDialogBox: {fileID: -4286043568838542286, guid: 29ac5a830afe7f74c8431e9aeb7c7837,
+    type: 3}
   m_largeDialogBox: {fileID: -5662045778788776697, guid: c593700770522b5418ec7c44495ed889,
     type: 3}
   m_selectionBox: {fileID: 6931580366968666769, guid: ece610a05c9e5b44da5d6509f91b1fb3,
@@ -25,3 +26,4 @@ MonoBehaviour:
     type: 3}
   m_redBtn: {fileID: 4814898273612294275, guid: f06ee03ccfbc10347962e9b3c3f0cdc1,
     type: 3}
+  m_dropdown1: {fileID: 0}

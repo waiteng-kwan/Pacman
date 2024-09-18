@@ -24,6 +24,12 @@ namespace Core
 
         private List<GhostBehaviourBase> m_ghosts = new List<GhostBehaviourBase>();
 
+        [Header("Settings")]
+        [SerializeField]
+        private int m_numOfPlayers = 0;
+        [SerializeField]
+        private int m_numOfGhosts = 4;
+
         public UnityEvent<int, int> EPlayerScored => m_data.EPlayerScored;
         public UnityEvent<int, int> EPlayerLifeChanged => m_data.EPlayerLifeChanged;
         public UnityEvent EGameStateChanged => m_data.EGameplayStateChanged;
@@ -108,7 +114,7 @@ namespace Core
                 InstantiatePlayer(0);
 #endif
                 //spawn ghosts!!
-                InstantiateGhosts(4);
+                InstantiateGhosts(m_numOfGhosts);
 
                 //instantiate UI
                 Instantiate(Settings.StageUI, Vector3.zero, Quaternion.identity);

@@ -190,7 +190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d980de608b0506947ba56c9ace7ff19e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerIndex: {fileID: 5954583785382517378}
+  m_pId: 0
+  m_playerIdTxt: {fileID: 0}
   m_playerName: {fileID: 4713597344092883146}
   m_hpCounterParent: {fileID: 1454316516901053186}
   m_scoreCounter: {fileID: 4851905705570682046}
@@ -204,6 +205,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1454316516901053186}
   - component: {fileID: 8459079991794071642}
+  - component: {fileID: 3704388585724837372}
+  - component: {fileID: 7680648711278162955}
   m_Layer: 5
   m_Name: Health
   m_TagString: Untagged
@@ -261,6 +264,60 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &3704388585724837372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7739134724969218937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a9d91c67abc2a46b0866ba0a658ffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHealth: {fileID: 11400000, guid: 75fa0b8f5d640dd4ab778ad39b3454cf, type: 2}
+  StartingHealth: {fileID: 11400000, guid: 328fe29921a562d40a49554f4e3e933a, type: 2}
+  AbsoluteMaxHealth: {fileID: 11400000, guid: 719451e7bc183e74385d1fa3e3a27945, type: 2}
+  EOnChangeEvent: {fileID: 11400000, guid: e87c4e0751df561498b2c9be0b6df445, type: 2}
+--- !u!114 &7680648711278162955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7739134724969218937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050ff37b5550f4b7e9bdf8b985aff484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _developerDescription: EOnHealthChanged event listener
+  _unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3704388585724837372}
+        m_TargetAssemblyTypeName: UIPlayerHealth, Assembly-CSharp
+        m_MethodName: OnHealthChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _actionResponses: []
+  _conditions: []
+  _operator: 0
+  _replayEventBufferOnRegister: 1
+  _eventReference:
+    _usage: 0
+    _event: {fileID: 11400000, guid: e87c4e0751df561498b2c9be0b6df445, type: 2}
+    _eventInstancer: {fileID: 0}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
 --- !u!1 &8120543811194203449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,18 +1267,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6135542178899230662}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5954583785382517378 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 542469890904188228, guid: 1404e5c65d240cc488527f11a0a5b73d,
-    type: 3}
-  m_PrefabInstance: {fileID: 6135542178899230662}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8480035671381795999
 PrefabInstance:
   m_ObjectHideFlags: 0
