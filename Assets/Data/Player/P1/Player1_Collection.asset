@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f905a459d97c84162be2fdcd2bc3a39a, type: 3}
+  m_Name: Player1_Collection
+  m_EditorClassIdentifier: 
+  _developerDescription: Collection of all relevant keys for player 1
+  _id: 
+  _value:
+    _serializedKeys:
+    - _usage: 0
+      _value: hp
+      _constant: {fileID: 0}
+      _variable: {fileID: 0}
+      _variableInstancer: {fileID: 0}
+    - _usage: 0
+      _value: score
+      _constant: {fileID: 0}
+      _variable: {fileID: 0}
+      _variableInstancer: {fileID: 0}
+    - _usage: 0
+      _value: displayName
+      _constant: {fileID: 0}
+      _variable: {fileID: 0}
+      _variableInstancer: {fileID: 0}
+    - _usage: 0
+      _value: playerId
+      _constant: {fileID: 0}
+      _variable: {fileID: 0}
+      _variableInstancer: {fileID: 0}
+    - _usage: 0
+      _value: deviceId
+      _constant: {fileID: 0}
+      _variable: {fileID: 0}
+      _variableInstancer: {fileID: 0}
+    - _usage: 0
+      _value: playerNumber
+      _constant: {fileID: 0}
+      _variable: {fileID: 0}
+      _variableInstancer: {fileID: 0}
+    _serializedValues:
+    - {fileID: 11400000, guid: 75fa0b8f5d640dd4ab778ad39b3454cf, type: 2}
+    - {fileID: 11400000, guid: dc1455392b8d8e44b86bb3a2fd5fee8a, type: 2}
+    - {fileID: 11400000, guid: 79975e2b8ed0cc34ebf5f037a987a100, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    _duplicateKeyIndices: 
+  _added: {fileID: 0}
+  _removed: {fileID: 0}
+  _cleared: {fileID: 0}

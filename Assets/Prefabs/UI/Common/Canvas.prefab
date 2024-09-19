@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7111940629905475474}
   - component: {fileID: 4711078280938943274}
   - component: {fileID: 7091577832438668947}
+  - component: {fileID: -3112731387668965496}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -152,6 +153,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsTransitOut: 0
   IsActiveAfterTransitOut: 0
-  TransitionInAnimationType: FadeIn
-  TransitionOutAnimationType: FadeOut
   m_animationName: 
+--- !u!114 &-3112731387668965496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899725849554979112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8dba385641a4b74ba092ce1566a1cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

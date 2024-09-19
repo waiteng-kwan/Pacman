@@ -1,35 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityAtoms.BaseAtoms;
 
-public class UIPlayerHealth : MonoBehaviour
+namespace UI
 {
-    public IntVariable CurrentHealth;
-    public IntConstant StartingHealth;
-    public IntConstant AbsoluteMaxHealth;
-
-    public IntEvent EOnChangeEvent;
-
-    private void Start()
+    public class UIPlayerHealth : MonoBehaviour
     {
-        //EOnChangeEvent.Register(OnHealthChanged);
+        [Header("UnityAtoms")]
+        [SerializeField]
+        private IntVariable m_currentHealth;
+        [SerializeField] 
+        private IntConstant m_startingHealth;
+        [SerializeField] 
+        private IntConstant m_absoluteMaxHealth;
 
-        for(int i = 0; i < transform.childCount; i++)
-            transform.GetChild(i).gameObject.SetActive(false);
-    }
-
-    private void OnDestroy()
-    {
-        //EOnChangeEvent.Unregister(OnHealthChanged);
-    }
-
-    public void OnHealthChanged()
-    {
-        for (int i = 0; i < transform.childCount; i++)
+        private void Start()
         {
-            if(CurrentHealth.Value > i)
-                transform.GetChild(i).gameObject.SetActive(true);
+            for (int i = 0; i < transform.childCount; i++)
+                transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        public void OnHealthChanged()
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                if (m_currentHealth.Value > i)
+                    transform.GetChild(i).gameObject.SetActive(true);
+            }
         }
     }
 }

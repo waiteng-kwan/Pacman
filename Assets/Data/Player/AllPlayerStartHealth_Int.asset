@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad76d497767c34ecf88c7aa597da29c0, type: 3}
-  m_Name: PlayerMaxHealthIntConst
+  m_Name: AllPlayerStartHealth_Int
   m_EditorClassIdentifier: 
-  _developerDescription: The max health of a player. Generally same as max hp but
-    there might be times when game mode grants hp > max hp, therefore the 2 hp are
-    differentiated
-  _id: _allPlayerAbsoluteMaxHp
-  _value: 5
+  _developerDescription: The starting health of a player. Generally same as max hp
+    but there might be times when game mode grants hp > max hp, therefore the 2 hp
+    are differentiated
+  _id: _allPlayerStartHp
+  _value: 3

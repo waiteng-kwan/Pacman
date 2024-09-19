@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf8a67b68db3d4650908f8cf6adeda60, type: 3}
-  m_Name: Player1HealthInt
+  m_Name: Player1Index_Int
   m_EditorClassIdentifier: 
   _developerDescription: player 1 hp
   _id: _player1Hp
@@ -20,5 +20,5 @@ MonoBehaviour:
   _triggerChangedOnOnEnable: 1
   _triggerChangedWithHistoryOnOnEnable: 0
   _oldValue: 3
-  _initialValue: 3
+  _initialValue: 0
   _preChangeTransformers: []
