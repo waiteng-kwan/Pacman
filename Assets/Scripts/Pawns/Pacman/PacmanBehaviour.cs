@@ -14,6 +14,7 @@ namespace Core
 
         //attributes
         public PacmanAttributes Attributes { get; private set; }
+
         Coroutine m_eatGhostCd = null;
         float test = 0f;
 

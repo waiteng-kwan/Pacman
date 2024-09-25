@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5255900092987654826}
   - component: {fileID: 3150581740704690633}
   - component: {fileID: 4134737657571675958}
+  - component: {fileID: -4947465660838588210}
   m_Layer: 6
   m_Name: PacmanCharacter
   m_TagString: Player
@@ -57,7 +58,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -114,4 +115,16 @@ MonoBehaviour:
   <SkinIndex>k__BackingField: -1
   Rigidbody: {fileID: 9145811570065315306}
   Collider: {fileID: 5255900092987654826}
-  m_data: {fileID: 11400000, guid: ff0c2aefc83e46b4e99547ebbb4a8cd7, type: 2}
+  IsInvul: 0
+--- !u!114 &-4947465660838588210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114107240167525483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0871533a2581dfb4184bcd22511c75a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
