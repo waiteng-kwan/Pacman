@@ -11,18 +11,9 @@ namespace Core
         private void OnValidate()
         {
             m_warpZone ??= GetComponent<Collider>();
-        }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            if (m_warpTo == null)
+                Debug.LogWarning($"{name} has missing end point");
         }
 
         private void OnTriggerEnter(Collider other)
