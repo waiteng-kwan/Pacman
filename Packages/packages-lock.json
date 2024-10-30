@@ -17,6 +17,13 @@
       },
       "hash": "cae84cb2d3f1eb98429e471d370646b662ddecc2"
     },
+    "com.github.siccity.serializablecallback": {
+      "version": "git+https://github.com/Siccity/SerializableCallback.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "7ff19f122305b6adb47bbee6c8e36e77cb471fb0"
+    },
     "com.timcassell.protopromise": {
       "version": "file:com.timcassell.protopromise",
       "depth": 0,
@@ -279,7 +286,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.8.6",
+      "version": "1.8.7",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -333,6 +340,13 @@
       "source": "git",
       "dependencies": {},
       "hash": "da921c2e064bdd69780c0d11523f0d49e68e7402"
+    },
+    "net.tnrd.serializableinterface": {
+      "version": "https://github.com/Thundernerd/Unity3D-SerializableInterface.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "71df240ccbb4f8fce73155336cf7c249d1c3bb44"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
